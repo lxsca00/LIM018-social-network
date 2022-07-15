@@ -1,0 +1,15 @@
+/* CSS GENERAL
+    negro: #0F0E17;
+    rojo: #F25F4C;
+    amarillo: #FF8906;
+    blanco: #FFFFFE;
+    gris: #A7A9BE
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    background: #0F0E17;
+    color: #A7A9BE;
+    font-family: Arial, Helvetica, sans-serif;
+}

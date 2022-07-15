@@ -8,9 +8,13 @@ const changeView = (route) => {
     { return container.appendChild(components.home()); }
     case '#/principal':
     { return container.appendChild(components.home()); }
+    case '#/registro':
+    { return container.appendChild(components.register()); }
+    case '#/login':
+    { return container.appendChild(components.login()); }
     default:
       break;
   }
-  console.log(route);
+  return console.log(route);
 };
 export { changeView };

@@ -7,7 +7,7 @@ import { changeView } from './view-controler/index.js';
 // myFunction();
 
 const init = () => {
-  // changeView(window.location.hash);
+  changeView(window.location.hash);
   window.addEventListener('hashchange', () => changeView(window.location.hash));
 };
 
