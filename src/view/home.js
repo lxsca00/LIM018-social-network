@@ -1,4 +1,6 @@
-/*export default () => {
+// Vista del muro donde se ven las publicaciones
+
+export default () => {
   const viewHome = `
     <h2 class="text-center> Bienvenidx a PopcornZone! 🎬🍿😎"</h2>
     <figure class="text-center">
@@ -7,4 +9,4 @@
   const divElem = document.createElement('div');
   divElem.innerHTML = viewHome;
   return divElem;
-}*/
+};
