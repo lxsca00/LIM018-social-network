@@ -1,3 +1,4 @@
+/*
 import Home from './home.js';
 
 const components = {
@@ -5,3 +6,4 @@ const components = {
 };
 
 export { components };
+*/

@@ -1,3 +1,4 @@
+/*
 import { components } from '../view/index.js';
 
 const changeView = (route) => {
@@ -14,3 +15,4 @@ const changeView = (route) => {
   console.log(route);
 };
 export { changeView };
+*/
