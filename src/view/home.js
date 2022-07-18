@@ -1,5 +1,15 @@
 // Vista del muro donde se ven las publicaciones
 
+// function sharePost() {
+//   const toShare = document.getElementById('toShare');
+//   toShare.addEventListener('click', () => {
+//     const templatePost = document.getElementById('plantilla-old-publication').content;
+//     const parentPost = document.getElementById('all-publications');
+//     const oldPost = templatePost.cloneNode(true);
+//     parentPost.appendChild(oldPost);
+//   });
+// }
+
 export default () => {
   const viewHome = ` 
   <section class="container-principal">
@@ -25,18 +35,21 @@ export default () => {
             <input type="button" title="Click to post" value="Compartir"  class="post-button" id='toShare' >
         </div>
       </div>
+      <div class="old-publication">
+      <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
+      <input type="text" class="old-comment">
+      <div class="container-button">
+        <div class="emojis">
+          <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
+          <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+        </div>
+        <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+      </div>
+    </div>
     </div>
   </section>`;
   const divElem = document.createElement('div');
   divElem.innerHTML = viewHome;
-  // const toShare1 = document.getElementById('toShare');
-  // return divPrincipal;
-  // const toShare12 = document.getElementById('toShare');
-  // toShare12.addEventListener('click', () => {
-  //   const templatePost = document.getElementById('plantilla-old-publication').content;
-  //   const parentPost = document.getElementById('all-publications');
-  //   const oldPost = templatePost.cloneNode(true);
-  //   parentPost.appendChild(oldPost);
-  // });
+  // sharePost();
   return divElem;
 };
