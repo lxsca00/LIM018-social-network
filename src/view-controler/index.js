@@ -15,6 +15,7 @@ const changeView = (route) => {
     default:
       break;
   }
-  return console.log(route);
+  // return console.log(route);
+  return route;
 };
 export { changeView };
