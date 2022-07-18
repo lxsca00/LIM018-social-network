@@ -12,3 +12,14 @@ const init = () => {
 };
 
 window.addEventListener('load', init);
+
+// const sharePost = () => {
+//   const toShare = document.getElementById('toShare');
+//   toShare.addEventListener('click', () => {
+//     const templatePost = document.getElementById('plantilla-old-publication').content;
+//     const parentPost = document.getElementById('all-publications');
+//     const oldPost = templatePost.cloneNode(true);
+//     parentPost.appendChild(oldPost);
+//   });
+// }
+// window.addEventListener('load', sharePost);
