@@ -5,7 +5,7 @@ const changeView = (route) => {
   container.innerHTML = '';
   switch (route) {
     case '#/':
-    { return container.appendChild(components.home()); }
+    { return container.appendChild(components.login()); }
     case '#/principal':
     { return container.appendChild(components.home()); }
     case '#/registro':

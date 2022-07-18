@@ -29,5 +29,6 @@ export default () => {
   </section>`;
   const divElem = document.createElement('div');
   divElem.innerHTML = viewHome;
+  
   return divElem;
 };
