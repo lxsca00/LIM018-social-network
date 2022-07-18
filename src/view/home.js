@@ -29,6 +29,14 @@ export default () => {
   </section>`;
   const divElem = document.createElement('div');
   divElem.innerHTML = viewHome;
-  
+  // const toShare1 = document.getElementById('toShare');
+  // return divPrincipal;
+  // const toShare12 = document.getElementById('toShare');
+  // toShare12.addEventListener('click', () => {
+  //   const templatePost = document.getElementById('plantilla-old-publication').content;
+  //   const parentPost = document.getElementById('all-publications');
+  //   const oldPost = templatePost.cloneNode(true);
+  //   parentPost.appendChild(oldPost);
+  // });
   return divElem;
 };
