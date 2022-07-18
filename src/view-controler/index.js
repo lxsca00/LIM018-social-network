@@ -1,3 +1,4 @@
+import { eventRegister } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 const changeView = (route) => {
@@ -9,7 +10,10 @@ const changeView = (route) => {
     case '#/principal':
     { return container.appendChild(components.home()); }
     case '#/registro':
-    { return container.appendChild(components.register()); }
+      // eslint-disable-next-line no-lone-blocks
+      { container.appendChild(components.register());
+        eventRegister(); }
+      break;
     case '#/login':
     { return container.appendChild(components.login()); }
     default:
