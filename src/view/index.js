@@ -1,5 +1,5 @@
 import Home from './home.js';
-import Register from './register.js';
+import Register from './Register.js';
 import Login from './login.js';
 
 const components = {
