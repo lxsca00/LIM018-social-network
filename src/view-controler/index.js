@@ -1,3 +1,4 @@
+import { sharePost } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 const changeView = (route) => {
@@ -7,7 +8,8 @@ const changeView = (route) => {
     case '#/':
     { return container.appendChild(components.login()); }
     case '#/principal':
-    { return container.appendChild(components.home()); }
+    { container.appendChild(components.home());
+      return sharePost(); }
     case '#/registro':
     { return container.appendChild(components.register()); }
     case '#/login':
