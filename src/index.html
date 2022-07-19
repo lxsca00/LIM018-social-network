@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="login.css">
   <link rel="stylesheet" href="home.css">
   <title>Social Red 21</title>
 </head>
 <body>
-  <header>
-
+  <header id="header">
+    <div class="menu__logo">
+      <img src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png" alt="" />
+      <a href="#/">PopcornZone</a> <!-- Home -->
+    </div>
     <nav>
-      <li class="menu__logo">
-        <img src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png" alt="" />
-        <a href="#/">PopcornZone</a> <!-- Home -->
-      </li>
       <li>
         <a href="#/principal">Home</a>
       </li>
@@ -35,21 +35,51 @@
     </nav>
   </header>
   <main id="container"></main>
-  <template class="plantilla-old-publication">
-    <div class="old-publication">
-      <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-      <input type="text" class="old-comment">
-      <div class="container-button">
-        <div class="emojis">
-          <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
-          <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+  <footer> PopcornZone</footer>
+  <script typgite="module">
+
+  </script>
+  <main id="container">
+    <template class="plantilla-container" id='plantillaOldPublication'>
+      <section class="container-principal">
+        <div class="information-user"> 
+          <div class="container-user-photo">
+            <div class="photo-user">
+              <img src="https://cdn-icons-png.flaticon.com/512/4222/4222009.png" class="user-photo">
+            </div>
+            <label for="edit" class="photo-change-user"> <img src="https://cdn-icons-png.flaticon.com/512/104/104668.png" class="change-photo"> </label>
+            <input id="edit" accept="image/jpeg" type="file" class="cargar-foto" >
+          </div>
+          <div class="data-user">
+            <p> AQUI VA EL NOMBRE DE PERFIL </p>
+            <p> @AQUI VA EL NOMBRE DE USUARIO</p>
+          </div>
         </div>
-        <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
-      </div>
-    </div>
-  </template>
+        <div class="all-publications" id='all-publications'>
+          <div class="publication" id="publication">
+            <input type="text" class="comment">
+            <div class="container-button">
+                <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
+                <input id="upload" accept="image/jpeg" type="file" class="cargar-foto" >
+                <input type="button" title="Click to post" value="Compartir"  class="post-button" id='toShare' >
+            </div>
+          </div>
+          <div class="old-publication" id='oldPublication'>
+            <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
+            <input type="text" class="old-comment">
+            <div class="container-button">
+              <div class="emojis">
+                <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
+                <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+              </div>
+              <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+            </div>
+          </div>
+        </div>  
+      </section>`;
+    </template>
+  </main>
   <footer> PopcornZone :)</footer>
   <script type="module" src="main.js"></script>
-  <!--Aquí estaban las credenciales-->
 </body>
 </html>

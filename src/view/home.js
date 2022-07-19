@@ -1,5 +1,4 @@
 // Vista del muro donde se ven las publicaciones
-
 export default () => {
   const viewHome = ` 
   <section class="container-principal">
@@ -17,7 +16,7 @@ export default () => {
       </div>
     </div>
     <div class="all-publications" id='all-publications'>
-      <div class="publication">
+      <div class="publication" id="publication">
         <input type="text" class="comment">
         <div class="container-button">
             <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
@@ -25,19 +24,10 @@ export default () => {
             <input type="button" title="Click to post" value="Compartir"  class="post-button" id='toShare' >
         </div>
       </div>
-    </div>
+    </div>  
   </section>`;
-  const divPrincipal = document.createElement('div');
-  divPrincipal.id = 'principal';
-  divPrincipal.innerHTML = viewHome;
-  // const toShare1 = document.getElementById('toShare');
-  // return divPrincipal;
-  // const toShare12 = document.getElementById('toShare');
-  // toShare12.addEventListener('click', () => {
-  //   const templatePost = document.getElementById('plantilla-old-publication').content;
-  //   const parentPost = document.getElementById('all-publications');
-  //   const oldPost = templatePost.cloneNode(true);
-  //   parentPost.appendChild(oldPost);
-  // });
-  return viewHome;
+  const divElem = document.createElement('div');
+  divElem.id = 'home';
+  divElem.innerHTML = viewHome;
+  return divElem;
 };
