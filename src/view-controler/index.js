@@ -1,5 +1,4 @@
-import { eventRegister } from '../lib/index.js';
-import { sharePost } from '../lib/index.js';
+import { eventRegister, sharePost } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 // eslint-disable-next-line consistent-return
