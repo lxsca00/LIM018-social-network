@@ -1,4 +1,5 @@
 import { eventRegister } from '../lib/index.js';
+import { sharePost } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 // eslint-disable-next-line consistent-return
@@ -9,7 +10,8 @@ const changeView = (route) => {
     case '#/':
     { return container.appendChild(components.login()); }
     case '#/principal':
-    { return container.appendChild(components.home()); }
+    { container.appendChild(components.home());
+      return sharePost(); }
     case '#/registro':
       // eslint-disable-next-line no-lone-blocks
       { container.appendChild(components.register());

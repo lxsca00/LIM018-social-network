@@ -1,15 +1,4 @@
 // Vista del muro donde se ven las publicaciones
-
-// function sharePost() {
-//   const toShare = document.getElementById('toShare');
-//   toShare.addEventListener('click', () => {
-//     const templatePost = document.getElementById('plantilla-old-publication').content;
-//     const parentPost = document.getElementById('all-publications');
-//     const oldPost = templatePost.cloneNode(true);
-//     parentPost.appendChild(oldPost);
-//   });
-// }
-
 export default () => {
   const viewHome = ` 
   <section class="container-principal">
@@ -27,7 +16,7 @@ export default () => {
       </div>
     </div>
     <div class="all-publications" id='all-publications'>
-      <div class="publication">
+      <div class="publication" id="publication">
         <input type="text" class="comment">
         <div class="container-button">
             <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
@@ -35,21 +24,10 @@ export default () => {
             <input type="button" title="Click to post" value="Compartir"  class="post-button" id='toShare' >
         </div>
       </div>
-      <div class="old-publication">
-      <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-      <input type="text" class="old-comment">
-      <div class="container-button">
-        <div class="emojis">
-          <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
-          <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
-        </div>
-        <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
-      </div>
-    </div>
-    </div>
+    </div>  
   </section>`;
   const divElem = document.createElement('div');
+  divElem.id = 'home';
   divElem.innerHTML = viewHome;
-  // sharePost();
   return divElem;
 };
