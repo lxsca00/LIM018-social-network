@@ -15,15 +15,8 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: 'AIzaSyACc51LXOjvtbxdJZvHc4gM_0y2VgVoN-U',
-  authDomain: 'popcorn-zone-698e0.firebaseapp.com',
-  projectId: 'popcorn-zone-698e0',
-  storageBucket: 'popcorn-zone-698e0.appspot.com',
-  messagingSenderId: '801567687163',
-  appId: '1:801567687163:web:19c68d5004a3fb78210b5e',
-  measurementId: 'G-XDE8KYM2TV',
-};
+
+// AQUI VAN LAS CREDENCIALES
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
