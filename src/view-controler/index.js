@@ -1,6 +1,7 @@
 import { eventRegister } from '../lib/index.js';
 import { components } from '../view/index.js';
 
+// eslint-disable-next-line consistent-return
 const changeView = (route) => {
   const container = document.getElementById('container');
   container.innerHTML = '';
@@ -19,6 +20,6 @@ const changeView = (route) => {
     default:
       break;
   }
-  return console.log(route);
+  // console.log(route);
 };
 export { changeView };

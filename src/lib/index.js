@@ -1,5 +1,14 @@
+/* eslint-disable import/no-unresolved */
 // aqui exportaras las funciones que necesites
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+
+// Aquí van las credenciales
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 export const eventRegister = () => {
   // aqui tu codigo
@@ -12,10 +21,10 @@ export const eventRegister = () => {
     console.log(userName + userUsername + userEmail + userPassword + userCountry + userBirth); */
   const signUpForm = document.querySelector('#registerForm');
   signUpForm.addEventListener('submit', () => {
-    console.log('submiting');
     const userEmail = document.getElementById('userEmail').value;
     const userPassword = document.getElementById('userPassword').value;
     console.log(userEmail, userPassword);
+    console.log(firebaseConfig.apiKey);
     const auth = getAuth();
     const email = document.getElementById('userEmail').value;
     const password = document.getElementById('userPassword').value;
@@ -36,5 +45,5 @@ export const eventRegister = () => {
 };
 
 export const eventLogin = () => {
-  
-}
+
+};
