@@ -2,6 +2,7 @@
 
 export default () => {
   const viewRegister = `
+  <div class = 'container-register'>
   <img class="image-register" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
   <form id="registerForm">  
     <input id="userName" type="text" placeholder="Nombre">
@@ -12,6 +13,7 @@ export default () => {
     <input id="userBirth" type="date" placeholder="Fecha de nacimiento">
     <button id="btnRegister" type="submit"> Registrarme </button>
   </form>
+  </div>
   <p> ¿Ya tienes cuenta? </p>
   <p> <a href="#/login"> Inicia sesión </a> </p>`;
   const divRegister = document.createElement('div');
