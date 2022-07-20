@@ -4,7 +4,8 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } from '../config2.js';
-
+import { components } from '../view/index.js';
+// CREDENCIALES
 const firebaseConfig = {
   apiKey: `${apiKey}`,
   authDomain: `${authDomain}`,
@@ -50,12 +51,17 @@ export const eventRegister = () => {
         // ..
         alert(errorMessage);
       });
+    const container = document.getElementById('container');
+    container.innerHTML = '';
+    container.appendChild(components.login());
   });
 };
 
 export const eventLogin = () => {
 
 };
+
+// FUNCION PARA COMPARTIR UN POST EN HOME
 
 export function sharePost() {
   const toShare = document.getElementById('toShare');
@@ -84,3 +90,21 @@ export function sharePost() {
     return parentPost.appendChild(divElem);
   });
 }
+
+// FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
+// eslint-disable-next-line import/newline-after-import
+// eslint-disable-next-line import/first
+// eslint-disable-next-line import/newline-after-import
+// eslint-disable-next-line import/first
+
+
+// export function irLogin() {
+//   const btnRegisterLogin = document.getElementById('btnRegister');
+//   // eslint-disable-next-line arrow-body-style
+//   btnRegisterLogin.addEventListener('click', () => {
+//   // eslint-disable-next-line no-undef
+//     const container = document.getElementById('container');
+//     container.innerHTML = '';
+//     return container.appendChild(components.login());
+// });
+// };
