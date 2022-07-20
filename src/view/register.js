@@ -2,6 +2,7 @@
 
 export default () => {
   const viewRegister = `
+  <img class="image-register" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
   <form id="registerForm">  
     <input id="userName" type="text" placeholder="Nombre">
     <input id="userUsername" type="text" placeholder="Nombre de usuario">
