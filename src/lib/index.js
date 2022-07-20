@@ -3,7 +3,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } from '../config.js';
+import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } from '../config2.js';
 
 const firebaseConfig = {
   apiKey: `${apiKey}`,
@@ -14,7 +14,6 @@ const firebaseConfig = {
   appId: `${appId}`,
   measurementId: `${measurementId}`,
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
