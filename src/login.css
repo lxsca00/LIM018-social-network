@@ -1,11 +1,4 @@
 
-.enabled {
-    display: block;
-  }
-  
-  .disabled {
-    display: none;
-  }
   
 .container-login {
     flex-direction: column;
@@ -20,12 +13,12 @@
    }
 
 
-
 .image-login {
     display: flex;
-    border-radius: 20px;
-    width: 90%;
-    height: 90%;
+    border-radius: 80%;
+    background-color: rgb(250, 244, 244);
+    width: 70%;
+    height: 70%;
     /*background-color: rgb(196, 202, 202);*/
     
 }
@@ -35,9 +28,7 @@
     justify-content: center;
     text-align: center;
     font-size: 180%;
-
-    
-    
+  
 }
 
 .form-login{
@@ -55,10 +46,34 @@
     margin-top: 20%;
     margin-bottom: 5%;
     text-align: center;
-   
     font-size: 200%;
 }
 .p-login {
     text-align: center;
     font-size: 10px; 
+}
+
+.containerLogosG{
+    
+    flex-direction: column;
+    
+    margin-right: 50%;
+    margin-left: 50%;
+    
+}
+.image-google{
+    flex-direction: column;
+    border-radius: 70%;
+    width: 10%;
+    height: 10%;
+    
+}
+.image-facebook{
+    flex-direction: column;
+    border-radius: 60%;
+    width: 10%;
+    height: 10%; 
+   
+   
+   
 }

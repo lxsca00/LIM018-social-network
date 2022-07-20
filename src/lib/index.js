@@ -6,16 +6,6 @@ import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 
 // Aquí van las credenciales
-const firebaseConfig = {
-  apiKey: 'AIzaSyACc51LXOjvtbxdJZvHc4gM_0y2VgVoN-U',
-  authDomain: 'popcorn-zone-698e0.firebaseapp.com',
-  projectId: 'popcorn-zone-698e0',
-  storageBucket: 'popcorn-zone-698e0.appspot.com',
-  messagingSenderId: '801567687163',
-  appId: '1:801567687163:web:19c68d5004a3fb78210b5e',
-  measurementId: 'G-XDE8KYM2TV',
-};
-
 
 
 // Initialize Firebase
