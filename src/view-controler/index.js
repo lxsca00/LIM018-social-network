@@ -1,9 +1,10 @@
 import {
   eventRegister,
   eventLogin2,
-  sharePost,
+  // sharePost,
 } from '../lib/index.js';
 import { components } from '../view/index.js';
+import { sharePost } from '../main.js';
 
 // eslint-disable-next-line consistent-return
 const changeView = (route) => {
@@ -28,4 +29,11 @@ const changeView = (route) => {
   }
   // console.log(route);
 };
-export { changeView };
+// export { changeView };
+
+// PARA CAMBIAR DE VISTA
+const init = () => {
+  changeView(window.location.hash);
+  window.addEventListener('hashchange', () => changeView(window.location.hash));
+};
+window.addEventListener('load', init);
