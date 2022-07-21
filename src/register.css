@@ -6,9 +6,12 @@
 }
 
 form{
+    justify-content: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+ 
+    
 }
 
 form button {
@@ -26,4 +29,14 @@ input {
     border-radius: 15px;
     padding: 0.5rem;
     margin: 0.25rem
+}
+
+.image-register{
+        display: flex;
+        border-radius: 80%;
+        background-color: rgb(250, 244, 244);
+        width: 30%;
+        height:30%;
+        /*background-color: rgb(196, 202, 202);*/
+        
 }
