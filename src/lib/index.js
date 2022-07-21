@@ -2,9 +2,17 @@
 // aqui exportaras las funciones que necesites
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  // onAuthStateChanged,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+import { getDatabase, ref, set, update } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js';
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } from '../config2.js';
 import { components } from '../view/index.js';
+
 // CREDENCIALES
 const firebaseConfig = {
   apiKey: `${apiKey}`,
@@ -51,6 +59,7 @@ export const eventRegister = () => {
         // ..
         alert(errorMessage);
       });
+    // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE  
     const container = document.getElementById('container');
     container.innerHTML = '';
     container.appendChild(components.login());
@@ -91,20 +100,82 @@ export function sharePost() {
   });
 }
 
-// FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
-// eslint-disable-next-line import/newline-after-import
-// eslint-disable-next-line import/first
-// eslint-disable-next-line import/newline-after-import
-// eslint-disable-next-line import/first
+//   // AUTENTIFICACIÓN DE USUARIO
+
+const database = getDatabase(app);
+const auth = getAuth();
+export const eventLogin2 = () => {
+  const loginForm = document.querySelector('#form-login');
+  loginForm.addEventListener('submit', () => {
+    const email = document.getElementById('ingresaEmail').value;
+    const password = document.getElementById('ingresaContrasena').value;
+
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     // ... user.uid
+    //     set(ref(database, `users/ + ${user.uid}`), {
+    //       email: email,
+    //       password: password,
+    //     })
+    //       .then(() => {
+    //       // Data saved successfully!
+    //         alert('user created successfully');
+    //       })
+    //       .catch((error) => {
+    //         // The write failed...
+    //         alert(error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     // ..
+    //     alert(errorMessage);
+    //   });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        const lgDate = new Date();
+        update(ref(database, `users/ + ${user.uid}`), {
+          last_login: lgDate,
+        })
+          .then(() => {
+          // Data saved successfully!
+            console.log('user logged is successfully');
+          })
+          .catch((error) => {
+            // The write failed...
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  });
+};
+// export function login () {
+//   const userEmail = document.getElementById('userEmail').value;
+//   const userPassword = document.getElementById('userPassword').value;
+//   if (validate_email(userEmail)==false)
+// }
 
 
-// export function irLogin() {
-//   const btnRegisterLogin = document.getElementById('btnRegister');
-//   // eslint-disable-next-line arrow-body-style
-//   btnRegisterLogin.addEventListener('click', () => {
-//   // eslint-disable-next-line no-undef
-//     const container = document.getElementById('container');
-//     container.innerHTML = '';
-//     return container.appendChild(components.login());
+// const auth = getAuth();
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//   // User is signed in, see docs for a list of available properties
+//   // https://firebase.google.com/docs/reference/js/firebase.User
+//     const uid = user.uid;
+//     console.log(`${uid} esta registrado`);
+//   } else {
+//     console.log('no esta registrado');
+//   // User is signed out
+//   // ...
+//   }
 // });
-// };
