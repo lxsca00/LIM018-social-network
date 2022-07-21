@@ -59,7 +59,7 @@ export const eventRegister = () => {
         // ..
         alert(errorMessage);
       });
-    // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE  
+    // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
     const container = document.getElementById('container');
     container.innerHTML = '';
     container.appendChild(components.login());
@@ -153,7 +153,7 @@ export const eventLogin2 = () => {
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });

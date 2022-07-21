@@ -1,7 +1,7 @@
 //  Vista de la página de ingreso
 
 export default () => {
-  /*document.getElementById("containerNav").style.visibility = "hidden";*/
+  /* document.getElementById("containerNav").style.visibility = "hidden"; */
   const loginView = `
     <div class = 'container-login'>
     <div class="h2-login">
