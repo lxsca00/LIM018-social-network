@@ -29,7 +29,6 @@ const changeView = (route) => {
   }
   // console.log(route);
 };
-// export { changeView };
 
 // PARA CAMBIAR DE VISTA
 const init = () => {
