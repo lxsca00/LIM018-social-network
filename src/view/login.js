@@ -25,10 +25,8 @@ export default () => {
         </form>
         
    </div>`;
-   
   const divLogin = document.createElement('div');
   divLogin.id = 'login';
   divLogin.innerHTML = loginView;
   return divLogin;
 };
-
