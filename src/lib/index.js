@@ -48,12 +48,13 @@ export function eventRegister(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user.email;
+      const user = userCredential.user;
+      const electronicEmail = userCredential.user.email;
       // ...
       console.log(`user created successfully: ${user}`);
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
-      return (`${user} created successfully`);
+      return (`${electronicEmail} created successfully`);
     })
     .catch((error) => {
       // const errorCode = error.code;
@@ -64,7 +65,7 @@ export function eventRegister(email, password) {
     });
 }
 
-// AUTENTIFICACIÓN DE USUARIO
+// AUTENTIFICACIÓN DE USUARIO -LOGIN
 export async function eventLogin(email, password) {
   const auth = getAuth();
   try {
@@ -90,6 +91,7 @@ export function eventLogout() {
   signOut(auth).then(() => {
     window.location.hash = '#/login';
     console.log('Sign-out successful');
+    sessionStorage.clear();
     return ('cerraste sesión');
     // Sign-out successful.
   }).catch((error) => {
@@ -97,5 +99,5 @@ export function eventLogout() {
     console.log(`something happened ${error}`);
     return ('error al cerrar sesión');
   });
-  sessionStorage.clear();
+  // sessionStorage.clear();
 }
