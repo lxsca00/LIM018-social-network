@@ -139,6 +139,9 @@ export function sharePost() {
   });
 }
 
+
+// CAMBIOS VANESSA
+
 /* eslint-disable import/no-unresolved */
 // aqui exportaras las funciones que necesites // FUNCIONES PURAS?
 // FIREBASE
