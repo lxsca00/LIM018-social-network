@@ -91,3 +91,58 @@ export function sharePost() {
     return parentPost.appendChild(divElem);
   });
 }
+
+
+// registrar
+export const eventRegister = () => {
+  const signUpForm = document.querySelector('#register-form');
+  signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+    const email = document.getElementById('user-email').value;
+    const password = document.getElementById('user-password').value;
+    const name = document.getElementById('user-name').value;
+    const username = document.getElementById('user-username').value;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log(`user created successfully: ${user}`);
+        sessionStorage.getItem(user);
+        window.location.hash = '#/login';
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        alert(errorMessage);
+      });
+  });
+};
+
+//login
+export const eventLogin = () => {
+  const signInForm = document.querySelector('#form-login');
+  signInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log(`${userCredential}, signed in`);
+        sessionStorage.getItem(user);
+        window.location.hash = '#/principal';
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  });
+};
