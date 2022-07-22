@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-
 import {
   initializeApp,
 // } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
@@ -9,7 +8,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  // signOut,
+  signOut,
 // } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 } from 'firebase/auth';
 
@@ -40,9 +39,12 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 // const db = getFirestore(app);
 
+// FUNCIONES PURAS - TO TEST
+
 // REGISTRO DE USUARIO
 export function eventRegister(email, password) {
   const auth = getAuth();
+  // return createUserWithEmailAndPassword(auth, email, password)
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -82,71 +84,18 @@ export async function eventLogin(email, password) {
   }
 }
 
-// REGISTRO DE USUARIO
-export function eventRegister(email, password) {
+// CERRAR SESIÓN
+export function eventLogout() {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user.email;
-      // ...
-      console.log(`user created successfully: ${user}`);
-      sessionStorage.getItem(user);
-      window.location.hash = '#/login';
-      return (`${user} created successfully`);
-    })
-    .catch((error) => {
-      // const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-      alert(`${errorMessage}`);
-      return (`${errorMessage}`);
-    });
-}
-
-export const eventLogout = () => {
-  const logout = document.querySelector('#logout');
-  const auth = getAuth();
-  logout.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOut(auth).then(() => {
-      window.location.hash = '#/login';
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-      console.log('something happened');
-    });
-    sessionStorage.clear();
+  signOut(auth).then(() => {
+    window.location.hash = '#/login';
+    console.log('Sign-out successful');
+    return ('cerraste sesión');
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+    console.log(`something happened ${error}`);
+    return ('error al cerrar sesión');
   });
-};
-
-// FUNCION PARA COMPARTIR UN POST EN HOME
-
-export function sharePost() {
-  const toShare = document.getElementById('toShare');
-  let numberPost = 0;
-  toShare.addEventListener('click', () => {
-    const oldPost = `
-      <div class="old-publication" >
-        <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-        <input type="text" class="old-comment">
-        <div class="container-button">
-          <div class="emojis">
-            <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
-            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
-          </div>
-         <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
-        </div>
-          </div>
-      </div>`;
-
-    const parentPost = document.getElementById('all-publications');
-    const divElem = document.createElement('div');
-    // eslint-disable-next-line max-len
-    // se debe almacenar en un solo div porque sino ('node') to Node.appendChild must be an instance of Node
-    numberPost += 1;
-    divElem.id = `post ${numberPost}`;
-    divElem.innerHTML = oldPost;
-    return parentPost.appendChild(divElem);
-  });
+  sessionStorage.clear();
 }
