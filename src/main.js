@@ -2,6 +2,19 @@
 
 // import { myFunction } from './lib/index.js';
 
+import { ingreso } from './lib/index.js';
+
+// AUTENTIFICACIÓN DE USUARIO
+
+export const eventLogin2 = () => {
+  const loginForm = document.querySelector('#form-login');
+  loginForm.addEventListener('submit', () => {
+    const email = document.getElementById('ingresaEmail').value;
+    const password = document.getElementById('ingresaContrasena').value;
+    ingreso(email, password);
+  });
+};
+
 // FUNCION PARA COMPARTIR UN POST EN HOME
 export function sharePost() {
   const toShare = document.getElementById('toShare');

@@ -1,10 +1,13 @@
 import {
   eventRegister,
-  eventLogin2,
+  // eventLogin2,
   // sharePost,
 } from '../lib/index.js';
 import { components } from '../view/index.js';
-import { sharePost } from '../main.js';
+import {
+  sharePost,
+  eventLogin2,
+} from '../main.js';
 
 // eslint-disable-next-line consistent-return
 const changeView = (route) => {
