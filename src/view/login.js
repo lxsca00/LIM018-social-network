@@ -15,20 +15,22 @@ export default () => {
           <input type="password"  placeholder="Contraseña" id="ingresaContrasena"class="input-login-password" >
           <button type="submit" class="btnIngresar" id="btnIngresar"> Ingresar </button>
           <p class ="p-login"> -------------O ingresa con: -----------------------</p>
-          
-          <img class="image-facebook" src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg">
-          <img class="image-google" src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png">
-        
-
-          <button type="submit" class="btnRegistrar" id="btnRegistrar">¿No tienes cuenta? Regístrate</button>
           <button type="submit" class= "btnGoogle id="iniciaGoogle">Ingresa con Google</button>
+          <button type="submit" class="btnRegistrar" id="btnRegistrar">¿No tienes cuenta? Regístrate</button>
         </form>
         
    </div>`;
    
-  const divLogin = document.createElement('div');
-  divLogin.id = 'login';
-  divLogin.innerHTML = loginView;
-  return divLogin;
-};
+  
 
+   const divLogin = document.createElement('div');
+   divLogin.id = 'login';
+   divLogin.innerHTML = loginView;
+   return divLogin;
+ };
+
+
+
+/*<img class="image-facebook" src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg">
+          <img class="image-google" src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png">
+        */
