@@ -2,8 +2,10 @@
 
 // import { myFunction } from './lib/index.js';
 
-import { ingreso } from './lib/index.js';
-
+import {
+  ingreso,
+  registerUser,
+} from './lib/index.js';
 // AUTENTIFICACIÓN DE USUARIO
 
 export const eventLogin2 = () => {
@@ -13,6 +15,19 @@ export const eventLogin2 = () => {
     const password = document.getElementById('ingresaContrasena').value;
     ingreso(email, password);
   });
+};
+
+export const eventRegister = () => {
+  const signUpForm = document.querySelector('#registerForm');
+  signUpForm.addEventListener('submit', () => {
+    const email = document.getElementById('userEmail').value;
+    const password = document.getElementById('userPassword').value;
+    registerUser(email, password);
+  });
+  // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
+  const container = document.getElementById('container');
+  container.innerHTML = '';
+  container.appendChild(components.login());
 };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME

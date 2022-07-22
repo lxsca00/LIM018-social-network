@@ -1,10 +1,6 @@
-import {
-  eventRegister,
-  // eventLogin2,
-  // sharePost,
-} from '../lib/index.js';
 import { components } from '../view/index.js';
 import {
+  eventRegister,
   sharePost,
   eventLogin2,
 } from '../main.js';

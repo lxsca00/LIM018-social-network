@@ -2,13 +2,13 @@
 // aqui exportaras las funciones que necesites // FUNCIONES PURAS?
 // FIREBASE
 
-// import { initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 // eslint-disable-next-line max-len
-// import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// import {
+//   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 import { components } from '../view/index.js';
 // CREDENCIALES
 // TODO: Replace the following with your app's Firebase project configuration
@@ -24,43 +24,27 @@ const firebaseConfig = {
 // eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase
-export const eventRegister = () => {
-  const signUpForm = document.querySelector('#registerForm');
-  signUpForm.addEventListener('submit', () => {
-    const userEmail = document.getElementById('userEmail').value;
-    const userPassword = document.getElementById('userPassword').value;
-    console.log(userEmail, userPassword);
-    console.log(firebaseConfig.apiKey);
-    const auth = getAuth();
-    const email = document.getElementById('userEmail').value;
-    const password = document.getElementById('userPassword').value;
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-        console.log(`${user} created successfully`);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        alert(`${errorMessage} ${errorCode} `);
-      });
-    // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
-    const container = document.getElementById('container');
-    container.innerHTML = '';
-    container.appendChild(components.login());
-  });
-};
-
-export const eventLogin = () => {
-
-};
+// REGISTRO DE USUARIO
+export function registerUser(email, password) {
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user.email;
+      // ...
+      console.log(`${user} created successfully`);
+      return (`${user} created successfully`);
+    })
+    .catch((error) => {
+      // const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+      console.log(`${errorMessage}`);
+      return (`${errorMessage}`);
+    });
+}
 
 // AUTENTIFICACIÓN DE USUARIO
-
 // export function ingreso(email, password) {
 //   const auth = getAuth();
 //   return signInWithEmailAndPassword(auth, email, password)
@@ -76,17 +60,18 @@ export const eventLogin = () => {
 //       console.log(errorMessage); // auth/user auth/internal etc
 //     });
 // }
-
 export async function ingreso(email, password) {
   const auth = getAuth();
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     // Signed in
     const user = userCredential.user.email;
+    console.log(`El ${user} si tiene una cuenta activa`);
     return (`El ${user} si tiene una cuenta activa`);
   } catch (error) {
     // const errorCode = error.code;
     const errorMessage = error.message;
+    console.log(errorMessage);
     return (errorMessage);
   }
 }
