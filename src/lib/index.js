@@ -74,7 +74,8 @@ export const eventLogin2 = () => {
     const email = document.getElementById('ingresaEmail').value;
     const password = document.getElementById('ingresaContrasena').value;
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithE
+    mailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
