@@ -12,16 +12,6 @@ form{
     align-items: center;
 }
 
-form button {
-    background: #FF8906;
-    width: fit-content;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
-    border: 0;
-    border-radius: 15px;
-    color: #FFFFFE;
-}
-
 input {
     background: #FFFFFE;
     border-radius: 15px;

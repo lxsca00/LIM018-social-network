@@ -6,32 +6,29 @@ import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
-import {
-  apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId,
-} from '../config2.js';
 
 // CREDENCIALES
 
 const firebaseConfig = {
-  apiKey: `${apiKey}`,
-  authDomain: `${authDomain}`,
-  projectId: `${projectId}`,
-  storageBucket: `${storageBucket}`,
-  messagingSenderId: `${messagingSenderId}`,
-  appId: `${appId}`,
-  measurementId: `${measurementId}`,
+  apiKey: 'AIzaSyACc51LXOjvtbxdJZvHc4gM_0y2VgVoN-U',
+  authDomain: 'popcorn-zone-698e0.firebaseapp.com',
+  projectId: 'popcorn-zone-698e0',
+  storageBucket: 'popcorn-zone-698e0.appspot.com',
+  messagingSenderId: '801567687163',
+  appId: '1:801567687163:web:19c68d5004a3fb78210b5e',
+  measurementId: 'G-XDE8KYM2TV',
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth();
 
 export const eventRegister = () => {
   const signUpForm = document.querySelector('#register-form');
   signUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const auth = getAuth();
     const email = document.getElementById('user-email').value;
     const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
@@ -41,7 +38,7 @@ export const eventRegister = () => {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log(`user created successfully: ${user}`);
+        console.log('user created successfully');
         sessionStorage.getItem(user);
         window.location.hash = '#/login';
       })
@@ -51,19 +48,6 @@ export const eventRegister = () => {
         // ..
         alert(errorMessage);
       });
-    /* async function saveUser() {
-      try {
-        const docRef = await addDoc(collection(db, 'users'), {
-          first: 'Ada',
-          last: 'Lovelace',
-          born: 1815,
-        });
-        console.log('Document written with ID: ', docRef.id);
-      } catch (i) {
-        console.error('Error adding document: ', i);
-      }
-    }
-    saveUser(); */
   });
 };
 
@@ -71,7 +55,6 @@ export const eventLogin = () => {
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const auth = getAuth();
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     console.log(email, password);
@@ -80,7 +63,7 @@ export const eventLogin = () => {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log(`${userCredential}, signed in`);
+        console.log('signed in');
         sessionStorage.getItem(user);
         window.location.hash = '#/principal';
       })
@@ -94,7 +77,6 @@ export const eventLogin = () => {
 
 export const eventLogout = () => {
   const logout = document.querySelector('#logout');
-  const auth = getAuth();
   logout.addEventListener('click', (e) => {
     e.preventDefault();
     signOut(auth).then(() => {
@@ -138,3 +120,50 @@ export function sharePost() {
     return parentPost.appendChild(divElem);
   });
 }
+
+export const editProfile = () => {
+  document.getElementById('editProfile').addEventListener('click', (e) => {
+    e.preventDefault();
+    const profile = document.querySelector('.profile');
+    const modal = `
+    <div class="modal-edit">
+      <div class="modal-card">
+        <button class="close">&times;</button>
+        <h3> Editar perfil </h3>
+        <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
+        <h3> ¿Qué prefieres ver? </h3>
+        <input type="text" id="changeElection" placeholder="¿Peliculas o series?">
+        <h3> ¿Tu género favorito? <h3>
+        <input type="text" id="changeGenre" placeholder="Cuentanos cuáles son tus géneros favoritos">
+        <button type="button" id="saveChanges"> Guardar cambios </button>
+      </div>
+    <div>`;
+    profile.insertAdjacentHTML('beforeend', modal);
+    document.querySelector('.close').addEventListener('click', () => {
+      const containerModal = document.querySelector('.modal-edit');
+      containerModal.remove();
+    });
+    document.querySelector('#saveChanges').addEventListener('click', () => {
+      const newDescription = document.getElementById('changeDescription').value;
+      const oldDescription = document.querySelector('.user-description');
+      const containerModal = document.querySelector('.modal-edit');
+      if (newDescription !== '') {
+        oldDescription.innerHTML = newDescription;
+        containerModal.remove();
+      }
+    });
+    /* const editModal = document.createElement('div');
+     editModal.classList = 'modal-edit';
+    profile.appendChild(editModal);
+    const modalCard = document.createElement('div');
+    modalCard.classList = 'modal-card';
+    editModal.appendChild(modalCard);
+    const changeInput = document.createElement('input');
+    changeInput.setAttribute('type', 'text');
+    modalCard.appendChild(changeInput);
+    const changeButton = document.createElement('button');
+    changeButton.id = 'changeButton';
+    changeButton.setAttribute('type', 'button');
+    modalCard.appendChild(changeButton); */
+  });
+};

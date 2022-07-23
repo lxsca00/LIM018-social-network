@@ -1,5 +1,5 @@
 import {
-  eventLogin, eventLogout, eventRegister, sharePost,
+  eventLogin, eventLogout, eventRegister, sharePost, editProfile
 } from '../lib/index.js';
 import { components } from '../view/index.js';
 
@@ -14,13 +14,14 @@ const changeView = (route) => {
     { container.appendChild(components.home());
       return sharePost(); }
     case '#/registro':
-      // eslint-disable-next-line no-lone-blocks
-      { container.appendChild(components.register());
-        eventRegister(); }
-      break;
+    { container.appendChild(components.register());
+      return eventRegister(); }
     case '#/login':
     { container.appendChild(components.login());
       return eventLogin(); }
+    case '#/profile':
+    { container.appendChild(components.profile());
+      return editProfile(); }
     case '#/cerrarSesion':
     { return eventLogout(); }
     default:
