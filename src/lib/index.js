@@ -1,16 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-} from 'firebase/app';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// } from 'firebase/app';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-} from 'firebase/auth';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// } from 'firebase/auth';
 
 /* import {
   getFirestore,
@@ -45,7 +45,7 @@ const app = initializeApp(firebaseConfig);
 export function eventRegister(email, password) {
   const auth = getAuth();
   // return createUserWithEmailAndPassword(auth, email, password)
-  createUserWithEmailAndPassword(auth, email, password)
+  return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -61,7 +61,7 @@ export function eventRegister(email, password) {
       const errorMessage = error.message;
       // ..
       alert(`${errorMessage}`);
-      return (`${errorMessage}`);
+      return ('error');
     });
 }
 

@@ -17,15 +17,15 @@ const changeView = (route) => {
     { container.appendChild(components.home());
       return fSharePost(); }
     case '#/registro':
-      // eslint-disable-next-line no-lone-blocks
-      { container.appendChild(components.register());
-        fEventRegister(); }
-      break;
+    // eslint-disable-next-line no-lone-blocks
+    { container.appendChild(components.register());
+      return fEventRegister(); }
     case '#/login':
     { container.appendChild(components.login());
       return fEventLogin(); }
     case '#/cerrarSesion':
-    { return fEventLogout(); }
+    { console.log('se cerro sesion');
+      return fEventLogout(); }
     default:
       break;
   }

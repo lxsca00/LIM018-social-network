@@ -18,7 +18,7 @@ export const fEventRegister = () => {
     const password = document.getElementById('user-password').value;
     // const name = document.getElementById('user-name').value;
     // const username = document.getElementById('user-username').value;
-    eventRegister(email, password)
+    eventRegister(email, password);
   });
 };
 
@@ -43,7 +43,7 @@ export const fEventLogout = () => {
 };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
-export function sharePost() {
+export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
   toShare.addEventListener('click', () => {
