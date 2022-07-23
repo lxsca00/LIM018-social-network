@@ -1,16 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-} from 'firebase/app';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// } from 'firebase/app';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-} from 'firebase/auth';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// } from 'firebase/auth';
 
 /* import {
   getFirestore,
@@ -77,14 +77,14 @@ export async function eventLogin(eMail, password) {
     // const user = userCredential.user;
     const electronicEmail = userCredential.user.email;
     // console.log(`${user}, signed in`);
-    // console.log(`${userCredential}, signed in`);
+    console.log(`${userCredential}, signed in`);
     // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
     // window.location.hash = '#/principal'; //TEST: window is not defined
     return (`${electronicEmail} si tiene una cuenta activa`);
   } catch (error) {
     // const errorCode = error.code;
     const errorMessage = error.message;
-    // console.log(errorMessage); // TEST: el alert para los test is not defined
+    console.log(errorMessage); // TEST: el alert para los test is not defined
     // console.log(errorCode);
     return (errorMessage);
   }
