@@ -1,26 +1,22 @@
-
-  
-.container-login {
+#container-login {
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    /*background-color: rgb(129, 120, 120);*/
-    
+    align-items: center;
     border-radius: 15px;
     margin-right: 5%;
     margin-left: 5%;
     padding: 5%;
-
-   }
-
+    /*background-color: rgb(129, 120, 120);*/
+}
 
 .image-login {
-    display: flex;
+    justify-content: center;
     border-radius: 80%;
     background-color: rgb(250, 244, 244);
-    width: 70%;
-    height: 70%;
-    /*background-color: rgb(196, 202, 202);*/
-    
+    width: 40%;
+    height: 40%;
+    /*background-color: rgb(196, 202, 202);*/ 
 }
 
 .h2-login{
@@ -28,7 +24,6 @@
     justify-content: center;
     text-align: center;
     font-size: 180%;
-  
 }
 
 .form-login{
@@ -41,39 +36,71 @@
     margin-left: 5%;
 }
 
-
 .h1-login{
-    margin-top: 20%;
+    margin-top: 5%;
     margin-bottom: 5%;
     text-align: center;
     font-size: 200%;
 }
+
 .p-login {
     text-align: center;
     font-size: 10px; 
 }
 
-.containerLogosG{
-    
-    flex-direction: column;
-    
-    margin-right: 50%;
-    margin-left: 50%;
-    
+.logo-container{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
 }
+
 .image-google{
-    flex-direction: column;
     border-radius: 70%;
     width: 10%;
     height: 10%;
     
 }
 .image-facebook{
-    flex-direction: column;
     border-radius: 60%;
     width: 10%;
-    height: 10%; 
-   
-   
-   
+    height: 10%;   
+}
+
+@media screen and (min-width: 500px) {
+
+    .container-login{
+        display: inline-block;
+        
+    }
+    .image-login{
+        border-radius: 50%;
+        float: left;
+        width: 20%;
+        height: 20%;
+    }
+    .h2-login{
+        font-size: 180%;
+    }
+
+    .form-login{
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        height: 50%;
+        /*background-color: rgb(248, 149, 20);*/
+
+    }
+    .image-google{
+        flex-direction: column;
+        border-radius: 70%;
+        width: 2%;
+        height: 2%;
+        
+    }
+    .image-facebook{
+        flex-direction: column;
+        border-radius: 60%;
+        width: 2%;
+        height: 2%;   
+    }
 }

@@ -1,37 +1,56 @@
-// Este es el punto de entrada de tu aplicacion  // RELACION CON EL DOM
-
-// import { myFunction } from './lib/index.js';
+// Este es el punto de entrada de tu aplicacion // RELACION CON EL DOM
 
 import {
-  ingreso,
-  registerUser,
+  eventRegister,
+  eventLogin,
+  eventLogout,
 } from './lib/index.js';
-// AUTENTIFICACIÓN DE USUARIO
 
-export const eventLogin2 = () => {
-  const loginForm = document.querySelector('#form-login');
-  loginForm.addEventListener('submit', () => {
-    const email = document.getElementById('ingresaEmail').value;
-    const password = document.getElementById('ingresaContrasena').value;
-    ingreso(email, password);
+// eslint-disable-next-line import/no-cycle
+import { changeView } from './view-controler/index.js';
+
+// PARA CAMBIAR DE VISTA
+const init = () => {
+  changeView(window.location.hash);
+  window.addEventListener('hashchange', () => changeView(window.location.hash));
+};
+window.addEventListener('load', init);
+
+// REGISTRO DE USUARIO
+export const fEventRegister = () => {
+  const signUpForm = document.querySelector('#register-form');
+  signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('user-email').value;
+    const password = document.getElementById('user-password').value;
+    // const name = document.getElementById('user-name').value;
+    // const username = document.getElementById('user-username').value;
+    eventRegister(email, password);
   });
 };
 
-export const eventRegister = () => {
-  const signUpForm = document.querySelector('#registerForm');
-  signUpForm.addEventListener('submit', () => {
-    const email = document.getElementById('userEmail').value;
-    const password = document.getElementById('userPassword').value;
-    registerUser(email, password);
+// AUTENTIFICACIÓN DE USUARIO -LOGIN
+export const fEventLogin = () => {
+  const signInForm = document.querySelector('#form-login');
+  signInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    eventLogin(email, password);
   });
-  // FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
-  const container = document.getElementById('container');
-  container.innerHTML = '';
-  container.appendChild(components.login());
+};
+
+// CERRAR SESIÓN
+export const fEventLogout = () => {
+  const logout = document.querySelector('#logout');
+  logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    eventLogout();
+  });
 };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
-export function sharePost() {
+export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
   toShare.addEventListener('click', () => {

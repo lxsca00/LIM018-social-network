@@ -1,15 +1,27 @@
 /* eslint-disable import/no-unresolved */
-// aqui exportaras las funciones que necesites // FUNCIONES PURAS?
-// FIREBASE
-
-// import { initializeApp } from 'firebase/app';
-// eslint-disable-next-line max-len
-// import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-// import { components } from '../view/index.js';
+  initializeApp,
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+} from 'firebase/app';
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+} from 'firebase/auth';
+
+/* import {
+  getFirestore,
+  collection,
+  addDoc,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; */
+
+/* import {
+  getAnalytics,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js'; */
+
 // CREDENCIALES
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -21,57 +33,76 @@ const firebaseConfig = {
   appId: '1:801567687163:web:19c68d5004a3fb78210b5e',
   measurementId: 'G-XDE8KYM2TV',
 };
+
+// Initialize Firebase
 // eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// const db = getFirestore(app);
+
+// FUNCIONES PURAS - TO TEST
 
 // REGISTRO DE USUARIO
-export function registerUser(email, password) {
+export function eventRegister(eMail, password) {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
+  // createUserWithEmailAndPassword(auth, email, password) // con return para que sea una promesa
+  return createUserWithEmailAndPassword(auth, eMail, password)
     .then((userCredential) => {
       // Signed in
-      const user = userCredential.user.email;
+      const user = userCredential.user;
+      const electronicEmail = userCredential.user.email;
       // ...
-      console.log(`${user} created successfully`);
-      return (`${user} created successfully`);
+      console.log(`user created successfully: ${user}`);
+      // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
+      // window.location.hash = '#/login'; //TEST: window is not defined
+      return (`${electronicEmail} created successfully`);
     })
     .catch((error) => {
-      // const errorCode = error.code;
+      const errorCode = error.code;
       const errorMessage = error.message;
       // ..
-      console.log(`${errorMessage}`);
-      return (`${errorMessage}`);
+      console.log(errorMessage);
+      console.log(errorCode);
+      // alert(`${errorMessage}`) // TEST: el alert para los test is not defined
+      return (errorMessage);
     });
 }
 
-// AUTENTIFICACIÓN DE USUARIO
-// export function ingreso(email, password) {
-//   const auth = getAuth();
-//   return signInWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//       // Signed in
-//       const user = userCredential.user.email;
-//       console.log(`El ${user} si tiene una cuenta activa`);
-//       // ...
-//     })
-//     .catch((error) => {
-//       // const errorCode = error.code;
-//       const errorMessage = error.message;
-//       console.log(errorMessage); // auth/user auth/internal etc
-//     });
-// }
-export async function ingreso(email, password) {
+// AUTENTIFICACIÓN DE USUARIO -LOGIN
+export async function eventLogin(eMail, password) {
   const auth = getAuth();
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, eMail, password);
     // Signed in
-    const user = userCredential.user.email;
-    console.log(`El ${user} si tiene una cuenta activa`);
-    return (`El ${user} si tiene una cuenta activa`);
+    // const user = userCredential.user;
+    const electronicEmail = userCredential.user.email;
+    // console.log(`${user}, signed in`);
+    // console.log(`${userCredential}, signed in`);
+    // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
+    // window.location.hash = '#/principal'; //TEST: window is not defined
+    return (`${electronicEmail} si tiene una cuenta activa`);
   } catch (error) {
     // const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage);
+    // console.log(errorMessage); // TEST: el alert para los test is not defined
+    // console.log(errorCode);
     return (errorMessage);
   }
+}
+
+// CERRAR SESIÓN
+export function eventLogout() {
+  const auth = getAuth();
+  return signOut(auth).then(() => {
+    window.location.hash = '#/login';
+    console.log('Sign-out successful');
+    sessionStorage.clear();
+    return ('cerraste sesión');
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+    console.log(`something happened ${error}`);
+    return ('error al cerrar sesión');
+  });
+  // sessionStorage.clear();
 }

@@ -13,3 +13,11 @@
     color: #A7A9BE;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+a {
+    cursor: pointer;
+}
+
+#containerNav{
+     /* display: none;  */
+}
