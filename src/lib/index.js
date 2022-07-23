@@ -1,11 +1,17 @@
 /* eslint-disable import/no-unresolved */
-// aqui exportaras las funciones que necesites
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId } from '../config2.js';
-import { components } from '../view/index.js';
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
+import {
+  apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId,
+} from '../config2.js';
+
 // CREDENCIALES
+
 const firebaseConfig = {
   apiKey: `${apiKey}`,
   authDomain: `${authDomain}`,
@@ -19,31 +25,25 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
 export const eventRegister = () => {
-  // aqui tu codigo
-  /* document.getElementById('btnRegister').addEventListener('click', (event) => {
-    event.preventDefault();
-    const userName = document.getElementById('userName').value;
-    const userUsername = document.getElementById('userUsername').value;
-    const userCountry = document.getElementById('userCountry').value;
-    const userBirth = document.getElementById('userBirth').value;
-    console.log(userName + userUsername + userEmail + userPassword + userCountry + userBirth); */
-  const signUpForm = document.querySelector('#registerForm');
-  signUpForm.addEventListener('submit', () => {
-    const userEmail = document.getElementById('userEmail').value;
-    const userPassword = document.getElementById('userPassword').value;
-    console.log(userEmail, userPassword);
-    console.log(firebaseConfig.apiKey);
+  const signUpForm = document.querySelector('#register-form');
+  signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     const auth = getAuth();
-    const email = document.getElementById('userEmail').value;
-    const password = document.getElementById('userPassword').value;
+    const email = document.getElementById('user-email').value;
+    const password = document.getElementById('user-password').value;
+    const name = document.getElementById('user-name').value;
+    const username = document.getElementById('user-username').value;
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log('user created successfully');
+        console.log(`user created successfully: ${user}`);
+        sessionStorage.getItem(user);
+        window.location.hash = '#/login';
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -51,14 +51,61 @@ export const eventRegister = () => {
         // ..
         alert(errorMessage);
       });
-    const container = document.getElementById('container');
-    container.innerHTML = '';
-    container.appendChild(components.login());
+    /* async function saveUser() {
+      try {
+        const docRef = await addDoc(collection(db, 'users'), {
+          first: 'Ada',
+          last: 'Lovelace',
+          born: 1815,
+        });
+        console.log('Document written with ID: ', docRef.id);
+      } catch (i) {
+        console.error('Error adding document: ', i);
+      }
+    }
+    saveUser(); */
   });
 };
 
 export const eventLogin = () => {
+  const signInForm = document.querySelector('#form-login');
+  signInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log(`${userCredential}, signed in`);
+        sessionStorage.getItem(user);
+        window.location.hash = '#/principal';
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  });
+};
 
+export const eventLogout = () => {
+  const logout = document.querySelector('#logout');
+  const auth = getAuth();
+  logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOut(auth).then(() => {
+      window.location.hash = '#/login';
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+      console.log('something happened');
+    });
+    sessionStorage.clear();
+  });
 };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
@@ -83,6 +130,7 @@ export function sharePost() {
 
     const parentPost = document.getElementById('all-publications');
     const divElem = document.createElement('div');
+    // eslint-disable-next-line max-len
     // se debe almacenar en un solo div porque sino ('node') to Node.appendChild must be an instance of Node
     numberPost += 1;
     divElem.id = `post ${numberPost}`;
@@ -90,21 +138,3 @@ export function sharePost() {
     return parentPost.appendChild(divElem);
   });
 }
-
-// FUNCIÓN PARA INICIAR SESION DESPUES DE REGISTARTE
-// eslint-disable-next-line import/newline-after-import
-// eslint-disable-next-line import/first
-// eslint-disable-next-line import/newline-after-import
-// eslint-disable-next-line import/first
-
-
-// export function irLogin() {
-//   const btnRegisterLogin = document.getElementById('btnRegister');
-//   // eslint-disable-next-line arrow-body-style
-//   btnRegisterLogin.addEventListener('click', () => {
-//   // eslint-disable-next-line no-undef
-//     const container = document.getElementById('container');
-//     container.innerHTML = '';
-//     return container.appendChild(components.login());
-// });
-// };

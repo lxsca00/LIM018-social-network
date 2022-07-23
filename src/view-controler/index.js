@@ -1,4 +1,6 @@
-import { eventRegister, sharePost } from '../lib/index.js';
+import {
+  eventLogin, eventLogout, eventRegister, sharePost,
+} from '../lib/index.js';
 import { components } from '../view/index.js';
 
 // eslint-disable-next-line consistent-return
@@ -17,7 +19,10 @@ const changeView = (route) => {
         eventRegister(); }
       break;
     case '#/login':
-    { return container.appendChild(components.login()); }
+    { container.appendChild(components.login());
+      return eventLogin(); }
+    case '#/cerrarSesion':
+    { return eventLogout(); }
     default:
       break;
   }
