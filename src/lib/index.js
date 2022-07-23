@@ -44,8 +44,8 @@ const app = initializeApp(firebaseConfig);
 // REGISTRO DE USUARIO
 export function eventRegister(eMail, password) {
   const auth = getAuth();
-  // return createUserWithEmailAndPassword(auth, email, password)
-  createUserWithEmailAndPassword(auth, eMail, password)
+  // createUserWithEmailAndPassword(auth, email, password) // con return para que sea una promesa
+  return createUserWithEmailAndPassword(auth, eMail, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -92,7 +92,7 @@ export async function eventLogin(eMail, password) {
 // CERRAR SESIÓN
 export function eventLogout() {
   const auth = getAuth();
-  signOut(auth).then(() => {
+  return signOut(auth).then(() => {
     window.location.hash = '#/login';
     console.log('Sign-out successful');
     sessionStorage.clear();
