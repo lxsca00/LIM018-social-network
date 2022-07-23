@@ -19,9 +19,11 @@ const changeView = (route) => {
     case '#/registro':
     // eslint-disable-next-line no-lone-blocks
     { container.appendChild(components.register());
-      return fEventRegister(); }
+      fEventRegister(); }
+      break;
     case '#/login':
     { container.appendChild(components.login());
+      console.log('se abrio login');
       return fEventLogin(); }
     case '#/cerrarSesion':
     { console.log('se cerro sesion');
