@@ -11,8 +11,9 @@ export default () => {
       <input id="user-password" type="password" placeholder="Password">
       <input id="user-country" type="text" placeholder="País">
       <input id="user-birth" type="date" placeholder="Fecha de nacimiento">
-      <button id="btnRegister" type="submit"> Registrarme </button>
+      <button id="btnRegister" type="submit" > Registrarme </button>
     </form>
+   
     <p> ¿Ya tienes cuenta? <a href="#/login"> Inicia sesión </a> </p>
   </div>`;
   const divRegister = document.createElement('div');
