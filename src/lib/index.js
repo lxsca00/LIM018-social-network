@@ -1,16 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-// } from 'firebase/app';
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+} from 'firebase/app'; // TEST
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-// } from 'firebase/auth';
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+} from 'firebase/auth'; // TEST
 
 /* import {
   getFirestore,
@@ -54,7 +54,7 @@ export function eventRegister(eMail, password) {
       // ...
       console.log(`user created successfully: ${user}`);
       // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
-      // window.location.hash = '#/login'; //TEST: window is not defined
+      // window.location.hash = '#/login'; // TEST: window is not defined
       return (`${electronicEmail} created successfully`);
     })
     .catch((error) => {
@@ -63,7 +63,7 @@ export function eventRegister(eMail, password) {
       // ..
       console.log(errorMessage);
       console.log(errorCode);
-      // alert(`${errorMessage}`) // TEST: el alert para los test is not defined
+      // alert(`${errorMessage}`); // TEST: el alert para los test is not defined
       return (errorMessage);
     });
 }
@@ -74,9 +74,9 @@ export async function eventLogin(eMail, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, eMail, password);
     // Signed in
-    // const user = userCredential.user;
+    const user = userCredential.user;
     const electronicEmail = userCredential.user.email;
-    // console.log(`${user}, signed in`);
+    console.log(`${user}, signed in`);
     console.log(`${userCredential}, signed in`);
     // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
     // window.location.hash = '#/principal'; //TEST: window is not defined
