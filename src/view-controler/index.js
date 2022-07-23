@@ -18,8 +18,8 @@ const changeView = (route) => {
       return fSharePost(); }
     case '#/registro':
     // eslint-disable-next-line no-lone-blocks
-    { container.appendChild(components.register());
-      fEventRegister(); }
+      { container.appendChild(components.register());
+        fEventRegister(); }
       break;
     case '#/login':
     { container.appendChild(components.login());
