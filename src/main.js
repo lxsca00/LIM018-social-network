@@ -1,13 +1,20 @@
 // Este es el punto de entrada de tu aplicacion // RELACION CON EL DOM
 
-// import { myFunction } from './lib/index.js';
-// myFunction();
-
 import {
   eventRegister,
   eventLogin,
   eventLogout,
 } from './lib/index.js';
+
+// eslint-disable-next-line import/no-cycle
+import { changeView } from './view-controler/index.js';
+
+// PARA CAMBIAR DE VISTA
+const init = () => {
+  changeView(window.location.hash);
+  window.addEventListener('hashchange', () => changeView(window.location.hash));
+};
+window.addEventListener('load', init);
 
 // REGISTRO DE USUARIO
 export const fEventRegister = () => {

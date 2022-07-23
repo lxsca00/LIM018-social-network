@@ -1,16 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-// } from 'firebase/app';
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+} from 'firebase/app';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-// } from 'firebase/auth';
+// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+} from 'firebase/auth';
 
 /* import {
   getFirestore,
@@ -42,46 +42,49 @@ const app = initializeApp(firebaseConfig);
 // FUNCIONES PURAS - TO TEST
 
 // REGISTRO DE USUARIO
-export function eventRegister(email, password) {
+export function eventRegister(eMail, password) {
   const auth = getAuth();
   // return createUserWithEmailAndPassword(auth, email, password)
-  return createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(auth, eMail, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       const electronicEmail = userCredential.user.email;
       // ...
       console.log(`user created successfully: ${user}`);
-      // sessionStorage.getItem(user);
-      // window.location.hash = '#/login';
+      // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
+      // window.location.hash = '#/login'; //TEST: window is not defined
       return (`${electronicEmail} created successfully`);
     })
     .catch((error) => {
-      // const errorCode = error.code;
+      const errorCode = error.code;
       const errorMessage = error.message;
       // ..
       console.log(errorMessage);
-      // alert(`${errorMessage}`);
+      console.log(errorCode);
+      // alert(`${errorMessage}`) // TEST: el alert para los test is not defined
       return (errorMessage);
     });
 }
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
-export async function eventLogin(email, password) {
+export async function eventLogin(eMail, password) {
   const auth = getAuth();
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, eMail, password);
     // Signed in
     // const user = userCredential.user;
     const electronicEmail = userCredential.user.email;
-    console.log(`${userCredential}, signed in`);
-    // sessionStorage.getItem(user);
-    // window.location.hash = '#/principal';
+    // console.log(`${user}, signed in`);
+    // console.log(`${userCredential}, signed in`);
+    // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
+    // window.location.hash = '#/principal'; //TEST: window is not defined
     return (`${electronicEmail} si tiene una cuenta activa`);
   } catch (error) {
     // const errorCode = error.code;
     const errorMessage = error.message;
-    // alert(errorMessage);
+    // console.log(errorMessage); // TEST: el alert para los test is not defined
+    // console.log(errorCode);
     return (errorMessage);
   }
 }
