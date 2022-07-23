@@ -1,16 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-} from 'firebase/app';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// } from 'firebase/app';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-} from 'firebase/auth';
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// } from 'firebase/auth';
 
 /* import {
   getFirestore,
@@ -52,16 +52,17 @@ export function eventRegister(email, password) {
       const electronicEmail = userCredential.user.email;
       // ...
       console.log(`user created successfully: ${user}`);
-      sessionStorage.getItem(user);
-      window.location.hash = '#/login';
+      // sessionStorage.getItem(user);
+      // window.location.hash = '#/login';
       return (`${electronicEmail} created successfully`);
     })
     .catch((error) => {
       // const errorCode = error.code;
       const errorMessage = error.message;
       // ..
-      alert(`${errorMessage}`);
-      return ('error');
+      console.log(errorMessage);
+      // alert(`${errorMessage}`);
+      return (errorMessage);
     });
 }
 
@@ -71,16 +72,16 @@ export async function eventLogin(email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     // Signed in
-    const user = userCredential.user;
+    // const user = userCredential.user;
     const electronicEmail = userCredential.user.email;
     console.log(`${userCredential}, signed in`);
-    sessionStorage.getItem(user);
-    window.location.hash = '#/principal';
+    // sessionStorage.getItem(user);
+    // window.location.hash = '#/principal';
     return (`${electronicEmail} si tiene una cuenta activa`);
   } catch (error) {
     // const errorCode = error.code;
     const errorMessage = error.message;
-    alert(errorMessage);
+    // alert(errorMessage);
     return (errorMessage);
   }
 }

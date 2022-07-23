@@ -13,7 +13,7 @@ describe('eventRegister', () => {
   });
   // https://jestjs.io/es-ES/docs/asynchronous
   // RESOLVES
-  test('login (ingreso) para usuario registrado', () => expect(eventLogin('sss@gmail.com', '123456')).resolves.toBe('El sss@gmail.com si tiene una cuenta activa'));
+  test('login (ingreso) para usuario registrado', () => expect(eventLogin('sss@gmail.com', '123456')).resolves.toBe('sss@gmail.com si tiene una cuenta activa'));
   test('login (ingreso) para usuario sin registrar', () => expect(eventLogin('Ab1wqwed23@gmail.com', 'aqwe456')).resolves.toBe('Firebase: Error (auth/user-not-found).'));
   // https://jestjs.io/es-ES/docs/asynchronous
 

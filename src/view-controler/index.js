@@ -15,10 +15,11 @@ const changeView = (route) => {
     { return container.appendChild(components.login()); }
     case '#/principal':
     { container.appendChild(components.home());
+      console.log('object');
       return fSharePost(); }
     case '#/registro':
-    // eslint-disable-next-line no-lone-blocks
-      { container.appendChild(components.register());
+    { container.appendChild(components.register()); 
+        console.log('se abrio login');
         fEventRegister(); }
       break;
     case '#/login':
