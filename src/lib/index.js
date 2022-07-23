@@ -2,14 +2,14 @@
 // aqui exportaras las funciones que necesites // FUNCIONES PURAS?
 // FIREBASE
 
-import { initializeApp } from 'firebase/app';
+// import { initializeApp } from 'firebase/app';
 // eslint-disable-next-line max-len
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-// import {
-//   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-import { components } from '../view/index.js';
+// import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// import { components } from '../view/index.js';
 // CREDENCIALES
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
