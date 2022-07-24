@@ -22,9 +22,9 @@ const db = getFirestore();
 
 
 //-----------------creando const para guardar datos en firestore
-export const saveUser = (name, username,) => {
+/*export const saveUser = (name, username,) => {
   addDoc(collection(db, "userdata"),{name,username});
-}
+}*/
     
 export const comentario = (comentariouser) =>
     addDoc(collection(db, "userdata"),{comentariouser});
