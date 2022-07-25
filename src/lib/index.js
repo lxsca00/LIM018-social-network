@@ -12,11 +12,11 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 // } from 'firebase/auth';
 
-/* import {
+import {
   getFirestore,
   collection,
   addDoc,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; */
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; 
 
 /* import {
   getAnalytics,
@@ -38,7 +38,22 @@ const firebaseConfig = {
 // eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-// const db = getFirestore(app);
+const db = getFirestore(app);
+
+//FUNCION PARA GUARDAR DATOS
+
+//window.addEventListener('DOMContentLoaded', () =>{ //evento cuando cargue pagina })
+
+export const saveUser = (name, username,email, password) => {   //crea doc collection con datos de user
+  addDoc(collection(db, "userdata"),{name, username,email, password});
+}
+export const comentario = (comentariouser) =>
+    addDoc(collection(db, "userdata"),{comentariouser});
+
+
+
+
+
 
 // FUNCIONES PURAS - TO TEST
 
@@ -57,6 +72,7 @@ export function eventRegister(eMail, password) {
       // window.location.hash = '#/login'; //TEST: window is not defined
       return (`${electronicEmail} created successfully`);
     })
+
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;

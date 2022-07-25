@@ -9,6 +9,10 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { changeView } from './view-controler/index.js';
 
+import {
+  saveUser,
+} from './lib/index.js';
+
 // PARA CAMBIAR DE VISTA
 const init = () => {
   changeView(window.location.hash);
@@ -23,9 +27,13 @@ export const fEventRegister = () => {
     e.preventDefault();
     const email = document.getElementById('user-email').value;
     const password = document.getElementById('user-password').value;
-    // const name = document.getElementById('user-name').value;
-    // const username = document.getElementById('user-username').value;
+    const name = document.getElementById('user-name').value;
+    const username = document.getElementById('user-username').value;
+    
     eventRegister(email, password);
+
+   //saveUser(email, password,name,username);
+   
   });
 };
 
