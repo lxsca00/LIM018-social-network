@@ -6,6 +6,7 @@ import {
   eventLogout,
   googleSignIn,
   facebookSignIn,
+  saveTask,
 } from './lib/index.js';
 
 // eslint-disable-next-line import/no-cycle
@@ -35,7 +36,6 @@ export const fEventRegister = () => {
 };
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
-    
 // INICIAR SESIÓN
 export const fEventLogin = () => {
   const signInForm = document.querySelector('#form-login');
@@ -76,6 +76,8 @@ export const fEventLogout = () => {
 export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
+  const comment = document.getElementById('comment').value;
+  saveTask(comment);
   toShare.addEventListener('click', () => {
     const oldPost = `
       <div class="old-publication" >

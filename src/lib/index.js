@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-} from 'firebase/app'; // TEST
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// } from 'firebase/app'; // TEST
 // import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import {
   getAuth,
@@ -11,19 +11,19 @@ import {
   signOut, signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-} // } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-from 'firebase/auth'; // TEST
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// } from 'firebase/auth'; // TEST
 
 import {
   getFirestore,
   collection,
   addDoc,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; */
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
+// } from 'firebase/firestore'; // TEST
 
 /* import {
   getAnalytics,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js'; */
-
 
 // CREDENCIALES
 // TODO: Replace the following with your app's Firebase project configuration
@@ -154,4 +154,8 @@ export const facebookSignIn = () => {
       console.log(errorMessage);
       // ...
     });
+};
+
+export const saveTask = (comment) => {
+  addDoc(collection(db, 'userdata'), { comment });
 };

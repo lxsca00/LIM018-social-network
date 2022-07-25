@@ -43,7 +43,7 @@ header {
     font-size: 2rem;
 }
 
-#containerNav p, #check {
+#containerNav path, #check {
     display: none;
 }
 
@@ -89,7 +89,7 @@ footer {
         display: block;
     }
 
-    #containerNav p {
+    #containerNav path {
         display: block;
         position: fixed;
         top: 20px;
