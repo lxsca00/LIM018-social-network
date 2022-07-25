@@ -1,7 +1,8 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+
 
 //credenciales
 const firebaseConfig = {
@@ -16,22 +17,18 @@ const firebaseConfig = {
 };
 
 //-----------------iniciando firestore
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
-/*const analytics = getAnalytics(app);*/
+const auth = getAuth();
+//const provider = new GoogleAuthProvider();
+     
 
 
 //-----------------creando const para guardar datos en firestore
-/*export const saveUser = (name, username,) => {
-  addDoc(collection(db, "userdata"),{name,username});
-}*/
-    
-export const comentario = (comentariouser) =>
-    addDoc(collection(db, "userdata"),{comentariouser});
-    
-  window.addEventListener('DOMContentLoaded', () =>{
 
-    })
+
+    
     
     
 // -------------------evento registro de datos
@@ -63,6 +60,8 @@ export const eventRegister = () => {
       });
       })}
 
+
+
       export const eventLogin = () => {
         const signInForm = document.querySelector('#form-login');
         signInForm.addEventListener('submit', (e) => {
@@ -81,7 +80,7 @@ export const eventRegister = () => {
               window.location.hash = '#/principal';
             })
             .catch((error) => {
-              const errorCode = error.code;
+              //const errorCode = error.code;
               const errorMessage = error.message;
               alert(errorMessage);
             });
@@ -110,6 +109,10 @@ export const eventRegister = () => {
         const toShare = document.getElementById('toShare');
         let numberPost = 0;
         toShare.addEventListener('click', () => {
+          
+        const comment = document.getElementById('comment').value;
+        addDoc(collection(db, "userdata"),{comment}); //creacion db firestore del usuario
+          
           const oldPost = `
             <div class="old-publication" >
               <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
@@ -123,17 +126,27 @@ export const eventRegister = () => {
               </div>
                 </div>
             </div>`;
+
+            
+
+  
             const parentPost = document.getElementById('all-publications');
             const divElem = document.createElement('div');
+           
             // eslint-disable-next-line max-len
             // se debe almacenar en un solo div porque sino ('node') to Node.appendChild must be an instance of Node
             numberPost += 1;
+
             divElem.id = `post ${numberPost}`;
             divElem.innerHTML = oldPost;
             return parentPost.appendChild(divElem);
             
-            
+           
             })
-         
+
           }
 
+
+
+
+       
