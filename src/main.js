@@ -4,6 +4,8 @@ import {
   eventRegister,
   eventLogin,
   eventLogout,
+  googleSignIn,
+  facebookSignIn,
 } from './lib/index.js';
 
 // eslint-disable-next-line import/no-cycle
@@ -17,19 +19,24 @@ const init = () => {
 window.addEventListener('load', init);
 
 // REGISTRO DE USUARIO
+
 export const fEventRegister = () => {
   const signUpForm = document.querySelector('#register-form');
   signUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('user-email').value;
     const password = document.getElementById('user-password').value;
-    // const name = document.getElementById('user-name').value;
-    // const username = document.getElementById('user-username').value;
-    eventRegister(email, password);
+    const name = document.getElementById('user-name').value;
+    const username = document.getElementById('user-username').value;
+    const country = document.getElementById('user-country').value;
+    const birth = document.getElementById('user-birth').value;
+    eventRegister(name, username, email, password, country, birth);
   });
 };
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
+    
+// INICIAR SESIÓN
 export const fEventLogin = () => {
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
@@ -37,6 +44,22 @@ export const fEventLogin = () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     eventLogin(email, password);
+  });
+};
+
+// INICIAR SESIÓN CON GOOGLE
+export const fGoogleSignIn = () => {
+  document.querySelector('.image-google').addEventListener('click', (e) => {
+    e.preventDefault();
+    googleSignIn();
+  });
+};
+
+// INICIAR SESIÓN CON FACEBOOK
+export const fFacebookSignIn = () => {
+  document.querySelector('.image-facebook').addEventListener('click', (e) => {
+    e.preventDefault();
+    facebookSignIn();
   });
 };
 
@@ -77,3 +100,39 @@ export function fSharePost() {
     return parentPost.appendChild(divElem);
   });
 }
+
+// Función para que aparezca un modal para editar perfil
+
+export const editProfile = () => {
+  document.getElementById('editProfile').addEventListener('click', (e) => {
+    e.preventDefault();
+    const profile = document.querySelector('.profile');
+    const modal = `
+    <div class="modal-edit">
+      <div class="modal-card">
+        <button class="close">&times;</button>
+        <h3> Editar perfil </h3>
+        <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
+        <h3> ¿Qué prefieres ver? </h3>
+        <input type="text" id="changeElection" placeholder="¿Peliculas o series?">
+        <h3> ¿Tu género favorito? <h3>
+        <input type="text" id="changeGenre" placeholder="Cuentanos cuáles son tus géneros favoritos">
+        <button type="button" id="saveChanges"> Guardar cambios </button>
+      </div>
+    <div>`;
+    profile.insertAdjacentHTML('beforeend', modal);
+    document.querySelector('.close').addEventListener('click', () => {
+      const containerModal = document.querySelector('.modal-edit');
+      containerModal.remove();
+    });
+    document.querySelector('#saveChanges').addEventListener('click', () => {
+      const newDescription = document.getElementById('changeDescription').value;
+      const oldDescription = document.querySelector('.user-description');
+      const containerModal = document.querySelector('.modal-edit');
+      if (newDescription !== '') {
+        oldDescription.innerHTML = newDescription;
+        containerModal.remove();
+      }
+    });
+  });
+};
