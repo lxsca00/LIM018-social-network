@@ -3,7 +3,12 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut, signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 
@@ -25,31 +30,44 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth();
 
+// Función para crear nueva colección de datos
+export const comentario = (comentariouser) => addDoc(collection(db, 'userdata'), { comentariouser });
+
+window.addEventListener('DOMContentLoaded', () => {
+
+});
+
+// Función para registrarse con email y contraseña
+
 export const eventRegister = () => {
   const signUpForm = document.querySelector('#register-form');
   signUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('user-email').value;
-    const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
     const username = document.getElementById('user-username').value;
+    const email = document.getElementById('user-email').value;
+    const password = document.getElementById('user-password').value;
+    const country = document.getElementById('user-country').value;
+    const birth = document.getElementById('user-birth').value;
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        addDoc(collection(db, 'userdata'), {
+          name, username, email, password, country, birth,
+        }); // Creacion db firestore del usuario
         const user = userCredential.user;
-        // ...
-        console.log('user created successfully');
         sessionStorage.getItem(user);
         window.location.hash = '#/login';
+        // Agregar un modal que diga que se creó satisfactoriamente e inicie sesión
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
-        alert(errorMessage);
+        const mensajealert = (`Intentalo Nuevamente : ${errorMessage}`); // Mensaje error registro
+        alert(mensajealert);
       });
   });
 };
+
+// Función para ingresar con email y contraseña
 
 export const eventLogin = () => {
   const signInForm = document.querySelector('#form-login');
@@ -62,18 +80,18 @@ export const eventLogin = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
-        console.log('signed in');
         sessionStorage.getItem(user);
         window.location.hash = '#/principal';
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        alert(errorMessage); // Mensaje de error
+        // Agregar modal que lance el error
       });
   });
 };
+
+// Función para cerrar la sesión
 
 export const eventLogout = () => {
   const logout = document.querySelector('#logout');
@@ -84,7 +102,7 @@ export const eventLogout = () => {
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.
-      console.log('something happened');
+      console.log(error);
     });
     sessionStorage.clear();
   });
@@ -121,6 +139,8 @@ export function sharePost() {
   });
 }
 
+// Función para que aparezca un modal para editar perfil
+
 export const editProfile = () => {
   document.getElementById('editProfile').addEventListener('click', (e) => {
     e.preventDefault();
@@ -152,18 +172,64 @@ export const editProfile = () => {
         containerModal.remove();
       }
     });
-    /* const editModal = document.createElement('div');
-     editModal.classList = 'modal-edit';
-    profile.appendChild(editModal);
-    const modalCard = document.createElement('div');
-    modalCard.classList = 'modal-card';
-    editModal.appendChild(modalCard);
-    const changeInput = document.createElement('input');
-    changeInput.setAttribute('type', 'text');
-    modalCard.appendChild(changeInput);
-    const changeButton = document.createElement('button');
-    changeButton.id = 'changeButton';
-    changeButton.setAttribute('type', 'button');
-    modalCard.appendChild(changeButton); */
+  });
+};
+
+// Función para iniciar sesión con Google
+
+export const googleSignIn = () => {
+  const provider = new GoogleAuthProvider();
+  document.querySelector('.image-google').addEventListener('click', () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        sessionStorage.getItem(user);
+        window.location.hash = '#/principal';
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  });
+};
+
+// Iniciar sesión con Facebook
+export const facebookSignIn = () => {
+  const provider = new FacebookAuthProvider();
+  document.querySelector('.image-facebook').addEventListener('click', (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        // ...
+        sessionStorage.getItem(user);
+        window.location.hash = '#/principal';
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
   });
 };

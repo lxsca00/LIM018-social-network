@@ -1,106 +1,74 @@
 #container-login {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    margin-right: 5%;
-    margin-left: 5%;
-    padding: 5%;
-    /*background-color: rgb(129, 120, 120);*/
+    margin: 15% 5%;
 }
 
 .image-login {
-    justify-content: center;
     border-radius: 80%;
     background-color: rgb(250, 244, 244);
-    width: 40%;
-    height: 40%;
-    /*background-color: rgb(196, 202, 202);*/ 
+    width: 30%;
+    height: 30%;
 }
 
-.h2-login{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    font-size: 180%;
+#login-message {
+    text-align: left;
+    margin: 0 0 1rem 0;
 }
 
 .form-login{
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    height: 90%;
-    /*background-color: rgb(248, 149, 20);*/
-    margin-right: 5%;
-    margin-left: 5%;
+    width: 70%;
+    align-items: flex-start;
+    margin: 0 5%;
 }
 
-.h1-login{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    text-align: center;
+.form-login input {
+    background: #FFFFFE;
+    border-radius: 15px;
+    border: 0;
+    padding: 0.5rem 1rem;
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+.form-login h1{
+    margin: 1.5rem 0;
     font-size: 200%;
+    color: var(--white);
 }
 
-.p-login {
+.form-login p {
     text-align: center;
-    font-size: 10px; 
+}
+
+#login-button {
+    width: 100%;
+    margin: 0 0 1.5rem 0;
 }
 
 .logo-container{
     display: flex;
     justify-content: center;
     gap: 2rem;
+    margin: 1rem;
 }
 
-.image-google{
-    border-radius: 70%;
-    width: 10%;
-    height: 10%;
-    
-}
-.image-facebook{
-    border-radius: 60%;
-    width: 10%;
-    height: 10%;   
+.image-google, .image-facebook{
+    border-radius: 50%;
+    width: 8%;
+    height: 8%; 
 }
 
-@media screen and (min-width: 500px) {
-
-    .container-login{
-        display: inline-block;
-        
-    }
-    .image-login{
-        border-radius: 50%;
-        float: left;
-        width: 20%;
-        height: 20%;
-    }
-    .h2-login{
-        font-size: 180%;
-    }
-
-    .form-login{
+@media screen and (min-width: 768px) {
+    #container-login {
         display: flex;
-        justify-content: center;
-        width: 50%;
-        height: 50%;
-        /*background-color: rgb(248, 149, 20);*/
-
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 9rem 3rem
     }
-    .image-google{
-        flex-direction: column;
-        border-radius: 70%;
-        width: 2%;
-        height: 2%;
-        
-    }
-    .image-facebook{
-        flex-direction: column;
-        border-radius: 60%;
-        width: 2%;
-        height: 2%;   
+    
+    .form-login {
+        width: 45%;
     }
 }
