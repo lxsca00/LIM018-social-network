@@ -1,6 +1,13 @@
+/* eslint-disable import/no-cycle */
 import {
-  eventLogin, eventLogout, eventRegister, sharePost, editProfile, googleSignIn, facebookSignIn,
-} from '../lib/index.js';
+  fEventLogin,
+  fEventLogout,
+  fEventRegister,
+  fSharePost,
+  editProfile,
+  fGoogleSignIn,
+  fFacebookSignIn,
+} from '../main.js';
 import { addCountries } from '../view/countries.js';
 import { components } from '../view/index.js';
 
@@ -13,21 +20,21 @@ const changeView = (route) => {
     { return container.appendChild(components.login()); }
     case '#/principal':
     { container.appendChild(components.home());
-      return sharePost(); }
+      return fSharePost(); }
     case '#/registro':
     { container.appendChild(components.register());
       addCountries();
-      return eventRegister(); }
+      return fEventRegister(); }
     case '#/login':
     { container.appendChild(components.login());
-      googleSignIn();
-      facebookSignIn();
-      return eventLogin(); }
+      fGoogleSignIn();
+      fFacebookSignIn();
+      return fEventLogin(); }
     case '#/profile':
     { container.appendChild(components.profile());
       return editProfile(); }
     case '#/cerrarSesion':
-    { return eventLogout(); }
+    { return fEventLogout(); }
     default:
       break;
   }
