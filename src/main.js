@@ -29,6 +29,3 @@ window.addEventListener('load', init);
 // }
 // sharePost;
 
-const querySnapshot = getTasks()
-
-const taskForm = document.getElementById('publication')
