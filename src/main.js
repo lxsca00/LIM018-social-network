@@ -6,7 +6,7 @@ import {
   eventLogout,
   googleSignIn,
   facebookSignIn,
-  // saveTask,
+  saveTask,
 } from './lib/index.js';
 
 // eslint-disable-next-line import/no-cycle
