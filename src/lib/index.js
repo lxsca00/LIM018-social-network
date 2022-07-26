@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+//} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
 } from 'firebase/app'; // TEST
 
 import {
@@ -9,7 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-// } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+//} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 } from 'firebase/auth'; // TEST
 
 /* import {
