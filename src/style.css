@@ -29,6 +29,7 @@ header {
     align-items: center;
     padding: 0.5rem;
     background-color: var(--orange2);
+    visibility: hidden;
 }
 
 #containerNav ul {
@@ -82,7 +83,6 @@ button {
 footer {
     text-align: center;
 }
-
 
 @media screen and (max-width: 768px) {
     .checkbtn {

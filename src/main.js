@@ -138,3 +138,17 @@ export const editProfile = () => {
     });
   });
 };
+
+// funcion para registrarse
+
+export const inicioPage = () => {
+  document.getElementById('registrarmeInicio-button').addEventListener('click', () => {
+    document.getElementById('header').style.visibility = 'visible';
+
+    window.location.hash = '#/registro';
+  });
+  document.getElementById('loginInicio-button').addEventListener('click', () => {
+    document.getElementById('header').style.visibility = 'visible';
+    window.location.hash = '#/login';
+  });
+};

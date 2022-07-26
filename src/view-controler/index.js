@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable import/no-cycle */
 import {
   fEventLogin,
@@ -7,6 +8,7 @@ import {
   editProfile,
   fGoogleSignIn,
   fFacebookSignIn,
+  inicioPage,
 } from '../main.js';
 import { addCountries } from '../view/countries.js';
 import { components } from '../view/index.js';
@@ -17,7 +19,9 @@ const changeView = (route) => {
   container.innerHTML = '';
   switch (route) {
     case '#/':
-    { return container.appendChild(components.login()); }
+    { container.appendChild(components.inicio());
+      document.getElementById('header').style.visibility = 'hidden';
+      return inicioPage(); }
     case '#/principal':
     { container.appendChild(components.home());
       return fSharePost(); }
