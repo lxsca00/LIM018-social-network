@@ -4,6 +4,7 @@ import {
   fEventLogin,
   fEventLogout,
   fSharePost,
+  //registerFirebase,
 } from '../main.js';
 import { components } from '../view/index.js';
 
@@ -19,7 +20,9 @@ const changeView = (route) => {
       return fSharePost(); }
     case '#/registro':
     { container.appendChild(components.register());
-      return fEventRegister(); }
+      return fEventRegister(); 
+      //registerFirebase();
+    }
     case '#/login':
     { container.appendChild(components.login());
       return fEventLogin(); }

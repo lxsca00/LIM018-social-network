@@ -15,7 +15,7 @@ import {
 import {
   getFirestore,
   collection,
-  addDoc,
+  addDoc,setDoc,doc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; 
 
 /* import {
@@ -44,11 +44,25 @@ const db = getFirestore(app);
 
 //window.addEventListener('DOMContentLoaded', () =>{ //evento cuando cargue pagina })
 
-export const saveUser = (name, username,email, password) => {   //crea doc collection con datos de user
-  addDoc(collection(db, "userdata"),{name, username,email, password});
+/*export const saveUser = (name, username,email, password, ) => {   //crea doc collection con datos de user
+  addDoc(collection(db, 'userdata'),{name, username,email, password});
+
+}*/
+/*export const saveComment = (uid, comment) => {   //crea doc collection con datos de user
+  addDoc(collection(db, "userdata"),{uid, comment})
+  .then((docRef) => {
+    console.log('post creado', docRef);
+  });
 }
-export const comentario = (comentariouser) =>
-    addDoc(collection(db, "userdata"),{comentariouser});
+
+export const getComment = (querySnapshot) => {
+  const queryComment= query(collection(db, 'comment'), orderBy('datePost', 'desc'));
+  onSnapshot(queryComment, querySnapshot);
+};
+export const getUser = (id) => getDoc(doc(db, 'users', id)); //user del comentario
+*/
+
+
 
 
 
@@ -66,11 +80,14 @@ export function eventRegister(eMail, password) {
       // Signed in
       const user = userCredential.user;
       const electronicEmail = userCredential.user.email;
-      // ...
+      addDoc(collection(db, 'userdata'),{eMail, password})
+
       console.log(`user created successfully: ${user}`);
       // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
       // window.location.hash = '#/login'; //TEST: window is not defined
-      return (`${electronicEmail} created successfully`);
+      console.log((`${electronicEmail} created successfully`)); //esto estaba en el retur
+      return (user);
+
     })
 
     .catch((error) => {

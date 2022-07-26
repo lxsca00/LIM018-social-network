@@ -4,14 +4,15 @@ import {
   eventRegister,
   eventLogin,
   eventLogout,
+  //saveComment,
+  //getComment,
+ // getUser,
+  //saveUser,
 } from './lib/index.js';
 
 // eslint-disable-next-line import/no-cycle
 import { changeView } from './view-controler/index.js';
 
-import {
-  saveUser,
-} from './lib/index.js';
 
 // PARA CAMBIAR DE VISTA
 const init = () => {
@@ -31,11 +32,14 @@ export const fEventRegister = () => {
     const username = document.getElementById('user-username').value;
     
     eventRegister(email, password);
+    
+    
+     })};
+    
 
    //saveUser(email, password,name,username);
    
-  });
-};
+
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
 export const fEventLogin = () => {
@@ -65,7 +69,7 @@ export function fSharePost() {
     const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-        <input type="text" class="old-comment">
+        <input type="text" class="old-comment" id="old-comment" >
         <div class="container-button">
           <div class="emojis">
             <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
@@ -85,3 +89,27 @@ export function fSharePost() {
     return parentPost.appendChild(divElem);
   });
 }
+
+//guardar datos en firesor - registro
+
+ /*export function registerFirebase() {
+  const btnRegister = document.getElementById('btnRegister');
+  btnRegister.addEventListener('click', (e) => {
+    e.preventDefault()
+  const email = document.getElementById('user-email').value;
+  const password = document.getElementById('user-password').value;
+  const name = document.getElementById('user-name').value;
+  const username = document.getElementById('user-username').value;
+  console.log(email)
+  const user2 =  eventRegister(email, password);
+  return saveUser(email, password, name, username, user2);
+
+ })};*/
+
+
+/*const toShare = document.getElementById('toShare');
+const oldComment = document.getElementById('old-Comment');
+
+toShare.addEventListener('click', () => {
+ saveComment(uid, comment)
+});*/
