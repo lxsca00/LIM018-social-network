@@ -8,7 +8,7 @@ import {
   fGoogleSignIn,
   fFacebookSignIn,
   inicioPage,
-} from '../main.js';
+} from '../funcionesDom.js';
 import { addCountries } from '../view/countries.js';
 import { components } from '../view/index.js';
 
@@ -44,9 +44,4 @@ const changeView = (route) => {
   // console.log(route);
 };
 
-// PARA CAMBIAR DE VISTA
-const init = () => {
-  changeView(window.location.hash);
-  window.addEventListener('hashchange', () => changeView(window.location.hash));
-};
-window.addEventListener('load', init);
+export { changeView };
