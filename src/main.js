@@ -9,16 +9,6 @@ import {
   saveTask,
 } from './lib/index.js';
 
-// eslint-disable-next-line import/no-cycle
-import { changeView } from './view-controler/index.js';
-
-// PARA CAMBIAR DE VISTA
-const init = () => {
-  changeView(window.location.hash);
-  window.addEventListener('hashchange', () => changeView(window.location.hash));
-};
-window.addEventListener('load', init);
-
 // REGISTRO DE USUARIO
 
 export const fEventRegister = () => {

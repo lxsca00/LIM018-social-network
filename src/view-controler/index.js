@@ -1,5 +1,4 @@
 /* eslint-disable import/named */
-/* eslint-disable import/no-cycle */
 import {
   fEventLogin,
   fEventLogout,
@@ -45,4 +44,9 @@ const changeView = (route) => {
   // console.log(route);
 };
 
-export { changeView };
+// PARA CAMBIAR DE VISTA
+const init = () => {
+  changeView(window.location.hash);
+  window.addEventListener('hashchange', () => changeView(window.location.hash));
+};
+window.addEventListener('load', init);
