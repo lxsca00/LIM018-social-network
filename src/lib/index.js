@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Función para registrarse con email y contraseña
 
-export async function eventRegister(name, username, email, password, country, birth) {
+export function eventRegister(name, username, email, password, country, birth) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       addDoc(collection(db, 'userdata'), {
@@ -66,8 +66,9 @@ export async function eventRegister(name, username, email, password, country, bi
     })
   // eslint-disable-next-line consistent-return
     .catch((error) => {
-      const errorMessage = error.message;
-      const mensajealert = (`Intentalo Nuevamente : ${errorMessage}`); // Mensaje error registro
+      // const errorMessage = error.message;
+      const errorCode = error.code;
+      const mensajealert = (`Intentalo Nuevamente : ${errorCode}`); // Mensaje error registro
       alert(mensajealert);
     });
 }

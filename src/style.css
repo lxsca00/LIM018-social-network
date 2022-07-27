@@ -32,6 +32,11 @@ header {
     /* visibility: hidden; */
 }
 
+#containerNav {
+    display: flex;
+    align-items: center;
+}
+
 #containerNav ul {
     list-style: none;
     display: flex;

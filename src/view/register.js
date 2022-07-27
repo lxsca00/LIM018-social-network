@@ -11,10 +11,6 @@ export default () => {
       <input id="user-username" type="text" placeholder="Nombre de usuario">
       <input id="user-email" type="text" placeholder="Correo electrónico">
       <input id="user-password" type="password" placeholder="Contraseña">
-      <select id="user-country" name="select">
-        <option disabled selected>Selecciona tu país</option> 
-      </select>
-      <input id="user-birth" type="date" placeholder="Fecha de nacimiento">
       <button id="register-button" type="submit"> Registrarme </button>
       <p> ¿Ya tienes cuenta? <a href="#/login"> Inicia sesión </a> </p>
       </form>

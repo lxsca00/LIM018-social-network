@@ -19,9 +19,9 @@ export const fEventRegister = () => {
     const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
     const username = document.getElementById('user-username').value;
-    const country = document.getElementById('user-country').value;
-    const birth = document.getElementById('user-birth').value;
-    eventRegister(name, username, email, password, country, birth);
+    // const country = document.getElementById('user-country').value;
+    // const birth = document.getElementById('user-birth').value;
+    eventRegister(name, username, email, password);
   });
 };
 
