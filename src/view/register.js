@@ -10,7 +10,9 @@ export default () => {
       <input id="user-name" type="text" placeholder="Nombre">
       <input id="user-username" type="text" placeholder="Nombre de usuario">
       <input id="user-email" type="text" placeholder="Correo electrónico">
+      <p id="email-register-error"> Hay un error con tu correo </p>
       <input id="user-password" type="password" placeholder="Contraseña">
+      <p id="password-register-error"> Hay un error con tu contraseña </p>
       <button id="register-button" type="submit"> Registrarme </button>
       <p> ¿Ya tienes cuenta? <a href="#/login"> Inicia sesión </a> </p>
       </form>

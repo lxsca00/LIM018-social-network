@@ -18,17 +18,20 @@
     margin: 1.5rem 0;
 }
 
-.register-form p {
-    margin: 0 0 1rem 0;
+.register-message {
+    margin: 0 0 2rem 0;
 }
 
-.register-form input, select {
+.register-form input {
     background: #FFFFFE;
     border-radius: 15px;
     border: 0;
     padding: 0.5rem 1rem;
-    margin: 0 0 1rem 0;
     width: 100%;
+}
+
+#user-name, #user-username {
+    margin: 0 0 2rem 0;
 }
 
 .image-register{
@@ -39,9 +42,14 @@
     height: 30%;
 }
 
+#email-register-error, #password-register-error {
+    visibility: hidden;
+    margin: 0 0 1rem 0;
+}
+
 #register-button {
     width: 100%;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 2.5rem 0;
 }
 
 @media screen and (min-width: 768px) {

@@ -6,10 +6,11 @@ main{
     margin: 0% 0%;
 }
 #container-inicio {
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
 }
 .fondo-logo{
     width: 20rem;
@@ -25,11 +26,13 @@ main{
     border-radius: 50%;
     background-color: var(--white)
 }
+
 #marca{
     font-size: 4rem; 
     color: transparent;
     background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
     background-clip: text;
+    -webkit-background-clip: text;
     font-weight: bold;
 }
 #inicio-message {

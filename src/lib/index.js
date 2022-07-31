@@ -18,6 +18,9 @@ import {
   getFirestore,
   collection,
   addDoc,
+  // setDoc,
+  doc,
+  updateDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -45,31 +48,43 @@ const db = getFirestore(app);
 const auth = getAuth();
 
 // Función para crear nueva colección de datos
-export const comentario = (comentariouser) => addDoc(collection(db, 'userdata'), { comentariouser });
+// eslint-disable-next-line max-len
+/* export const comentario = (comentariouser) => addDoc(collection(db, 'userdata'), { comentariouser });
 
 window.addEventListener('DOMContentLoaded', () => {
 
-});
+}); */
 
 // Función para registrarse con email y contraseña
 
-export function eventRegister(name, username, email, password, country, birth) {
+export function eventRegister(name, username, email, password) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       addDoc(collection(db, 'userdata'), {
-        name, username, email, password, country, birth,
+        name, username, email, password,
       }); // Creacion db firestore del usuario
       const user = userCredential.user;
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
-      // Agregar un modal que diga que se creó satisfactoriamente e inicie sesión
     })
   // eslint-disable-next-line consistent-return
     .catch((error) => {
-      // const errorMessage = error.message;
       const errorCode = error.code;
-      const mensajealert = (`Intentalo Nuevamente : ${errorCode}`); // Mensaje error registro
-      alert(mensajealert);
+      const registerError = document.getElementById('email-register-error');
+      const registerPasswordError = document.getElementById('password-register-error');
+      if (errorCode === 'auth/email-already-in-use') {
+        registerError.style.visibility = 'visible';
+        registerError.innerHTML = 'Email en uso, intenta iniciar sesión';
+      } else if (errorCode === 'auth/invalid-email') {
+        registerError.style.visibility = 'visible';
+        registerError.innerHTML = 'Proporcione una dirección de correo válida';
+      } else if (errorCode === 'auth/internal-error') {
+        registerPasswordError.style.visibility = 'visible';
+        registerPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
+      } else if (errorCode === 'auth/weak-password') {
+        registerPasswordError.style.visibility = 'visible';
+        registerPasswordError.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
+      }
     });
 }
 
@@ -84,9 +99,22 @@ export const eventLogin = (email, password) => {
       window.location.hash = '#/principal';
     })
     .catch((error) => {
-      const errorMessage = error.message;
-      alert(errorMessage); // Mensaje de error
-      // Agregar modal que lance el error
+      const errorCode = error.code;
+      const loginError = document.getElementById('login-email-error');
+      const loginPasswordError = document.getElementById('login-password-error');
+      if (errorCode === 'auth/user-not-found') {
+        loginError.style.visibility = 'visible';
+        loginError.innerHTML = 'No existe ningún usuario registrado con este email';
+      } else if (errorCode === 'auth/invalid-email') {
+        loginError.style.visibility = 'visible';
+        loginError.innerHTML = 'El email ingresado es inválido';
+      } else if (errorCode === 'auth/internal-error') {
+        loginPasswordError.style.visibility = 'visible';
+        loginPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
+      } else if (errorCode === 'auth/wrong-password') {
+        loginPasswordError.style.visibility = 'visible';
+        loginPasswordError.innerHTML = 'La contraseña ingresada es incorrecta';
+      }
     });
 };
 
@@ -157,6 +185,16 @@ export const facebookSignIn = () => {
     });
 };
 
-export const saveTask = (comment) => {
-  addDoc(collection(db, 'userdata'), { comment });
-};
+// export const saveTask = (comment) => {
+// addDoc(collection(db, 'userdata'), { comment });
+// };
+
+// export async function saveBirth(birth) {
+// await setDoc(doc(db, 'userdata', birth));
+// }
+
+export async function saveCountry(country) {
+  // setDoc(doc(db, 'userdata', country));
+  const userCountry = doc(db, 'country', country);
+  await updateDoc(userCountry, { capital: true });
+}
