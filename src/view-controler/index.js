@@ -21,7 +21,6 @@ const changeView = (route) => {
     case '#/registro':
     { container.appendChild(components.register());
       return fEventRegister(); 
-      //registerFirebase();
     }
     case '#/login':
     { container.appendChild(components.login());

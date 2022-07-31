@@ -41,50 +41,28 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-//FUNCION PARA GUARDAR DATOS
-/*export const saveUser = (email, password, name, username) =>
-  addDoc(collection(db, "popCornUser", uid), { email, password, name, username });
 
-  export const registerUserFirestore = (email, name, nickname, uid, imgProfile) => {
-    setDoc(doc(db, 'users', uid), {
-      email,
-      name,
-      nickname,
-      uid,
-      imgProfile,
-    });
-  };*/
-  export const registerUserFirestore = (email, name, username, uid, ) => {
-    setDoc(doc(db, 'users', uid), {
-      email,
-      name,
-      username,
-      uid,
-      
-    });
-  };
+
+  
 // FUNCIONES PURAS - TO TEST
 //addDoc(collection(db, "popCornUser", uid), { eMail, password,uid,name, username});
 // REGISTRO DE USUARIO
-export function eventRegister(eMail, password) {
+export function eventRegister (eMail, password,name, username)  {
+  const auth = getAuth();
   // createUserWithEmailAndPassword(auth, email, password) // con return para que sea una promesa
   createUserWithEmailAndPassword(auth, eMail, password,)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      
-      //const user = userCredential.uid;
-      
+      const uid = user.uid;
+      addDoc(collection(db, "userdata"), { eMail, password, name, username, uid });
+
       console.log(user)
-     
       const electronicEmail = userCredential.user.email;
       console.log(`resgistro exitoso ${user}`);
-      // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
-      // window.location.hash = '#/login'; //TEST: window is not defined
       console.log((`${electronicEmail} created successfully`)); //esto estaba en el retur
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
-     
       return (user);
     })
 
@@ -100,10 +78,11 @@ export function eventRegister(eMail, password) {
       alert(mensajealert);
     });
 }
-/*export const saveUser =  (name, username,email, password, ) => {   //crea doc collection con datos de user
-   addDoc(collection(db, 'userdata'),{name, username,email, password});
 
-};*/
+
+
+
+
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
 export async function eventLogin(eMail, password) {
   const auth = getAuth();
@@ -124,7 +103,7 @@ export async function eventLogin(eMail, password) {
     // console.log(errorCode);
     return (errorMessage);
   }
-}
+};
 
 // CERRAR SESIÓN
 export function eventLogout() {
@@ -142,3 +121,7 @@ export function eventLogout() {
   });
   // sessionStorage.clear();
 }
+
+export function toShareComment(eMail, password, comment, username,name, uid) {
+
+return addDoc(collection(db, "usercomment"), { eMail, password, comment, username,name, uid });}

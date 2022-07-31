@@ -17,7 +17,7 @@ export default () => {
     </div>
     <div class="all-publications" id='all-publications'>
       <div class="publication" id="publication">
-        <input type="text" class="comment">
+        <input type="text" class="comment" id="comment">
         <div class="container-button">
             <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
             <input id="upload" accept="image/jpeg" type="file" class="cargar-foto" >
@@ -26,6 +26,8 @@ export default () => {
       </div>
     </div>  
   </section>`;
+ 
+ 
   const divElem = document.createElement('div');
   divElem.id = 'home';
   divElem.innerHTML = viewHome;
