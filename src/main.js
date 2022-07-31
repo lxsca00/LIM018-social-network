@@ -1,5 +1,7 @@
 // Este es el punto de entrada de tu aplicacion // RELACION CON EL DOM
 
+//import { async } from 'regenerator-runtime';
+import { async } from 'regenerator-runtime';
 import {
   eventRegister,
   eventLogin,
@@ -7,7 +9,8 @@ import {
   //saveComment,
   //getComment,
  // getUser,
-  //saveUser,
+  saveUser,
+  registerUserFirestore,
 } from './lib/index.js';
 
 // eslint-disable-next-line import/no-cycle
@@ -21,25 +24,35 @@ const init = () => {
 };
 window.addEventListener('load', init);
 
+const auth = getAuth();
+const email = document.getElementById('user-email').value;
+const password = document.getElementById('user-password').value;
+const name = document.getElementById('user-name').value;
+const username = document.getElementById('user-username').value;
+
 // REGISTRO DE USUARIO
 export const fEventRegister = () => {
   const signUpForm = document.querySelector('#register-form');
   signUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('user-email').value;
-    const password = document.getElementById('user-password').value;
-    const name = document.getElementById('user-name').value;
-    const username = document.getElementById('user-username').value;
-    
+    //await saveUser(email.value, password.value, name.value, username.value)
     eventRegister(email, password);
-    
-    
-     })};
-    
-
-   //saveUser(email, password,name,username);
-   
-
+    //await saveUser(email, password,name, username, uid);
+    //await saveUser(email.value, password.value, name;.value, username.value, uid);
+   //saveUser(email, password);   
+  }   
+  )}
+  
+    const signUpForm = document.querySelector('#register-form');
+  
+    signUpForm.addEventListener('click', (e) => {
+    e.preventDefault();
+    eventRegister(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+    registerUserFirestore(email, password,username,name,user.uid)
+  } )}
+  )
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
 export const fEventLogin = () => {
