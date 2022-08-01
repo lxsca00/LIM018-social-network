@@ -1,6 +1,6 @@
-// Array de países para selectionar en el registro
+// Array de países para selectionar en el perfil
 
-const countries = [
+export const countries = [
   'Afganistán', 'Albania', 'Alemania',
   'Andorra', 'Angola', 'Antigua y Barbuda',
   'Arabia Saudita', 'Argelia', 'Argentina', 'Armenia',
@@ -38,11 +38,3 @@ const countries = [
   'Uganda', 'Uruguay', 'Uzbekistán', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen',
   'Yibuti', 'Zambia', 'Zimbabue',
 ];
-
-export const addCountries = () => {
-  const selectCountry = document.querySelector('#user-country');
-  countries.forEach((country) => {
-    const category = `<option value="${country}"> ${country} </option>`;
-    selectCountry.insertAdjacentHTML('beforeend', category);
-  });
-};

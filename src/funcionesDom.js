@@ -3,11 +3,16 @@
 import {
   eventRegister,
   eventLogin,
+  obs,
   eventLogout,
   googleSignIn,
   facebookSignIn,
   comentario,
+  saveCountry,
+  // saveTask,
 } from './lib/index.js';
+
+import { countries } from './view/countries.js';
 
 // REGISTRO DE USUARIO
 
@@ -19,8 +24,6 @@ export const fEventRegister = () => {
     const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
     const username = document.getElementById('user-username').value;
-    // const country = document.getElementById('user-country').value;
-    // const birth = document.getElementById('user-birth').value;
     eventRegister(name, username, email, password);
   });
 };
@@ -34,6 +37,7 @@ export const fEventLogin = () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     eventLogin(email, password);
+    obs();
   });
 };
 
@@ -66,6 +70,8 @@ export const fEventLogout = () => {
 export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
+  // const comment = document.getElementById('comment').value;
+  // saveTask(comment);
   toShare.addEventListener('click', () => {
     const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
     comentario(post);
@@ -109,14 +115,17 @@ export const editProfile = () => {
     const modal = `
     <div class="modal-edit">
       <div class="modal-card">
-        <button class="close">&times;</button>
         <h3> Editar perfil </h3>
+        <select id="selectCountry">
+          <option value=" " disabeled select> Selecciona tu país </option>
+        </select>
         <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
         <h3> ¿Qué prefieres ver? </h3>
         <input type="text" id="changeElection" placeholder="¿Peliculas o series?">
         <h3> ¿Tu género favorito? <h3>
         <input type="text" id="changeGenre" placeholder="Cuentanos cuáles son tus géneros favoritos">
         <button type="button" id="saveChanges"> Guardar cambios </button>
+        <button class="close"> Cerrar </button>
       </div>
     <div>`;
     profile.insertAdjacentHTML('beforeend', modal);
@@ -124,10 +133,17 @@ export const editProfile = () => {
       const containerModal = document.querySelector('.modal-edit');
       containerModal.remove();
     });
+    const select = document.querySelector('#selectCountry');
+    countries.forEach((country) => {
+      const category = `<option value="${country}"> ${country} </option>`;
+      select.insertAdjacentHTML('beforeend', category);
+    });
+    const country = select.options[select.selectedIndex].value;
     document.querySelector('#saveChanges').addEventListener('click', () => {
       const newDescription = document.getElementById('changeDescription').value;
       const oldDescription = document.querySelector('.user-description');
       const containerModal = document.querySelector('.modal-edit');
+      saveCountry(country);
       if (newDescription !== '') {
         oldDescription.innerHTML = newDescription;
         containerModal.remove();
@@ -149,4 +165,3 @@ export const inicioPage = () => {
     window.location.hash = '#/login';
   });
 };
-
