@@ -6,7 +6,7 @@ import {
   eventLogout,
   googleSignIn,
   facebookSignIn,
-  saveTask,
+  comentario,
 } from './lib/index.js';
 
 // REGISTRO DE USUARIO
@@ -66,9 +66,9 @@ export const fEventLogout = () => {
 export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
-  const comment = document.getElementById('comment').value;
-  saveTask(comment);
   toShare.addEventListener('click', () => {
+    const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
+    comentario(post);
     const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
@@ -88,8 +88,15 @@ export function fSharePost() {
     // se debe almacenar en un solo div porque sino "to Node.appendChild must be an instance of Nod"
     numberPost += 1;
     divElem.id = `post ${numberPost}`;
+    const divPost = document.getElementById(`post ${numberPost - 1}`);
     divElem.innerHTML = oldPost;
-    return parentPost.appendChild(divElem);
+    // return parentPost.appendChild(divElem);
+    if (divElem.id === 'post 1') {
+      (parentPost.appendChild(divElem));
+    } else {
+      (parentPost.insertBefore(divElem, divPost));
+    }
+    document.querySelector('.old-comment').value = post;
   });
 }
 
@@ -142,3 +149,4 @@ export const inicioPage = () => {
     window.location.hash = '#/login';
   });
 };
+
