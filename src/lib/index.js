@@ -41,15 +41,16 @@ const firebaseConfig = {
 // eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const db = getFirestore(app);
+// const db = getFirestore(app);
+const db = getFirestore();
 const auth = getAuth();
 
 // Función para crear nueva colección de datos
-export const comentario = (comentariouser) => addDoc(collection(db, 'userdata'), { comentariouser });
+export const comentario = (post, user) => addDoc(collection(db, 'post'), { post, user });
 
-window.addEventListener('DOMContentLoaded', () => {
+// window.addEventListener('DOMContentLoaded', () => {
 
-});
+// });
 
 // Función para registrarse con email y contraseña
 
@@ -156,6 +157,3 @@ export const facebookSignIn = () => {
     });
 };
 
-export const saveTask = (comment) => {
-  addDoc(collection(db, 'userdata'), { comment });
-};

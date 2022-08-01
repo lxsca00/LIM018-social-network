@@ -142,3 +142,6 @@ export const inicioPage = () => {
     window.location.hash = '#/login';
   });
 };
+
+// FUNCION PARA GUARDAR INFO DE COMETNARIOS
+const post = document.getElementById('comment');
