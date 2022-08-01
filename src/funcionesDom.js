@@ -6,7 +6,7 @@ import {
   eventLogout,
   googleSignIn,
   facebookSignIn,
-  saveTask,
+  comentario,
 } from './lib/index.js';
 
 // REGISTRO DE USUARIO
@@ -66,9 +66,11 @@ export const fEventLogout = () => {
 export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
-  const comment = document.getElementById('comment').value;
-  saveTask(comment);
+  // const comment = document.getElementById('comment').value;
+  // saveTask(comment);
   toShare.addEventListener('click', () => {
+    const post = document.getElementById('comment').value;
+    comentario(post);
     const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
@@ -144,4 +146,6 @@ export const inicioPage = () => {
 };
 
 // FUNCION PARA GUARDAR INFO DE COMETNARIOS
-const post = document.getElementById('comment');
+export const postUser = () => {
+
+}

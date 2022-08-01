@@ -18,6 +18,7 @@ import {
   getFirestore,
   collection,
   addDoc,
+  
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -46,11 +47,12 @@ const db = getFirestore();
 const auth = getAuth();
 
 // Función para crear nueva colección de datos
-export const comentario = (post, user) => addDoc(collection(db, 'post'), { post, user });
-
-// window.addEventListener('DOMContentLoaded', () => {
-
-// });
+export function comentario(post) {
+  // const auth = getAuth();
+  const user = auth.currentUser.uid;
+  const email = auth.currentUser.email;
+  addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
+}
 
 // Función para registrarse con email y contraseña
 
@@ -61,6 +63,7 @@ export async function eventRegister(name, username, email, password, country, bi
         name, username, email, password, country, birth,
       }); // Creacion db firestore del usuario
       const user = userCredential.user;
+
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
       // Agregar un modal que diga que se creó satisfactoriamente e inicie sesión
@@ -80,6 +83,10 @@ export const eventLogin = (email, password) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
+      // console.log(user);
+      // const user2 = auth.currentUser;
+      // console.log(user2);
+      // console.log(user.uid);
       sessionStorage.getItem(user);
       window.location.hash = '#/principal';
     })
