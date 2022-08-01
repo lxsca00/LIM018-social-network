@@ -6,6 +6,7 @@ import {
 // import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import {
   getAuth,
+  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut, signInWithPopup,
@@ -57,15 +58,34 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Función para registrarse con email y contraseña
 
+export const obs = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log(`user${uid}is loged`);
+    // ...
+    } else {
+    // User is signed out
+    // ...
+      console.log('no user found');
+    }
+  });
+};
+
 export function eventRegister(name, username, email, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      addDoc(collection(db, 'userdata'), {
-        name, username, email, password,
-      }); // Creacion db firestore del usuario
+      // Signed in
       const user = userCredential.user;
+      const uid = user.uid;
+      addDoc(collection(db, 'userdata'), {
+        email, password, name, username, uid,
+      });
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
+      return (user);
     })
   // eslint-disable-next-line consistent-return
     .catch((error) => {
@@ -198,3 +218,5 @@ export async function saveCountry(country) {
   const userCountry = doc(db, 'country', country);
   await updateDoc(userCountry, { capital: true });
 }
+
+// Para actualizar perfil updateProfile

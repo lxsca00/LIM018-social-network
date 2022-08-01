@@ -3,6 +3,7 @@
 import {
   eventRegister,
   eventLogin,
+  obs,
   eventLogout,
   googleSignIn,
   facebookSignIn,
@@ -35,6 +36,7 @@ export const fEventLogin = () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     eventLogin(email, password);
+    obs();
   });
 };
 
