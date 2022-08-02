@@ -1,0 +1,76 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 80%;
+    margin: 0% 0%;
+}
+#container-inicio {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+.fondo-logo{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.imagen-logo {
+    width: 96%;
+    border-radius: 50%;
+    background-color: var(--white)
+}
+#marca{
+    font-size: 4rem; 
+    color: transparent;
+    background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
+    background-clip: text;
+    font-weight: bold;
+}
+#inicio-message {
+    font-size: 1.5rem; 
+    color: var(--gray);
+    line-height: 2.7rem;
+}
+.informacion-PopcornZone{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem;
+}
+.p-inicio {
+    font-size: 1.6rem; 
+    color: var(--white);
+}
+.btnInicio{
+    font-size: 1.5rem;
+    background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
+    color: var(--black);
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media screen and (min-width: 768px) {
+    #container-inicio {
+        display:flex;
+        flex-direction: row;
+       }
+    .fondo-logo{
+        width: 40rem;
+        height: 40rem;
+    }   
+    .logo-popcornZone{
+       height: 50%;
+       margin: 0rem;
+       }
+    .informacion-PopcornZone{
+        width: 40%;
+        font-size: 2rem; 
+       }
+} 

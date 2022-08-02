@@ -1,22 +1,26 @@
 /* eslint-disable import/no-unresolved */
 import {
   initializeApp,
-//} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-} from 'firebase/app'; // TEST
-
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
+// } from 'firebase/app'; // TEST
+// import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
-//} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-} from 'firebase/auth'; // TEST
+  signOut, signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
+// } from 'firebase/auth'; // TEST
 
-/* import {
+import {
   getFirestore,
   collection,
-  addDoc,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js'; */
+  addDoc,getDocs
+  
+} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
+// } from 'firebase/firestore'; // TEST
 
 /* import {
   getAnalytics,
@@ -39,70 +43,128 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 // const db = getFirestore(app);
+const db = getFirestore();
+const auth = getAuth();
 
-// FUNCIONES PURAS - TO TEST
+// Función para crear nueva colección de datos
+export function comentario(post) {
+  // const auth = getAuth();
+  const user = auth.currentUser.uid;
+  const email = auth.currentUser.email;
+  addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email});
+}
 
-// REGISTRO DE USUARIO
-export function eventRegister(eMail, password) {
-  const auth = getAuth();
-  // createUserWithEmailAndPassword(auth, email, password) // con return para que sea una promesa
-  return createUserWithEmailAndPassword(auth, eMail, password)
+
+//FUNCION TRAER DATOS DE COLECCION
+export const getUser = () => getDocs(collection(db, 'post'));
+
+// Función para registrarse con email y contraseña
+
+export async function eventRegister(name, username, email, password, country, birth) {
+  return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
+      addDoc(collection(db, 'userdata'), {
+        name, username, email, password, country, birth
+      }); // Creacion db firestore del usuario
       const user = userCredential.user;
-      const electronicEmail = userCredential.user.email;
-      // ...
-      console.log(`user created successfully: ${user}`);
-      // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
-      // window.location.hash = '#/login'; // TEST: window is not defined
-      return (`${electronicEmail} created successfully`);
+
+      sessionStorage.getItem(user);
+      window.location.hash = '#/login';
+      // Agregar un modal que diga que se creó satisfactoriamente e inicie sesión
     })
+  // eslint-disable-next-line consistent-return
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
-      console.log(errorMessage);
-      console.log(errorCode);
-      // alert(`${errorMessage}`); // TEST: el alert para los test is not defined
-      return (errorMessage);
+      const mensajealert = (`Intentalo Nuevamente : ${errorMessage}`); // Mensaje error registro
+      alert(mensajealert);
     });
 }
 
-// AUTENTIFICACIÓN DE USUARIO -LOGIN
-export async function eventLogin(eMail, password) {
-  const auth = getAuth();
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, eMail, password);
-    // Signed in
-    const user = userCredential.user;
-    const electronicEmail = userCredential.user.email;
-    console.log(`${user}, signed in`);
-    console.log(`${userCredential}, signed in`);
-    // sessionStorage.getItem(user); // TEST: se comenta porque "sessionStorage is not defined"
-    // window.location.hash = '#/principal'; //TEST: window is not defined
-    return (`${electronicEmail} si tiene una cuenta activa`);
-  } catch (error) {
-    // const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage); // TEST: el alert para los test is not defined
-    // console.log(errorCode);
-    return (errorMessage);
-  }
-}
+// Función para ingresar con email y contraseña
 
-// CERRAR SESIÓN
-export function eventLogout() {
-  const auth = getAuth();
-  return signOut(auth).then(() => {
+export const eventLogin = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // console.log(user);
+      // const user2 = auth.currentUser;
+      // console.log(user2);
+      // console.log(user.uid);
+      sessionStorage.getItem(user);
+      window.location.hash = '#/principal';
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      alert(errorMessage); // Mensaje de error
+      // Agregar modal que lance el error
+    });
+};
+
+// Función para cerrar la sesión
+
+export const eventLogout = () => {
+  signOut(auth).then(() => {
     window.location.hash = '#/login';
-    console.log('Sign-out successful');
     sessionStorage.clear();
-    return ('cerraste sesión');
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.
-    console.log(`something happened ${error}`);
-    return ('error al cerrar sesión');
+    console.log(error);
   });
-  // sessionStorage.clear();
-}
+};
+
+// Función para iniciar sesión con Google
+
+export const googleSignIn = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // ...
+      sessionStorage.getItem(user);
+      window.location.hash = '#/principal';
+    }).catch((error) => {
+      // Handle Errors here.
+      // const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      // const email = error.customData.email;
+      // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+      console.log(errorMessage);
+    });
+};
+
+// Iniciar sesión con Facebook
+export const facebookSignIn = () => {
+  const provider = new FacebookAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // The signed-in user info.
+      const user = result.user;
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      // const credential = FacebookAuthProvider.credentialFromResult(result);
+      // const accessToken = credential.accessToken;
+      // ...
+      sessionStorage.getItem(user);
+      window.location.hash = '#/principal';
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      // const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      // const email = error.customData.email;
+      // The AuthCredential type that was used.
+      // const credential = FacebookAuthProvider.credentialFromError(error);
+      console.log(errorMessage);
+      // ...
+    });
+};
+
