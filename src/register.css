@@ -1,3 +1,7 @@
+#register {
+    width: 100%
+}
+
 .container-register{
     display: flex;
     flex-direction: column;
@@ -19,8 +23,11 @@
     margin: 1.5rem 0;
 }
 
-.register-message {
+.register-form p {
     font-size: 1.5rem;
+}
+
+.register-message {
     margin: 0 0 2rem 0;
 }
 
@@ -34,14 +41,6 @@
 
 #user-name, #user-username {
     margin: 0 0 2rem 0;
-}
-
-.image-register{
-    display: flex;
-    border-radius: 80%;
-    background-color: rgb(250, 244, 244);
-    width: 30%;
-    height: 30%;
 }
 
 #email-register-error, #password-register-error {

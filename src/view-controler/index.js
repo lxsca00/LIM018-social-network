@@ -19,14 +19,13 @@ const changeView = (route) => {
   switch (route) {
     case '#/':
     { container.appendChild(components.inicio());
-      document.getElementById('header').style.visibility = 'hidden';
       return inicioPage(); }
     case '#/principal':
     { container.appendChild(components.home());
+      document.getElementById('header').style.visibility = 'visible';
       return fSharePost(); }
     case '#/registro':
     { container.appendChild(components.register());
-      // addCountries();
       return fEventRegister(); }
     case '#/login':
     { container.appendChild(components.login());
@@ -35,6 +34,7 @@ const changeView = (route) => {
       return fEventLogin(); }
     case '#/profile':
     { container.appendChild(components.profile());
+      document.getElementById('header').style.visibility = 'visible';
       fChangePhoto();
       return editProfile(); }
     case '#/cerrarSesion':

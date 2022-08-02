@@ -4,7 +4,9 @@ export default () => {
   /* document.getElementById("containerNav").style.visibility = "hidden"; */
   const loginView = `
   <div id = 'container-login'>
-    <img class="image-login" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
+    <div class="fondo-logo">
+      <img class="imagen-logo" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
+    </div>
     <form id = "form-login" class="form-login"> 
       <h1>Inicia sesión</h1>
       <p id="login-message"> Por favor inicia sesión para continuar </p>
@@ -12,7 +14,7 @@ export default () => {
       <p id="login-email-error"> Hay un error con tu correo </p>
       <input type="password" placeholder="Contraseña" id="login-password">
       <p id="login-password-error"> Hay un error con tu contraseña </p>
-      <button type="submit" class="btnIngresar" id="login-button"> Ingresar </button>
+      <button type="submit" class="btnInicio" id="login-button"> INGRESAR </button>
       <p class ="p-login"> O ingresa con: </p>
       <div class="logo-container">
       <img class="image-facebook" src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg">

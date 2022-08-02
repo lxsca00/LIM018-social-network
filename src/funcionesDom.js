@@ -65,7 +65,8 @@ export const fEventLogout = () => {
   const logout = document.querySelector('#logout');
   logout.addEventListener('click', (e) => {
     e.preventDefault();
-    eventLogout();
+    window.location.hash = '#/';
+    return eventLogout();
   });
 };
 
