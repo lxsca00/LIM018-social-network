@@ -22,6 +22,8 @@ import {
   // setDoc,
   doc,
   updateDoc,
+  getDocs,
+  onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -56,6 +58,16 @@ export function comentario(post) {
   const email = auth.currentUser.email;
   addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
 }
+
+//OBTENER DATOS
+export const getPost = () => getDocs(collection(db, 'post'))
+
+export const onGetPost = () => console.log('ongetPost');
+
+export {onSnapshot, collection, db}
+
+
+
 
 // Función para registrarse con email y contraseña
 

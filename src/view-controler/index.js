@@ -8,6 +8,7 @@ import {
   fGoogleSignIn,
   fFacebookSignIn,
   inicioPage,
+  getUserData,
 } from '../funcionesDom.js';
 import { components } from '../view/index.js';
 
@@ -22,6 +23,7 @@ const changeView = (route) => {
       return inicioPage(); }
     case '#/principal':
     { container.appendChild(components.home());
+      getUserData();
       // document.getElementById('home-li').style.display = 'block';
       // document.getElementById('perfil-li').style.display = 'block';
       // document.getElementById('logout').style.display = 'block';

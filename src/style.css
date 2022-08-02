@@ -135,9 +135,10 @@ button {
         justify-content: center;
     }
 
-    #containerNav ul li:hover {
-        /* background: var(--orange2); */
+    /*#containerNav ul li:hover {
+        /* background: var(--orange2); 
     }
+    */
 
     #check:checked ~ ul {
         left: 0px;

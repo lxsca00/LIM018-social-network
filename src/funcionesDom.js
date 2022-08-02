@@ -1,5 +1,7 @@
 // Este es el punto de entrada de tu aplicacion // RELACION CON EL DOM
 
+//import { async } from 'regenerator-runtime';
+//import { async } from 'regenerator-runtime';
 import {
   eventRegister,
   eventLogin,
@@ -9,6 +11,10 @@ import {
   facebookSignIn,
   comentario,
   saveCountry,
+  getPost,
+  onSnapshot,
+  collection,
+  db
   // saveTask,
 } from './lib/index.js';
 
@@ -79,16 +85,16 @@ export function fSharePost() {
   document.getElementById('registro-li').style.display = 'none';
   document.getElementById('login').style.display = 'none';
   const toShare = document.getElementById('toShare');
-  let numberPost = 0;
+  //let numberPost = 0;
   // const comment = document.getElementById('comment').value;
   // saveTask(comment);
   toShare.addEventListener('click', () => {
     const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
     comentario(post);
-    const oldPost = `
+   /* const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-        <input type="text" class="old-comment">
+        <input type="text" class="old-comment" id="oldComment">
         <div class="container-button">
           <div class="emojis">
             <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
@@ -98,6 +104,8 @@ export function fSharePost() {
         </div>
           </div>
       </div>`;
+      
+     
 
     const parentPost = document.getElementById('all-publications');
     const divElem = document.createElement('div');
@@ -112,7 +120,7 @@ export function fSharePost() {
     } else {
       (parentPost.insertBefore(divElem, divPost));
     }
-    document.querySelector('.old-comment').value = post;
+    //document.querySelector('.old-comment').value = post;*/
   });
 }
 
@@ -175,3 +183,50 @@ export const inicioPage = () => {
     window.location.hash = '#/login';
   });
 };
+
+// FUNCION TRAER POST
+//const InputOldComment = document.getElementById('oldComment');
+
+
+export async function getUserData ()  {
+    onSnapshot(collection(db, 'post'),(querySnapshot) => {
+    querySnapshot.forEach(doc => {
+      const userPost = doc.data();
+      //InputOldComment.innerHTML='';
+      //document.getElementById('oldComment').value = userPost.posts;
+      //InputOldComment.innerText= userPost.posts;
+      console.log(userPost.posts)
+      const oldPost = `
+      <div class="old-publication" >
+        <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
+        <input type="text" class="old-comment" id="oldComment">
+        <div class="container-button">
+          <div class="emojis">
+            <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
+            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+          </div>
+         <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+        </div>
+          </div>
+      </div>`;
+      
+    const parentPost = document.getElementById('all-publications');
+    const divElem = document.createElement('div');
+    //parentPost.appendChild(divElem)
+    // se debe almacenar en un solo div porque sino "to Node.appendChild must be an instance of Nod"
+    let numberPost = 0;
+    numberPost += 1;
+    //let numberPost = 0;
+    divElem.id = `post ${numberPost}`;
+    const divPost = document.getElementById(`post ${numberPost - 1}`);
+    divElem.innerHTML = oldPost;
+    // return parentPost.appendChild(divElem);
+    if (divElem.id === 'post 1') {
+      (parentPost.appendChild(divElem));
+    } else {
+      (parentPost.insertBefore(divElem, divPost));
+    }
+    document.querySelector('.old-comment').value = userPost.posts;
+  });
+ })};
+
