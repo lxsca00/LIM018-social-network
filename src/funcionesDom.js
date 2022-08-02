@@ -31,6 +31,11 @@ export const fEventRegister = () => {
 // AUTENTIFICACIÓN DE USUARIO -LOGIN
 // INICIAR SESIÓN
 export const fEventLogin = () => {
+  document.getElementById('home-li').style.display = 'none';
+  document.getElementById('perfil-li').style.display = 'none';
+  document.getElementById('logout').style.display = 'none';
+  document.getElementById('registro-li').style.display = 'block';
+  document.getElementById('login').style.display = 'block';
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -68,6 +73,11 @@ export const fEventLogout = () => {
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
 export function fSharePost() {
+  document.getElementById('home-li').style.display = 'block';
+  document.getElementById('perfil-li').style.display = 'block';
+  document.getElementById('logout').style.display = 'block';
+  document.getElementById('registro-li').style.display = 'none';
+  document.getElementById('login').style.display = 'none';
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
   // const comment = document.getElementById('comment').value;
