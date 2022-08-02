@@ -3,13 +3,13 @@
 import {
   eventRegister,
   eventLogin,
-  obs,
-  eventLogout,
+  obs, eventLogout,
   googleSignIn,
   facebookSignIn,
   comentario,
-  saveCountry,
-  // saveTask,
+  // getUserData,
+  saveData,
+  changePhoto,
 } from './lib/index.js';
 
 import { countries } from './view/countries.js';
@@ -24,12 +24,15 @@ export const fEventRegister = () => {
     const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
     const username = document.getElementById('user-username').value;
-    eventRegister(name, username, email, password);
+    const country = '';
+    const description = '';
+    const birth = '';
+    const photo = '';
+    eventRegister(name, username, email, password, country, description, birth, photo);
   });
 };
 
-// AUTENTIFICACIÓN DE USUARIO -LOGIN
-// INICIAR SESIÓN
+// AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
 export const fEventLogin = () => {
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
@@ -70,8 +73,6 @@ export const fEventLogout = () => {
 export function fSharePost() {
   const toShare = document.getElementById('toShare');
   let numberPost = 0;
-  // const comment = document.getElementById('comment').value;
-  // saveTask(comment);
   toShare.addEventListener('click', () => {
     const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
     comentario(post);
@@ -106,6 +107,13 @@ export function fSharePost() {
   });
 }
 
+// Función para editar la foto de perfil del usuario
+
+export const fChangePhoto = () => {
+  const editPhoto = document.getElementById('edit').value;
+  changePhoto(editPhoto);
+};
+
 // Función para que aparezca un modal para editar perfil
 
 export const editProfile = () => {
@@ -115,39 +123,45 @@ export const editProfile = () => {
     const modal = `
     <div class="modal-edit">
       <div class="modal-card">
-        <h3> Editar perfil </h3>
-        <select id="selectCountry">
-          <option value=" " disabeled select> Selecciona tu país </option>
-        </select>
-        <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
-        <h3> ¿Qué prefieres ver? </h3>
-        <input type="text" id="changeElection" placeholder="¿Peliculas o series?">
-        <h3> ¿Tu género favorito? <h3>
-        <input type="text" id="changeGenre" placeholder="Cuentanos cuáles son tus géneros favoritos">
-        <button type="button" id="saveChanges"> Guardar cambios </button>
-        <button class="close"> Cerrar </button>
+        <p> Editar perfil </p>
+        <form id="edit-profile">
+          <select id="select-country">
+            <option value=" " disabled select> Selecciona tu país </option>
+          </select>
+          <input type="date" id="select-birth" max="2009-01-01"> </input>
+          <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
+          <select id="change-preferences">
+            <option values="" disabled select> ¿Qué prefieres ver? </option>
+            <option value="Peliculas"> Peliculas </option>
+            <option value="Series"> Series </option>
+          </select>
+          <input type="text" id="change-genre" placeholder="¿Cuáles son tus géneros favoritos?">
+          <button type="button" id="saveChanges"> Guardar cambios </button>
+          <button class="close"> Cerrar </button>
+        </form>
       </div>
     <div>`;
     profile.insertAdjacentHTML('beforeend', modal);
-    document.querySelector('.close').addEventListener('click', () => {
-      const containerModal = document.querySelector('.modal-edit');
-      containerModal.remove();
-    });
-    const select = document.querySelector('#selectCountry');
-    countries.forEach((country) => {
-      const category = `<option value="${country}"> ${country} </option>`;
+    const select = document.querySelector('#select-country');
+    countries.forEach((userCountry) => {
+      const category = `<option value="${userCountry}"> ${userCountry} </option>`;
       select.insertAdjacentHTML('beforeend', category);
     });
-    const country = select.options[select.selectedIndex].value;
+    const containerModal = document.querySelector('.modal-edit');
     document.querySelector('#saveChanges').addEventListener('click', () => {
       const newDescription = document.getElementById('changeDescription').value;
       const oldDescription = document.querySelector('.user-description');
-      const containerModal = document.querySelector('.modal-edit');
-      saveCountry(country);
+      const country = select.options[select.selectedIndex].value;
+      const birth = document.querySelector('#select-birth').value;
+      // getUserData();
+      saveData(country, newDescription, birth);
       if (newDescription !== '') {
         oldDescription.innerHTML = newDescription;
         containerModal.remove();
       }
+    });
+    document.querySelector('.close').addEventListener('click', () => {
+      containerModal.remove();
     });
   });
 };

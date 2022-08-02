@@ -9,7 +9,7 @@ const components = {
   home: Home, // Vista del muro donde se ven las publicaciones
   register: Register, // Vista de la página de registro
   login: Login, //  Vista de la página de ingreso
-  profile: Profile,
+  profile: Profile, // Vista del perfil del usuario
 };
 
 export { components };

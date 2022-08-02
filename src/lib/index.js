@@ -19,7 +19,6 @@ import {
   getFirestore,
   collection,
   addDoc,
-  // setDoc,
   doc,
   updateDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
@@ -42,16 +41,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// eslint-disable-next-line no-unused-vars
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-// const db = getFirestore(app);
-const db = getFirestore();
+const db = getFirestore(app);
 const auth = getAuth();
 
 // Función para crear nueva colección de datos
 export function comentario(post) {
-  // const auth = getAuth();
   const user = auth.currentUser.uid;
   const email = auth.currentUser.email;
   addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
@@ -66,23 +62,23 @@ export const obs = () => {
     // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       console.log(`user${uid}is loged`);
+      window.location.hash = '#/principal';
     // ...
     } else {
     // User is signed out
-    // ...
-      console.log('no user found');
+      window.location.hash = '#/';
     }
   });
 };
 
-export function eventRegister(name, username, email, password) {
+export function eventRegister(name, username, email, password, country, description, birth, photo) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       const uid = user.uid;
       addDoc(collection(db, 'userdata'), {
-        email, password, name, username, uid,
+        email, password, name, username, uid, country, description, birth, photo,
       });
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
@@ -116,12 +112,7 @@ export const eventLogin = (email, password) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      // console.log(user);
-      // const user2 = auth.currentUser;
-      // console.log(user2);
-      // console.log(user.uid);
       sessionStorage.getItem(user);
-      window.location.hash = '#/principal';
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -132,7 +123,7 @@ export const eventLogin = (email, password) => {
         loginError.innerHTML = 'No existe ningún usuario registrado con este email';
       } else if (errorCode === 'auth/invalid-email') {
         loginError.style.visibility = 'visible';
-        loginError.innerHTML = 'El email ingresado es inválido';
+        loginError.innerHTML = 'Proporcione una dirección de correo';
       } else if (errorCode === 'auth/internal-error') {
         loginPasswordError.style.visibility = 'visible';
         loginPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
@@ -147,13 +138,9 @@ export const eventLogin = (email, password) => {
 
 export const eventLogout = () => {
   signOut(auth).then(() => {
-    window.location.hash = '#/login';
     sessionStorage.clear();
     // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-    console.log(error);
-  });
+  }).catch((error) => error);
 };
 
 // Función para iniciar sesión con Google
@@ -167,20 +154,19 @@ export const googleSignIn = () => {
       // const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
+      addDoc(collection(db, 'userdata'), {
+        email: user.email,
+        name: user.displayName,
+        uid: user.uid,
+        photo: user.photoURL,
+        username: '',
+        birth: '',
+        country: '',
+        description: '',
+      });
       // ...
       sessionStorage.getItem(user);
-      window.location.hash = '#/principal';
-    }).catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.customData.email;
-      // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-      console.log(errorMessage);
-    });
+    }).catch((error) => error.code);
 };
 
 // Iniciar sesión con Facebook
@@ -193,35 +179,42 @@ export const facebookSignIn = () => {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       // const credential = FacebookAuthProvider.credentialFromResult(result);
       // const accessToken = credential.accessToken;
-      // ...
       sessionStorage.getItem(user);
-      window.location.hash = '#/principal';
     })
-    .catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.customData.email;
-      // The AuthCredential type that was used.
-      // const credential = FacebookAuthProvider.credentialFromError(error);
-      console.log(errorMessage);
-      // ...
-    });
+    .catch((error) => error.code);
 };
 
-// export const saveTask = (comment) => {
-// addDoc(collection(db, 'userdata'), { comment });
-// };
-
-// export async function saveBirth(birth) {
-// await setDoc(doc(db, 'userdata', birth));
-// }
-
-export async function saveCountry(country) {
-  // setDoc(doc(db, 'userdata', country));
-  const userCountry = doc(db, 'country', country);
-  await updateDoc(userCountry, { capital: true });
+// Actualizar los campos vacíos en el documento de cada usuario
+export async function saveData(userCountry, userDescription, userBirth) {
+  // const user = auth.currentUser;
+  const docRef = doc(db, 'userdata', 'nd2nZxrD37v6f9EDhlfK');
+  await updateDoc(docRef, {
+    country: userCountry,
+    description: userDescription,
+    birth: userBirth,
+  });
 }
 
-// Para actualizar perfil updateProfile
+export async function changePhoto(userPhoto) {
+  // const user = auth.currentUser;
+  const docRef = doc(db, 'userdata', 'nd2nZxrD37v6f9EDhlfK');
+  await updateDoc(docRef, {
+    photo: userPhoto,
+  });
+}
+
+// Para obtener los datos del usuario activo
+
+/* export const getUserData = () => {
+  const user = auth.currentUser;
+  console.log(user);
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      console.log(`Sign-in provider: ${profile.providerId}`);
+      console.log(`Provider-specific UID: ${profile.uid}`);
+      console.log(`Name: ${profile.displayName}`);
+      console.log(`Email: ${profile.email}`);
+      console.log(`Photo URL: ${profile.photoURL}`);
+    });
+  }
+}; */

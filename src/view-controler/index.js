@@ -8,6 +8,7 @@ import {
   fGoogleSignIn,
   fFacebookSignIn,
   inicioPage,
+  fChangePhoto,
 } from '../funcionesDom.js';
 import { components } from '../view/index.js';
 
@@ -34,6 +35,7 @@ const changeView = (route) => {
       return fEventLogin(); }
     case '#/profile':
     { container.appendChild(components.profile());
+      fChangePhoto();
       return editProfile(); }
     case '#/cerrarSesion':
     { return fEventLogout(); }
