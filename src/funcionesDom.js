@@ -12,9 +12,7 @@ import {
   comentario,
   saveCountry,
   getPost,
-  onSnapshot,
-  collection,
-  db
+  onGetPost,
   // saveTask,
 } from './lib/index.js';
 
@@ -74,6 +72,7 @@ export const fEventLogout = () => {
   logout.addEventListener('click', (e) => {
     e.preventDefault();
     eventLogout();
+    getUserData();
   });
 };
 
@@ -185,21 +184,18 @@ export const inicioPage = () => {
 };
 
 // FUNCION TRAER POST
-//const InputOldComment = document.getElementById('oldComment');
+
 
 
 export async function getUserData ()  {
-    onSnapshot(collection(db, 'post'),(querySnapshot) => {
+  onGetPost((querySnapshot) => {
     querySnapshot.forEach(doc => {
       const userPost = doc.data();
-      //InputOldComment.innerHTML='';
-      //document.getElementById('oldComment').value = userPost.posts;
-      //InputOldComment.innerText= userPost.posts;
       console.log(userPost.posts)
       const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-        <input type="text" class="old-comment" id="oldComment">
+        <input type="text" class="old-comment" id="oldComment" value=${userPost.posts}>
         <div class="container-button">
           <div class="emojis">
             <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
@@ -210,6 +206,12 @@ export async function getUserData ()  {
           </div>
       </div>`;
       
+      
+      
+      
+     //document.getElementById('oldComment').value = userPost.posts;
+      //InputOldComment.innerText= userPost.posts;
+
     const parentPost = document.getElementById('all-publications');
     const divElem = document.createElement('div');
     //parentPost.appendChild(divElem)
@@ -226,7 +228,7 @@ export async function getUserData ()  {
     } else {
       (parentPost.insertBefore(divElem, divPost));
     }
-    document.querySelector('.old-comment').value = userPost.posts;
+    //document.querySelector('.old-comment').value = userPost.posts;
   });
  })};
 

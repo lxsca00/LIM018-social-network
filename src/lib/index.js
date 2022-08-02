@@ -62,9 +62,9 @@ export function comentario(post) {
 //OBTENER DATOS
 export const getPost = () => getDocs(collection(db, 'post'))
 
-export const onGetPost = () => console.log('ongetPost');
+export const onGetPost = (callback) => onSnapshot(collection(db, 'post'), callback)
 
-export {onSnapshot, collection, db}
+//export {onSnapshot, collection, db}
 
 
 
