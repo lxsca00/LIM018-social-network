@@ -6,6 +6,7 @@ import {
 // import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
 import {
   getAuth,
+  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut, signInWithPopup,
@@ -17,8 +18,10 @@ import {
 import {
   getFirestore,
   collection,
-  addDoc,getDocs
-  
+  addDoc,
+  // setDoc,
+  doc,
+  updateDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -51,32 +54,60 @@ export function comentario(post) {
   // const auth = getAuth();
   const user = auth.currentUser.uid;
   const email = auth.currentUser.email;
-  addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email});
+  addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
 }
-
-
-//FUNCION TRAER DATOS DE COLECCION
-export const getUser = () => getDocs(collection(db, 'post'));
 
 // Función para registrarse con email y contraseña
 
-export async function eventRegister(name, username, email, password, country, birth) {
-  return createUserWithEmailAndPassword(auth, email, password)
+export const obs = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log(`user${uid}is loged`);
+    // ...
+    } else {
+    // User is signed out
+    // ...
+      console.log('no user found');
+    }
+  });
+};
+
+export function eventRegister(name, username, email, password) {
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       addDoc(collection(db, 'userdata'), {
         name, username, email, password, country, birth
       }); // Creacion db firestore del usuario
       const user = userCredential.user;
-
+      const uid = user.uid;
+      addDoc(collection(db, 'userdata'), {
+        email, password, name, username, uid,
+      });
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
-      // Agregar un modal que diga que se creó satisfactoriamente e inicie sesión
+      return (user);
     })
   // eslint-disable-next-line consistent-return
     .catch((error) => {
-      const errorMessage = error.message;
-      const mensajealert = (`Intentalo Nuevamente : ${errorMessage}`); // Mensaje error registro
-      alert(mensajealert);
+      const errorCode = error.code;
+      const registerError = document.getElementById('email-register-error');
+      const registerPasswordError = document.getElementById('password-register-error');
+      if (errorCode === 'auth/email-already-in-use') {
+        registerError.style.visibility = 'visible';
+        registerError.innerHTML = 'Email en uso, intenta iniciar sesión';
+      } else if (errorCode === 'auth/invalid-email') {
+        registerError.style.visibility = 'visible';
+        registerError.innerHTML = 'Proporcione una dirección de correo válida';
+      } else if (errorCode === 'auth/internal-error') {
+        registerPasswordError.style.visibility = 'visible';
+        registerPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
+      } else if (errorCode === 'auth/weak-password') {
+        registerPasswordError.style.visibility = 'visible';
+        registerPasswordError.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
+      }
     });
 }
 
@@ -95,9 +126,22 @@ export const eventLogin = (email, password) => {
       window.location.hash = '#/principal';
     })
     .catch((error) => {
-      const errorMessage = error.message;
-      alert(errorMessage); // Mensaje de error
-      // Agregar modal que lance el error
+      const errorCode = error.code;
+      const loginError = document.getElementById('login-email-error');
+      const loginPasswordError = document.getElementById('login-password-error');
+      if (errorCode === 'auth/user-not-found') {
+        loginError.style.visibility = 'visible';
+        loginError.innerHTML = 'No existe ningún usuario registrado con este email';
+      } else if (errorCode === 'auth/invalid-email') {
+        loginError.style.visibility = 'visible';
+        loginError.innerHTML = 'El email ingresado es inválido';
+      } else if (errorCode === 'auth/internal-error') {
+        loginPasswordError.style.visibility = 'visible';
+        loginPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
+      } else if (errorCode === 'auth/wrong-password') {
+        loginPasswordError.style.visibility = 'visible';
+        loginPasswordError.innerHTML = 'La contraseña ingresada es incorrecta';
+      }
     });
 };
 
@@ -168,3 +212,18 @@ export const facebookSignIn = () => {
     });
 };
 
+// export const saveTask = (comment) => {
+// addDoc(collection(db, 'userdata'), { comment });
+// };
+
+// export async function saveBirth(birth) {
+// await setDoc(doc(db, 'userdata', birth));
+// }
+
+export async function saveCountry(country) {
+  // setDoc(doc(db, 'userdata', country));
+  const userCountry = doc(db, 'country', country);
+  await updateDoc(userCountry, { capital: true });
+}
+
+// Para actualizar perfil updateProfile
