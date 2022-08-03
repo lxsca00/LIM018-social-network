@@ -66,6 +66,7 @@ export const obs = () => {
     // ...
     } else {
     // User is signed out
+      console.log('no user found');
       window.location.hash = '#/';
     }
   });
@@ -87,7 +88,7 @@ export function eventRegister(name, username, email, password, country, descript
   // eslint-disable-next-line consistent-return
     .catch((error) => {
       const errorCode = error.code;
-      const registerError = document.getElementById('email-register-error');
+      /* const registerError = document.getElementById('email-register-error');
       const registerPasswordError = document.getElementById('password-register-error');
       if (errorCode === 'auth/email-already-in-use') {
         registerError.style.visibility = 'visible';
@@ -101,7 +102,8 @@ export function eventRegister(name, username, email, password, country, descript
       } else if (errorCode === 'auth/weak-password') {
         registerPasswordError.style.visibility = 'visible';
         registerPasswordError.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
-      }
+      } */
+      return errorCode;
     });
 }
 
@@ -116,7 +118,7 @@ export const eventLogin = (email, password) => {
     })
     .catch((error) => {
       const errorCode = error.code;
-      const loginError = document.getElementById('login-email-error');
+      const loginError = document.querySelector('#login-email-error');
       const loginPasswordError = document.getElementById('login-password-error');
       if (errorCode === 'auth/user-not-found') {
         loginError.style.visibility = 'visible';
@@ -205,7 +207,7 @@ export async function changePhoto(userPhoto) {
 
 // Para obtener los datos del usuario activo
 
-/* export const getUserData = () => {
+export const getUserData = () => {
   const user = auth.currentUser;
   console.log(user);
   if (user !== null) {
@@ -217,4 +219,4 @@ export async function changePhoto(userPhoto) {
       console.log(`Photo URL: ${profile.photoURL}`);
     });
   }
-}; */
+};

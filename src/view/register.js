@@ -11,7 +11,7 @@ export default () => {
       <p class="register-message"> Por favor registrate para iniciar sesión </p>
       <input id="user-name" type="text" placeholder="Nombre">
       <input id="user-username" type="text" placeholder="Nombre de usuario">
-      <input id="user-email" type="text" placeholder="Correo electrónico">
+      <input id="user-email" type="email" placeholder="Correo electrónico">
       <p id="email-register-error"> Hay un error con tu correo </p>
       <input id="user-password" type="password" placeholder="Contraseña">
       <p id="password-register-error"> Hay un error con tu contraseña </p>

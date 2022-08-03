@@ -10,6 +10,7 @@ import {
   // getUserData,
   saveData,
   changePhoto,
+  getUserData,
 } from './lib/index.js';
 
 import { countries } from './view/countries.js';
@@ -158,6 +159,7 @@ export const editProfile = () => {
       const category = `<option value="${userCountry}"> ${userCountry} </option>`;
       select.insertAdjacentHTML('beforeend', category);
     });
+    getUserData();
     const containerModal = document.querySelector('.modal-edit');
     document.querySelector('#saveChanges').addEventListener('click', () => {
       const newDescription = document.getElementById('changeDescription').value;

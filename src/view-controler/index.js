@@ -48,15 +48,13 @@ const changeView = (route) => {
       return editProfile(); }
     case '#/cerrarSesion':
     { fEventLogout();
-      container.appendChild(components.login());
+      return container.appendChild(components.inicio());
       // document.getElementById('home-li').style.display = 'none';
       // document.getElementById('perfil-li').style.display = 'none';
       // document.getElementById('logout').style.display = 'none';
       // document.getElementById('registro-li').style.display = 'block';
       // document.getElementById('login').style.display = 'block';
-      fGoogleSignIn();
-      fFacebookSignIn();
-      return fEventLogin(); }
+    }
     default:
       break;
   }
