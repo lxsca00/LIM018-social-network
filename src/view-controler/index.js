@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
 import {
   fEventLogin,
-  fEventLogout,
+  // fEventLogout,
   fEventRegister,
   fSharePost,
   editProfile,
@@ -45,17 +45,18 @@ const changeView = (route) => {
       // document.getElementById('registro-li').style.display = 'none';
       // document.getElementById('login').style.display = 'none';
       return editProfile(); }
-    case '#/cerrarSesion':
-    { fEventLogout();
-      container.appendChild(components.login());
-      // document.getElementById('home-li').style.display = 'none';
-      // document.getElementById('perfil-li').style.display = 'none';
-      // document.getElementById('logout').style.display = 'none';
-      // document.getElementById('registro-li').style.display = 'block';
-      // document.getElementById('login').style.display = 'block';
-      fGoogleSignIn();
-      fFacebookSignIn();
-      return fEventLogin(); }
+    // case '#/cerrarSesion':
+    // { return fEventLogout();
+    //   // container.appendChild(components.login());
+    //   // document.getElementById('home-li').style.display = 'none';
+    //   // document.getElementById('perfil-li').style.display = 'none';
+    //   // document.getElementById('logout').style.display = 'none';
+    //   // document.getElementById('registro-li').style.display = 'block';
+    //   // document.getElementById('login').style.display = 'block';
+    //   // fGoogleSignIn();
+    //   // fFacebookSignIn();
+    //   // return fEventLogin();
+    // }
     default:
       break;
   }

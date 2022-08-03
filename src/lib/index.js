@@ -145,17 +145,28 @@ export const eventLogin = (email, password) => {
 
 // Función para cerrar la sesión
 
-export const eventLogout = () => {
+// export const eventLogout = () => {
+//   signOut(auth).then(() => {
+//     // window.location.hash = '#/login';
+//     sessionStorage.clear();
+//     return console.log('se cerró sesión exitosamente');
+//     // Sign-out successful.
+//   }).catch((error) => {
+//     // An error happened.
+//     console.log(error);
+//   });
+// };
+export function eventLogout() {
   signOut(auth).then(() => {
-    window.location.hash = '#/login';
+    // window.location.hash = '#/login';
     sessionStorage.clear();
+    return console.log('se cerró sesión exitosamente');
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.
     console.log(error);
   });
-};
-
+}
 // Función para iniciar sesión con Google
 
 export const googleSignIn = () => {

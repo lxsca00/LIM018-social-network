@@ -63,13 +63,16 @@ export const fFacebookSignIn = () => {
 };
 
 // CERRAR SESIÓN
-export const fEventLogout = () => {
-  const logout = document.querySelector('#logout');
-  logout.addEventListener('click', (e) => {
-    e.preventDefault();
-    eventLogout();
-  });
-};
+// export const fEventLogout = () => {
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  eventLogout();
+  window.location.hash = '#/';
+  document.getElementById('logout').style.display = 'none';
+});
+
+// };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
 export function fSharePost() {
