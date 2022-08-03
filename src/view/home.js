@@ -11,8 +11,8 @@ export default () => {
         <input id="edit" accept="image/jpeg" type="file" class="cargar-foto" >
       </div>
       <div class="data-user">
-        <p> AQUI VA EL NOMBRE DE PERFIL </p>
-        <p> @AQUI VA EL NOMBRE DE USUARIO</p>
+        <p id="namePerfil"> AQUI VA EL NOMBRE DE PERFIL </p>
+        <p id="usuarioPerfil"> @AQUI VA EL NOMBRE DE USUARIO</p>
       </div>
     </div>
     <div class="all-publications" id='all-publications'>

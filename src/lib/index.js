@@ -63,9 +63,21 @@ export function comentario(post) {
 //FUNCION PARA TRAER POST
 export const onGetPost = (callback) => onSnapshot(collection(db, 'post'), callback)
 
-function obtenerPost(doc){
+export function obtenerPost(doc) {
+  const namePerfil = document.getElementById('namePerfil');
+  const usuarioPerfil = document.getElementById('usuarioPerfil');
+  namePerfil.setAttribute('data-is',doc.id);
+  usuarioPerfil.setAttribute('data-is',doc.id);
+  namePerfil.textContent = doc.data().name;
+  usuarioPerfil.textContent = doc.data().username;
+};
 
-}
+export function getNameUser () {db.collection('usedata').get().then((snapshot) => {
+  snapshot.docs.forEach(doc => {
+    obtenerPost(doc)
+  });
+});}
+
 
 
 

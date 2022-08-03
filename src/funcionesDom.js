@@ -10,6 +10,7 @@ import {
   comentario,
   saveCountry,
   onGetPost,
+  getNameUser,
   // saveTask,
 } from './lib/index.js';
 
@@ -45,6 +46,7 @@ export const fEventLogin = () => {
     eventLogin(email, password);
     obs();
     getUserData();
+    getNameUser();
   });
 };
 
