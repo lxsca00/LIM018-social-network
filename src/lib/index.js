@@ -22,6 +22,7 @@ import {
   // setDoc,
   doc,
   updateDoc,
+  onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -57,6 +58,17 @@ export function comentario(post) {
   addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
 }
 
+
+
+//FUNCION PARA TRAER POST
+export const onGetPost = (callback) => onSnapshot(collection(db, 'post'), callback)
+
+function obtenerPost(doc){
+
+}
+
+
+
 // Función para registrarse con email y contraseña
 
 export const obs = () => {
@@ -74,6 +86,8 @@ export const obs = () => {
     }
   });
 };
+
+//FUNCION REGISTRO y guarda datos en coleccion USERDATA
 
 export function eventRegister(name, username, email, password) {
   createUserWithEmailAndPassword(auth, email, password)

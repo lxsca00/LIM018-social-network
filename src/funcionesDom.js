@@ -9,6 +9,7 @@ import {
   facebookSignIn,
   comentario,
   saveCountry,
+  onGetPost,
   // saveTask,
 } from './lib/index.js';
 
@@ -43,6 +44,7 @@ export const fEventLogin = () => {
     const password = document.getElementById('login-password').value;
     eventLogin(email, password);
     obs();
+    getUserData();
   });
 };
 
@@ -68,6 +70,7 @@ export const fEventLogout = () => {
   logout.addEventListener('click', (e) => {
     e.preventDefault();
     eventLogout();
+    
   });
 };
 
@@ -85,7 +88,7 @@ export function fSharePost() {
   toShare.addEventListener('click', () => {
     const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
     comentario(post);
-    const oldPost = `
+    /*const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
         <input type="text" class="old-comment">
@@ -112,7 +115,7 @@ export function fSharePost() {
     } else {
       (parentPost.insertBefore(divElem, divPost));
     }
-    document.querySelector('.old-comment').value = post;
+    document.querySelector('.old-comment').value = post;*/
   });
 }
 
@@ -175,3 +178,49 @@ export const inicioPage = () => {
     window.location.hash = '#/login';
   });
 };
+
+
+export async function getUserData ()  {
+  onGetPost((querySnapshot) => {
+    querySnapshot.forEach(doc => {
+      const userPost = doc.data();
+      console.log(userPost.posts)
+      const oldPost = `
+      <div class="old-publication" >
+        <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
+        <input type="text" class="old-comment" id="oldComment" value=${userPost.posts}>
+        <div class="container-button">
+          <div class="emojis">
+            <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
+            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+          </div>
+         <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+        </div>
+          </div>
+      </div>`;
+      
+      
+      
+      
+     //document.getElementById('oldComment').value = userPost.posts;
+      //InputOldComment.innerText= userPost.posts;
+
+    const parentPost = document.getElementById('all-publications');
+    const divElem = document.createElement('div');
+    //parentPost.appendChild(divElem)
+    // se debe almacenar en un solo div porque sino "to Node.appendChild must be an instance of Nod"
+    let numberPost = 0;
+    numberPost += 1;
+    //let numberPost = 0;
+    divElem.id = `post ${numberPost}`;
+    const divPost = document.getElementById(`post ${numberPost - 1}`);
+    divElem.innerHTML = oldPost;
+    // return parentPost.appendChild(divElem);
+    if (divElem.id === 'post 1') {
+      (parentPost.appendChild(divElem));
+    } else {
+      (parentPost.insertBefore(divElem, divPost));
+    }
+    //document.querySelector('.old-comment').value = userPost.posts;
+  });
+ })};
