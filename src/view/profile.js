@@ -22,7 +22,7 @@ export default () => {
         <p class="subtitle"> Mi genero favorito es:</p>
         <p class="user-genre"></p>
     </section>
-    <button id="editProfile"> Editar mi perfil </button>`;
+    <button id="editProfile" class="btnInicio"> EDITAR MI PERFIL </button>`;
 
   const divProfile = document.createElement('div');
   divProfile.classList = 'profile';

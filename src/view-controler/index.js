@@ -8,6 +8,7 @@ import {
   fGoogleSignIn,
   fFacebookSignIn,
   inicioPage,
+  fChangePhoto,
 } from '../funcionesDom.js';
 import { components } from '../view/index.js';
 
@@ -30,7 +31,6 @@ const changeView = (route) => {
       return fSharePost(); }
     case '#/registro':
     { container.appendChild(components.register());
-      // addCountries();
       return fEventRegister(); }
     case '#/login':
     { container.appendChild(components.login());
@@ -44,6 +44,7 @@ const changeView = (route) => {
       // document.getElementById('logout').style.display = 'block';
       // document.getElementById('registro-li').style.display = 'none';
       // document.getElementById('login').style.display = 'none';
+      fChangePhoto();
       return editProfile(); }
     case '#/cerrarSesion':
     { fEventLogout();
