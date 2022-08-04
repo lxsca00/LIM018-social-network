@@ -9,7 +9,7 @@ import {
   comentario,
   // getUserData,
   saveData,
-  changePhoto,
+  // changePhoto,
 } from './lib/index.js';
 
 import { countries } from './view/countries.js';
@@ -137,10 +137,10 @@ export function fSharePost() {
 
 // Función para editar la foto de perfil del usuario
 
-export const fChangePhoto = () => {
+/* export const fChangePhoto = () => {
   const editPhoto = document.getElementById('edit').value;
   changePhoto(editPhoto);
-};
+}; */
 
 // Función para que aparezca un modal para editar perfil
 

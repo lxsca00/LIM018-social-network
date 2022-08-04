@@ -2,9 +2,8 @@
 import { changeView } from './view-controler/index.js';
 
 // PARA CAMBIAR DE VISTA
-// const ubicacion = `${window.location.href}#/`;
-// window.location = ubicacion;
 const init = () => {
+  window.location.hash = '#/';
   changeView(window.location.hash);
   window.addEventListener('hashchange', () => changeView(window.location.hash));
 };

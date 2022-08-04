@@ -62,7 +62,7 @@ export const obs = () => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
-      console.log(`user${uid}is loged`);
+      console.log(`user ${uid} is loged`);
       window.location.hash = '#/principal';
       document.getElementById('header').style.visibility = 'visible';
     // ...
@@ -83,7 +83,6 @@ export function eventRegister(name, username, email, password, country, descript
       setDoc(doc(db, 'userdata', uid), {
         email, password, name, username, uid, country, description, birth, photo,
       });
-      sessionStorage.getItem(user);
       window.location.hash = '#/login';
       return (user);
     })
@@ -218,27 +217,29 @@ export async function saveData(userCountry, userDescription, userBirth, userPref
   });
 }
 
-export async function changePhoto(userPhoto) {
+/* export async function changePhoto(userPhoto) {
   const user = auth.currentUser;
   const uid = user.uid;
   const docRef = doc(db, 'userdata', uid);
   await updateDoc(docRef, {
     photo: userPhoto,
-  });
-}
+}); */
 
 // Para obtener los datos del usuario activo
 
-/* export const getUserData = () => {
-  const user = auth.currentUser;
-  console.log(user);
-  if (user !== null) {
-    user.providerData.forEach((profile) => {
-      console.log(`Sign-in provider: ${profile.providerId}`);
-      console.log(`Provider-specific UID: ${profile.uid}`);
-      console.log(`Name: ${profile.displayName}`);
-      console.log(`Email: ${profile.email}`);
-      console.log(`Photo URL: ${profile.photoURL}`);
-    });
-  }
-}; */
+export function userActivo() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const namePerfil = document.getElementById('name-perfil');
+      const usuarioPerfil = document.getElementById('usuario-perfil');
+
+      const name = user.name;
+      const userEmail = user.email;
+
+      namePerfil.textContent = name;
+      usuarioPerfil.textContent = userEmail;
+
+      console.log(user);
+    }
+  });
+}
