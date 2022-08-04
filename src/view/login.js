@@ -11,9 +11,7 @@ export default () => {
       <h1>Inicia sesión</h1>
       <p id="login-message"> Por favor inicia sesión para continuar </p>
       <input type="email" placeholder="Correo Electrónico" id="login-email">
-      <p id="login-email-error"> Hay un error con tu correo </p>
       <input type="password" placeholder="Contraseña" id="login-password">
-      <p id="login-password-error"> Hay un error con tu contraseña </p>
       <button type="submit" class="btnInicio" id="login-button"> INGRESAR </button>
       <p class ="p-login"> O ingresa con: </p>
       <div class="logo-container">
@@ -22,6 +20,12 @@ export default () => {
     </div>
     <p> ¿No tienes cuenta? <a href="#/registro"> Regístrate </a> </p>
     </form>
+    <div class="background-modal-error">
+      <div class="modal-error">
+        <p class="login-error"> Hay un error </p>
+        <button class="close-modal btnInicio"> CERRAR </button>
+      </div>
+    <div>
   </div>`;
   const divLogin = document.createElement('div');
   divLogin.id = 'login';

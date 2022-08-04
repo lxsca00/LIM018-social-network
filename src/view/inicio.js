@@ -23,7 +23,7 @@ export default () => {
   </div>
 </section>`;
   const divInicio = document.createElement('div');
-  divInicio.id = 'login';
+  divInicio.id = 'inicio';
   divInicio.innerHTML = InicioView;
   return divInicio;
 };

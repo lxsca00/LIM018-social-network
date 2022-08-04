@@ -5,13 +5,7 @@ main{
     height: 80%;
     /* margin: 6.5rem 1rem; */
 }
-#container-inicio {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-}
+
 .fondo-logo{
     width: 15rem;
     height: 15rem;
@@ -21,6 +15,7 @@ main{
     align-items: center;
     justify-content: center;
 }
+
 .imagen-logo {
     width: 96%;
     border-radius: 50%;
@@ -36,22 +31,27 @@ main{
     font-weight: bold;
     /* margin-top: 0rem; */
 }
+
 #inicio-message {
     font-size: 1.5rem; 
     color: var(--gray);
     line-height: 2.7rem;
 }
+
 .informacion-PopcornZone{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
     /* margin: 0.5rem; */
 }
+
 .p-inicio {
     font-size: 1.6rem; 
     color: var(--white);
 }
+
 .btnInicio{
     font-size: 1.5rem;
     background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
@@ -64,21 +64,27 @@ main{
     main{
         height: 100%;  
     }
+
     #container-inicio {
-        display:flex;
+        display: flex;
         flex-direction: row;
-       }
+        justify-content: space-around;
+        margin: 9rem 3rem
+    }
+
     .fondo-logo{
         width: 40rem;
         height: 40rem;
     }   
+
     .logo-popcornZone{
        height: 50%;
        margin: 0rem;
-       }
+    }
+
     .informacion-PopcornZone{
-        width: 40%;
+        width: 45%;
         font-size: 2rem; 
         margin: 3rem;
-       }
+    }
 } 

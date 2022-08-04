@@ -21,6 +21,7 @@ import {
   addDoc,
   doc,
   updateDoc,
+  setDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -63,11 +64,12 @@ export const obs = () => {
       const uid = user.uid;
       console.log(`user${uid}is loged`);
       window.location.hash = '#/principal';
+      document.getElementById('header').style.visibility = 'visible';
     // ...
     } else {
     // User is signed out
       console.log('no user found');
-      window.location.hash = '#/';
+      document.getElementById('header').style.visibility = 'hidden';
     }
   });
 };
@@ -78,32 +80,38 @@ export function eventRegister(name, username, email, password, country, descript
       // Signed in
       const user = userCredential.user;
       const uid = user.uid;
-      addDoc(collection(db, 'userdata'), {
+      setDoc(doc(db, 'userdata', uid), {
         email, password, name, username, uid, country, description, birth, photo,
       });
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
       return (user);
     })
-  // eslint-disable-next-line consistent-return
     .catch((error) => {
       const errorCode = error.code;
-      /* const registerError = document.getElementById('email-register-error');
-      const registerPasswordError = document.getElementById('password-register-error');
-      if (errorCode === 'auth/email-already-in-use') {
-        registerError.style.visibility = 'visible';
-        registerError.innerHTML = 'Email en uso, intenta iniciar sesión';
-      } else if (errorCode === 'auth/invalid-email') {
-        registerError.style.visibility = 'visible';
-        registerError.innerHTML = 'Proporcione una dirección de correo válida';
-      } else if (errorCode === 'auth/internal-error') {
-        registerPasswordError.style.visibility = 'visible';
-        registerPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
-      } else if (errorCode === 'auth/weak-password') {
-        registerPasswordError.style.visibility = 'visible';
-        registerPasswordError.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
-      } */
-      return errorCode;
+      const modalError = document.querySelector('.background-modal-error');
+      modalError.style.visibility = 'visible';
+      const errorMessage = document.querySelector('.register-error');
+      switch (errorCode) {
+        case 'auth/email-already-in-use': {
+          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión';
+          break;
+        }
+        case 'auth/invalid-email': {
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida';
+          break;
+        }
+        case 'auth/internal-error': {
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio';
+          break;
+        }
+        case 'auth/weak-password': {
+          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
+          break;
+        }
+        default: errorMessage.innerHTML = 'Vuelve a intentarlo';
+          break;
+      }
     });
 }
 
@@ -118,32 +126,42 @@ export const eventLogin = (email, password) => {
     })
     .catch((error) => {
       const errorCode = error.code;
-      const loginError = document.querySelector('#login-email-error');
-      const loginPasswordError = document.getElementById('login-password-error');
-      if (errorCode === 'auth/user-not-found') {
-        loginError.style.visibility = 'visible';
-        loginError.innerHTML = 'No existe ningún usuario registrado con este email';
-      } else if (errorCode === 'auth/invalid-email') {
-        loginError.style.visibility = 'visible';
-        loginError.innerHTML = 'Proporcione una dirección de correo';
-      } else if (errorCode === 'auth/internal-error') {
-        loginPasswordError.style.visibility = 'visible';
-        loginPasswordError.innerHTML = 'El ingreso de contraseña es obligatorio';
-      } else if (errorCode === 'auth/wrong-password') {
-        loginPasswordError.style.visibility = 'visible';
-        loginPasswordError.innerHTML = 'La contraseña ingresada es incorrecta';
+      const modalError = document.querySelector('.background-modal-error');
+      modalError.style.visibility = 'visible';
+      const errorMessage = document.querySelector('.login-error');
+      switch (errorCode) {
+        case 'auth/user-not-found': {
+          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email';
+          break;
+        }
+        case 'auth/invalid-email': {
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida';
+          break;
+        }
+        case 'auth/internal-error': {
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio';
+          break;
+        }
+        case 'auth/wrong-password': {
+          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta';
+          break;
+        }
+        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo';
+          break;
       }
     });
 };
 
 // Función para cerrar la sesión
 
-export const eventLogout = () => {
+export function eventLogout() {
   signOut(auth).then(() => {
+    // window.location.hash = '#/login';
     sessionStorage.clear();
+    return console.log('se cerró sesión exitosamente');
     // Sign-out successful.
   }).catch((error) => error);
-};
+}
 
 // Función para iniciar sesión con Google
 
@@ -168,7 +186,7 @@ export const googleSignIn = () => {
       });
       // ...
       sessionStorage.getItem(user);
-    }).catch((error) => error.code);
+    }).catch((error) => console.log(error.code));
 };
 
 // Iniciar sesión con Facebook
@@ -187,19 +205,23 @@ export const facebookSignIn = () => {
 };
 
 // Actualizar los campos vacíos en el documento de cada usuario
-export async function saveData(userCountry, userDescription, userBirth) {
-  // const user = auth.currentUser;
-  const docRef = doc(db, 'userdata', 'nd2nZxrD37v6f9EDhlfK');
+export async function saveData(userCountry, userDescription, userBirth, userPreference, userGenre) {
+  const user = auth.currentUser;
+  const uid = user.uid;
+  const docRef = doc(db, 'userdata', uid);
   await updateDoc(docRef, {
     country: userCountry,
     description: userDescription,
     birth: userBirth,
+    preference: userPreference,
+    genres: userGenre,
   });
 }
 
 export async function changePhoto(userPhoto) {
-  // const user = auth.currentUser;
-  const docRef = doc(db, 'userdata', 'nd2nZxrD37v6f9EDhlfK');
+  const user = auth.currentUser;
+  const uid = user.uid;
+  const docRef = doc(db, 'userdata', uid);
   await updateDoc(docRef, {
     photo: userPhoto,
   });
@@ -207,7 +229,7 @@ export async function changePhoto(userPhoto) {
 
 // Para obtener los datos del usuario activo
 
-export const getUserData = () => {
+/* export const getUserData = () => {
   const user = auth.currentUser;
   console.log(user);
   if (user !== null) {
@@ -219,4 +241,4 @@ export const getUserData = () => {
       console.log(`Photo URL: ${profile.photoURL}`);
     });
   }
-};
+}; */

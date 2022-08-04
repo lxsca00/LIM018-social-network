@@ -1,15 +1,3 @@
-#register {
-    width: 100%
-}
-
-.container-register{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 15% 5%;
-}
-
 .register-form{
     display: flex;
     flex-direction: column;
@@ -33,19 +21,11 @@
 
 .register-form input {
     background: #FFFFFE;
-    border-radius: 15px;
+    border-radius: 8px;
     border: 0;
     padding: 0.5rem 1rem;
     width: 100%;
-}
-
-#user-name, #user-username {
     margin: 0 0 2rem 0;
-}
-
-#email-register-error, #password-register-error {
-    visibility: hidden;
-    margin: 0 0 1rem 0;
 }
 
 #register-button {
@@ -53,16 +33,47 @@
     margin: 0 0 2.5rem 0;
 }
 
+.background-modal-error{
+    height: 100vh;
+    width: 100vw;
+    background:rgba(0,0,0,0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.modal-error {
+    height: 25%;
+    width: 80%;
+    background: #fffffe;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.login-error, .register-error {
+    font-size: 1.5rem;
+    color: var(--black);
+    margin: 5px;
+}
+
 @media screen and (min-width: 768px) {
 
-    .container-register{
+    #container-register{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         margin: 9rem 3rem
     }
     
-    .register-form {
-        width: 45%;
+    #register-form {
+        width: 30%;
     }
 } 

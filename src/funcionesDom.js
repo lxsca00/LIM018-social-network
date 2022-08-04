@@ -10,7 +10,6 @@ import {
   // getUserData,
   saveData,
   changePhoto,
-  getUserData,
 } from './lib/index.js';
 
 import { countries } from './view/countries.js';
@@ -50,6 +49,23 @@ export const fEventLogin = () => {
   });
 };
 
+// CERRAR MODALES DE ERROR
+
+export const closeModal = () => {
+  document.querySelector('.close-modal').addEventListener('click', (e) => {
+    e.preventDefault();
+    const containerModal = document.querySelector('.background-modal-error');
+    containerModal.style.visibility = 'hidden';
+    if (window.location.hash === '#/registro') {
+      const signUpForm = document.querySelector('#register-form');
+      signUpForm.reset();
+    } else if (window.location.hash === '#/login') {
+      const signInForm = document.querySelector('#form-login');
+      signInForm.reset();
+    }
+  });
+};
+
 // INICIAR SESIÓN CON GOOGLE
 export const fGoogleSignIn = () => {
   document.querySelector('.image-google').addEventListener('click', (e) => {
@@ -67,14 +83,14 @@ export const fFacebookSignIn = () => {
 };
 
 // CERRAR SESIÓN
-export const fEventLogout = () => {
-  const logout = document.querySelector('#logout');
-  logout.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.location.hash = '#/';
-    return eventLogout();
-  });
-};
+// export const fEventLogout = () => {
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  eventLogout();
+  window.location.hash = '#/';
+  document.getElementById('logout').style.display = 'none';
+});
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
 export function fSharePost() {
@@ -135,45 +151,47 @@ export const editProfile = () => {
     const modal = `
     <div class="modal-edit">
       <div class="modal-card">
-        <p> Editar perfil </p>
+        <p> EDITAR PERFIL</p>
         <form id="edit-profile">
           <select id="select-country">
             <option value=" " disabled select> Selecciona tu país </option>
           </select>
           <input type="date" id="select-birth" max="2009-01-01"> </input>
-          <input type="text" id="changeDescription" placeholder="Aquí va tu descripción">
+          <input type="text" id="change-description" placeholder="Aquí va tu descripción">
           <select id="change-preferences">
             <option values="" disabled select> ¿Qué prefieres ver? </option>
             <option value="Peliculas"> Peliculas </option>
             <option value="Series"> Series </option>
           </select>
           <input type="text" id="change-genre" placeholder="¿Cuáles son tus géneros favoritos?">
-          <button type="button" id="saveChanges"> Guardar cambios </button>
-          <button class="close"> Cerrar </button>
+          <button type="button" id="save-changes" class="btnInicio"> GUARDAR CAMBIOS </button>
+          <button id="close" class="btnInicio"> CERRAR </button>
         </form>
       </div>
     <div>`;
     profile.insertAdjacentHTML('beforeend', modal);
-    const select = document.querySelector('#select-country');
+    const selectCountry = document.querySelector('#select-country');
     countries.forEach((userCountry) => {
       const category = `<option value="${userCountry}"> ${userCountry} </option>`;
-      select.insertAdjacentHTML('beforeend', category);
+      selectCountry.insertAdjacentHTML('beforeend', category);
     });
-    getUserData();
+    const selectPreference = document.querySelector('#change-preferences');
     const containerModal = document.querySelector('.modal-edit');
-    document.querySelector('#saveChanges').addEventListener('click', () => {
-      const newDescription = document.getElementById('changeDescription').value;
+    document.querySelector('#save-changes').addEventListener('click', () => {
+      const newDescription = document.getElementById('change-description').value;
       const oldDescription = document.querySelector('.user-description');
-      const country = select.options[select.selectedIndex].value;
+      const country = selectCountry.options[selectCountry.selectedIndex].value;
       const birth = document.querySelector('#select-birth').value;
+      const preference = selectPreference.options[selectPreference.selectedIndex].value;
+      const favGenre = document.querySelector('#change-genre').value;
       // getUserData();
-      saveData(country, newDescription, birth);
+      saveData(country, newDescription, birth, preference, favGenre);
       if (newDescription !== '') {
         oldDescription.innerHTML = newDescription;
         containerModal.remove();
       }
     });
-    document.querySelector('.close').addEventListener('click', () => {
+    document.querySelector('#close').addEventListener('click', () => {
       containerModal.remove();
     });
   });
@@ -183,12 +201,9 @@ export const editProfile = () => {
 
 export const inicioPage = () => {
   document.getElementById('registrarmeInicio-button').addEventListener('click', () => {
-    document.getElementById('header').style.visibility = 'visible';
-
     window.location.hash = '#/registro';
   });
   document.getElementById('loginInicio-button').addEventListener('click', () => {
-    document.getElementById('header').style.visibility = 'visible';
     window.location.hash = '#/login';
   });
 };
