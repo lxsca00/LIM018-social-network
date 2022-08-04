@@ -9,9 +9,11 @@ import {
   facebookSignIn,
   comentario,
   saveCountry,
-  onGetPost,
-  getNameUser,
+  postUserActivo,
+  //guardaDataReg,
+  //getNameUser,
   // saveTask,
+  userActivo,
 } from './lib/index.js';
 
 import { countries } from './view/countries.js';
@@ -27,6 +29,7 @@ export const fEventRegister = () => {
     const name = document.getElementById('user-name').value;
     const username = document.getElementById('user-username').value;
     eventRegister(name, username, email, password);
+    //guardaDataReg(name, username, email, password)
   });
 };
 
@@ -46,7 +49,10 @@ export const fEventLogin = () => {
     eventLogin(email, password);
     obs();
     getUserData();
-    getNameUser();
+    userActivo();
+    //obtenerData()
+    
+    
   });
 };
 
@@ -73,6 +79,7 @@ export const fEventLogout = () => {
     e.preventDefault();
     eventLogout();
     
+    
   });
 };
 
@@ -90,6 +97,8 @@ export function fSharePost() {
   toShare.addEventListener('click', () => {
     const post = document.getElementById('comment').value; // para guardat post en BD FIRESTORE
     comentario(post);
+    //const comment = document.getElementById('comment');
+    //comment.innerHTML = '';
     /*const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
@@ -182,15 +191,31 @@ export const inicioPage = () => {
 };
 
 
-export async function getUserData ()  {
-  onGetPost((querySnapshot) => {
+export function getUserPerfil () {
+onGetName((querySnapshot) => {
+  querySnapshot.forEach(doc => {
+    const userperfil = doc.data();
+
+    console.log(userperfil)
+    console.log(userperfil.username)
+
+    const namePerfil = document.getElementById('namePerfil')
+    const usuarioPerfil = document.getElementById('usuarioPerfil')
+    namePerfil.innerHTML =userperfil.name
+    usuarioPerfil.innerHTML =userperfil.username
+  })
+
+})}
+
+export function getUserData ()  {
+  /*postUserActivo((querySnapshot) => {
     querySnapshot.forEach(doc => {
       const userPost = doc.data();
-      console.log(userPost.posts)
+      console.log(userPost.posts)*/
       const oldPost = `
       <div class="old-publication" >
         <p class="user-name-post">AQUI VA EL NOMBRE DE USUARIO</p>
-        <input type="text" class="old-comment" id="oldComment" value=${userPost.posts}>
+        <input type="text" class="old-comment" id="oldComment" >
         <div class="container-button">
           <div class="emojis">
             <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
@@ -224,5 +249,4 @@ export async function getUserData ()  {
       (parentPost.insertBefore(divElem, divPost));
     }
     //document.querySelector('.old-comment').value = userPost.posts;
-  });
- })};
+  };

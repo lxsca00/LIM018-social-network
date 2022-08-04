@@ -20,9 +20,11 @@ import {
   collection,
   addDoc,
   // setDoc,
+  getDocs,
   doc,
   updateDoc,
   onSnapshot,
+  
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 // } from 'firebase/firestore'; // TEST
 
@@ -49,7 +51,26 @@ const app = initializeApp(firebaseConfig);
 // const db = getFirestore(app);
 const db = getFirestore();
 const auth = getAuth();
+const user = auth.currentUser;
+ 
+//-------------------------FUNCION para -----GUARDA USERDATA de REGISTRO
+/*export function guardaDataReg() {
+  const uid = userCred.uid;
+  const name = document.getElementById('user-name').value;
+  const username = document.getElementById('user-username').value;
+  const email = document.getElementById('user-email').value;
+  const password = document.getElementById('user-password').value;
+ addDoc(collection(db, 'userdata'), {email, password, name, username, uid, country, birth
+  })
+}*/
 
+
+//----------------------
+//export const onGetName = (callback) =>  /*usado en getUserPerfil del DOM */
+//onSnapshot(collection(db, 'userdata'), callback)
+//console.log(onGetPost)
+
+//-------------------------FUNCION para -------GUARDAR POST
 // Función para crear nueva colección de datos
 export function comentario(post) {
   // const auth = getAuth();
@@ -57,28 +78,76 @@ export function comentario(post) {
   const email = auth.currentUser.email;
   addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
 }
+//-------------------------Funcion para---------TRAER POST
+//export const onGetPost = (callback) =>    /*usado en getUserData del DOM */
+//onSnapshot(collection(db, 'post'), callback)
+//console.log(onGetPost)
+
+//-------------------------------------------------
+export function postUserActivo () {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      getDocs(collection(db, 'post'))
+      //.then((snapshot) => {
+      //  snapshot.docs.user.forEach(doc => {
+          const oldComment = document.getElementById('oldComment').value;
+          const userpost = user.post
+          oldComment.textContent = userpost
+         consol.log(doc);
+    
+    /*    onSnapshot(collection(db, 'post'));
+    //console.log(onGetPost)
+    (querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        const oldComment = document.getElementById('oldComment');
+
+        const userPost = doc.data();
+        console.log(userPost.posts)}})}*/
+      }})}
 
 
-
-//FUNCION PARA TRAER POST
-export const onGetPost = (callback) => onSnapshot(collection(db, 'post'), callback)
-
-export function obtenerPost(doc) {
+//-------------------------FUNCION para ----TRAER POST 2
+/*export function obtenerData(doc) {
   const namePerfil = document.getElementById('namePerfil');
   const usuarioPerfil = document.getElementById('usuarioPerfil');
-  namePerfil.setAttribute('data-is',doc.id);
-  usuarioPerfil.setAttribute('data-is',doc.id);
+  namePerfil.setAttribute('data-id',doc.id);
+  usuarioPerfil.setAttribute('data-id',doc.id);
   namePerfil.textContent = doc.data().name;
   usuarioPerfil.textContent = doc.data().username;
 };
-
-export function getNameUser () {db.collection('usedata').get().then((snapshot) => {
+export function getNameUser () {
+   getDocs(collection(db, 'usedata')).then((snapshot) => {
   snapshot.docs.forEach(doc => {
-    obtenerPost(doc)
+    obtenerData(doc);
   });
-});}
+}); 
+}*/
 
+//---SI FUNCIONA----------------------FUNCION para ----TRAER name a perfil usuario logueado
+export function userActivo () {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const namePerfil = document.getElementById('namePerfil');
+      const usuarioPerfil = document.getElementById('usuarioPerfil');
+      
+      const name = user.name;
+      const userEmail = user.email;
 
+      namePerfil.textContent = name ;
+      usuarioPerfil.textContent = userEmail;
+
+      console.log(user);
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      //const uid = user.uid;
+      // ...
+   // } else {
+      // User is signed out
+      // ...
+   // }
+  }})};
 
 
 // Función para registrarse con email y contraseña
@@ -105,16 +174,21 @@ export function eventRegister(name, username, email, password) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       addDoc(collection(db, 'userdata'), {
-        name, username, email, password, country, birth
+      name, username, email, password, country, birth
       }); // Creacion db firestore del usuario
       const user = userCredential.user;
       const uid = user.uid;
-      addDoc(collection(db, 'userdata'), {
-        email, password, name, username, uid,
-      });
+      const email = document.getElementById('user-email').value;
+      const password = document.getElementById('user-password').value;
+     addDoc(collection(db, 'userdata'), {email, password, name, username, uid, country, birth
+      //addDoc(collection(db, 'userdata'), {
+     //   email, password, name, username, uid,
+     //guardaDataReg()
+    })
       sessionStorage.getItem(user);
       window.location.hash = '#/login';
       return (user);
+      
     })
   // eslint-disable-next-line consistent-return
     .catch((error) => {

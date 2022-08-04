@@ -9,9 +9,10 @@ import {
   fFacebookSignIn,
   inicioPage,
   getUserData,
+  
 } from '../funcionesDom.js';
 import { components } from '../view/index.js';
-
+import { userActivo, /*getNameUser,/*obtenerData,*/ } from '../lib/index.js';
 // eslint-disable-next-line consistent-return
 const changeView = (route) => {
   const container = document.getElementById('container');
@@ -19,11 +20,17 @@ const changeView = (route) => {
   switch (route) {
     case '#/':
     { container.appendChild(components.inicio());
+      
       // document.getElementById('header').style.visibility = 'hidden';
       return inicioPage(); }
     case '#/principal':
     { container.appendChild(components.home());
+      //getNameUser();
       getUserData ()
+      userActivo ()
+      
+      //obtenerData()
+    
       // document.getElementById('home-li').style.display = 'block';
       // document.getElementById('perfil-li').style.display = 'block';
       // document.getElementById('logout').style.display = 'block';
