@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login click para login 1`] = `
+<body>
+  <div
+    id="login"
+  >
+    
+  
+    <div
+      id="container-login"
+    >
+      
+    
+      <div
+        class="fondo-logo"
+      >
+        
+      
+        <img
+          class="imagen-logo"
+          src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png"
+        />
+        
+    
+      </div>
+      
+    
+      <form
+        class="form-login"
+        id="form-login"
+      >
+         
+      
+        <h1>
+          Inicia sesión
+        </h1>
+        
+      
+        <p
+          id="login-message"
+        >
+           Por favor inicia sesión para continuar 
+        </p>
+        
+      
+        <input
+          id="login-email"
+          placeholder="Correo Electrónico"
+          type="email"
+        />
+        
+      
+        <input
+          id="login-password"
+          placeholder="Contraseña"
+          type="password"
+        />
+        
+      
+        <button
+          class="btnInicio"
+          id="login-button"
+          type="submit"
+        >
+           INGRESAR 
+        </button>
+        
+      
+        <p
+          class="p-login"
+        >
+           O ingresa con: 
+        </p>
+        
+      
+        <div
+          class="logo-container"
+        >
+          
+      
+          <img
+            class="image-facebook"
+            src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg"
+          />
+          
+      
+          <img
+            class="image-google"
+            src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png"
+          />
+          
+    
+        </div>
+        
+    
+        <p>
+           ¿No tienes cuenta? 
+          <a
+            href="#/registro"
+          >
+             Regístrate 
+          </a>
+           
+        </p>
+        
+    
+      </form>
+      
+    
+      <div
+        class="background-modal-error"
+      >
+        
+      
+        <div
+          class="modal-error"
+        >
+          
+        
+          <p
+            class="login-error"
+          >
+             Hay un error 
+          </p>
+          
+        
+          <button
+            class="close-modal btnInicio"
+          >
+             CERRAR 
+          </button>
+          
+      
+        </div>
+        
+    
+        <div>
+          
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

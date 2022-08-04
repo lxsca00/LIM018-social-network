@@ -1,10 +1,16 @@
-export const eventLogin = () => {
-  Promise.resolve({
-    user: {
-      email: 'sss@gmail.com',
-      password: '123456',
-    },
-  });
+export const eventLogin = jest.fn();
+// () => {
+
+// Promise.resolve({
+//   user: {
+//     email: 'sss@gmail.com',
+//     password: '123456',
+//   },
+// });
+// Promise.reject(
+//   new Error('Firebase: Error (auth/user-not-found).'),
+// );
+// console.log(object)
 //     .then(({
 //         userCredential: {
 //             user: xxxxxx,
@@ -19,7 +25,7 @@ export const eventLogin = () => {
 //     return Promise.reject(
 //       new Error('Firebase: Error (auth/user-not-found).'),
 //     );
-};
+// };
 
 // export function eventLogin(eMail, password) {
 //   Promise.resolve({
