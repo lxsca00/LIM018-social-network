@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 import {
   fEventLogin,
   // fEventLogout,
@@ -8,10 +7,9 @@ import {
   fGoogleSignIn,
   fFacebookSignIn,
   inicioPage,
-  // fChangePhoto,
   closeModal,
 } from '../funcionesDom.js';
-import { userActivo } from '../lib/index.js';
+import { activeUserHome, activeUserProfile, onGetPosts } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 const changeView = (route) => {
@@ -24,7 +22,8 @@ const changeView = (route) => {
       break; }
     case '#/principal':
     { container.appendChild(components.home());
-      userActivo();
+      activeUserHome();
+      onGetPosts();
       fSharePost();
       break; }
     case '#/registro':
@@ -41,7 +40,7 @@ const changeView = (route) => {
       break; }
     case '#/profile':
     { container.appendChild(components.profile());
-      // fChangePhoto();
+      activeUserProfile();
       editProfile();
       break; }
     default:

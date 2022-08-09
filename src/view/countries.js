@@ -1,7 +1,7 @@
 // Array de países para selectionar en el perfil
 
 export const countries = [
-  'Afganistán', 'Albania', 'Alemania',
+  'Selecciona tu país', 'Afganistán', 'Albania', 'Alemania',
   'Andorra', 'Angola', 'Antigua y Barbuda',
   'Arabia Saudita', 'Argelia', 'Argentina', 'Armenia',
   'Australia', 'Austria', 'Azerbaiyán', 'Bahamas', 'Bangladés',

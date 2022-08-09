@@ -15,8 +15,8 @@ export default () => {
       <button type="submit" class="btnInicio" id="login-button"> INGRESAR </button>
       <p class ="p-login"> O ingresa con: </p>
       <div class="logo-container">
-      <img class="image-facebook" src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg">
-      <img class="image-google" src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png">
+      <button id="button-facebook"><img src="https://i.pinimg.com/736x/8e/fb/55/8efb55e9efc12eb11bedf41caa7f33bb.jpg"> Facebook </button>
+      <button id="button-google"><img src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png">  Google </button>
     </div>
     <p> ¿No tienes cuenta? <a href="#/registro"> Regístrate </a> </p>
     </form>

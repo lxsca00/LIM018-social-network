@@ -58,7 +58,7 @@
     margin: 1rem;
 }
 
-.old-publication, .publication{
+.old-publication, .form-publication{
     width: 28rem;
     height: 20rem;
     background-color: var(--gray);
@@ -115,12 +115,59 @@
     color:var(--white);
     font-size: 1.5rem;
 }
+
 .comment-button{
    color: var(--orange1) ;
    background-color: transparent;
 }
-.all-publications{
+
+.container-publications {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.background-modal-edit {
+    height: 100vh;
+    width: 100vw;
+    background:rgba(0,0,0,0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.modal-post-edit {
+    height: 50%;
+    width: 80%;
+    background: #fffffe;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.modal-post-edit input {
+    width: 100%;
+    height: 30%;
+    margin: 0 0 1rem 0;
+    border: none;
+    background: rgba(169, 169, 169, 0.25);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+
+.modal-post-edit p {
+    background: none;
+    margin: 0;
+    font-size: 2rem;
+    color: var(--black);
+    text-align: center;
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

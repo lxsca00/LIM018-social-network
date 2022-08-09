@@ -2,8 +2,7 @@
 import {
   initializeApp,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-// } from 'firebase/app'; // TEST
-// import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js';
+
 import {
   getAuth,
   onAuthStateChanged,
@@ -13,17 +12,17 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-// } from 'firebase/auth'; // TEST
 
 import {
   getFirestore,
   collection,
   addDoc,
-  doc,
+  doc, Timestamp,
   updateDoc,
-  setDoc,
+  setDoc, getDoc,
+  onSnapshot, query,
+  orderBy,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
-// } from 'firebase/firestore'; // TEST
 
 /* import {
   getAnalytics,
@@ -47,13 +46,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
 
-// Función para crear nueva colección de datos
-export function comentario(post) {
-  const user = auth.currentUser.uid;
-  const email = auth.currentUser.email;
-  addDoc(collection(db, 'post'), { posts: post, uid: user, coreeo: email });
-}
-
 // Función para registrarse con email y contraseña
 
 export const obs = () => {
@@ -75,7 +67,7 @@ export const obs = () => {
 };
 
 export function eventRegister(name, username, email, password, country, description, birth, photo) {
-  createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -84,7 +76,6 @@ export function eventRegister(name, username, email, password, country, descript
         email, password, name, username, uid, country, description, birth, photo,
       });
       window.location.hash = '#/login';
-      return (user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -93,22 +84,22 @@ export function eventRegister(name, username, email, password, country, descript
       const errorMessage = document.querySelector('.register-error');
       switch (errorCode) {
         case 'auth/email-already-in-use': {
-          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión';
+          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
           break;
         }
         case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida';
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
           break;
         }
         case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio';
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
           break;
         }
         case 'auth/weak-password': {
-          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres';
+          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
           break;
         }
-        default: errorMessage.innerHTML = 'Vuelve a intentarlo';
+        default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
           break;
       }
     });
@@ -130,22 +121,22 @@ export const eventLogin = (email, password) => {
       const errorMessage = document.querySelector('.login-error');
       switch (errorCode) {
         case 'auth/user-not-found': {
-          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email';
+          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
           break;
         }
         case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida';
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
           break;
         }
         case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio';
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
           break;
         }
         case 'auth/wrong-password': {
-          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta';
+          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
           break;
         }
-        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo';
+        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
           break;
       }
     });
@@ -155,7 +146,6 @@ export const eventLogin = (email, password) => {
 
 export function eventLogout() {
   signOut(auth).then(() => {
-    // window.location.hash = '#/login';
     sessionStorage.clear();
     return console.log('se cerró sesión exitosamente');
     // Sign-out successful.
@@ -166,6 +156,7 @@ export function eventLogout() {
 
 export const googleSignIn = () => {
   const provider = new GoogleAuthProvider();
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -173,7 +164,9 @@ export const googleSignIn = () => {
       // const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      addDoc(collection(db, 'userdata'), {
+      sessionStorage.getItem(user);
+      const uid = user.uid;
+      setDoc(doc(db, 'userdata', uid), {
         email: user.email,
         name: user.displayName,
         uid: user.uid,
@@ -184,8 +177,17 @@ export const googleSignIn = () => {
         description: '',
       });
       // ...
-      sessionStorage.getItem(user);
-    }).catch((error) => console.log(error.code));
+    }).catch((error) => {
+    // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      // const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...);
+      console.log(errorCode, errorMessage, credential);
+    });
 };
 
 // Iniciar sesión con Facebook
@@ -203,43 +205,120 @@ export const facebookSignIn = () => {
     .catch((error) => error.code);
 };
 
+// Función para crear nueva colección de datos
+export const savePost = (post) => {
+  const user = auth.currentUser.uid;
+  const email = auth.currentUser.email;
+  addDoc(collection(db, 'post'), {
+    posts: post,
+    uid: user,
+    correo: email,
+    datePosted: Timestamp.fromDate(new Date()),
+  });
+};
+
 // Actualizar los campos vacíos en el documento de cada usuario
-export async function saveData(userCountry, userDescription, userBirth, userPreference, userGenre) {
+export async function saveData(country, description, birth, preference, genre) {
   const user = auth.currentUser;
   const uid = user.uid;
   const docRef = doc(db, 'userdata', uid);
   await updateDoc(docRef, {
-    country: userCountry,
-    description: userDescription,
-    birth: userBirth,
-    preference: userPreference,
-    genres: userGenre,
+    country,
+    description,
+    birth,
+    preference,
+    genre,
   });
 }
 
-/* export async function changePhoto(userPhoto) {
+// Para obtener los datos del usuario activo en el home
+
+export const activeUserHome = async () => {
   const user = auth.currentUser;
   const uid = user.uid;
   const docRef = doc(db, 'userdata', uid);
-  await updateDoc(docRef, {
-    photo: userPhoto,
-}); */
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const userName = document.querySelector('.name-profile');
+    userName.textContent = docSnap.data().name;
+    const userEmail = document.querySelector('#user-profile');
+    userEmail.textContent = docSnap.data().email;
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!');
+  }
+};
 
-// Para obtener los datos del usuario activo
+// Para obtener los datos del usuario activo en tiempo real en el profile
 
-export function userActivo() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const namePerfil = document.getElementById('name-perfil');
-      const usuarioPerfil = document.getElementById('usuario-perfil');
+export const activeUserProfile = async () => {
+  const user = auth.currentUser;
+  const uid = user.uid;
+  onSnapshot(
+    doc(db, 'userdata', uid),
+    { includeMetadataChanges: true },
+    (dok) => {
+      // console.log(dok.data());
+      const userName = document.querySelector('.name-profile');
+      userName.textContent = dok.data().name;
+      const userEmail = document.querySelector('.email-profile');
+      userEmail.textContent = dok.data().email;
+      const userCountry = document.querySelector('#user-country');
+      userCountry.textContent = dok.data().country;
+      const description = document.querySelector('.user-description');
+      description.textContent = dok.data().description;
+      const userElection = document.querySelector('.user-election');
+      userElection.textContent = dok.data().preference;
+      const userGenres = document.querySelector('.user-genre');
+      userGenres.textContent = dok.data().genres;
+    },
+  );
+};
 
-      const name = user.name;
-      const userEmail = user.email;
+// Obtener los post en tiempo real
 
-      namePerfil.textContent = name;
-      usuarioPerfil.textContent = userEmail;
+export const onGetPosts = async () => {
+  const q = query(collection(db, 'post'), orderBy('datePosted', 'desc'));
+  onSnapshot(q, (querySnapshot) => {
+    const posts = [];
+    querySnapshot.forEach((dok) => {
+      posts.push(Object.assign(dok.data(), { id: dok.id }));
+    });
+    const home = document.getElementById('all-publications');
+    home.innerHTML = '';
+    posts.forEach((post) => {
+      home.innerHTML += `
+     <div class="old-publication" >
+      <p class="user-name-post"> ${post.correo} </p>
+      <input type="text" class="old-comment" value="${post.posts}">
+      <div class="container-button">
+        <div class="emojis">
+          <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
+          <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+        </div>
+      <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+      </div>
+        </div>
+    </div>`;
+    });
+  });
+};
 
-      console.log(user);
+// Para obtener foto de perfil
+
+/* export async function photoUser() {
+  const user = auth.currentUser;
+  const uid = user.uid;
+  const docRef = doc(db, 'userdata', uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const userPhoto = document.querySelector('.user-photo');
+    userPhoto.src = docSnap.data().photo;
+    if (userPhoto === '') {
+      userPhoto.src = 'pop2.png';
     }
-  });
-}
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!');
+  }
+} */
