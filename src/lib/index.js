@@ -1,50 +1,77 @@
-/* eslint-disable import/no-unresolved */
 import {
-  initializeApp,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js';
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut, signInWithPopup,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  doc, Timestamp,
-  updateDoc,
-  setDoc, getDoc,
-  onSnapshot, query,
+  // initializeApp,
+  //
+  getAuth, // no promise
+  onAuthStateChanged, // es promesa (if-else)
+  createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
+  signInWithEmailAndPassword, // es promesa
+  signOut, // es promesa
+  signInWithPopup, // es promesa
+  GoogleAuthProvider, // no promise?
+  FacebookAuthProvider, // no promise?
+  //
+  getFirestore, // no promise
+  collection, // no promise
+  addDoc, // es promesa (v:rapido)
+  doc, // no promise
+  Timestamp,
+  updateDoc, //  es promesa (await)
+  setDoc, //  es promesa (await)
+  getDoc,
+  onSnapshot,
+  query,
   orderBy,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
+  // Initialize Firebase
+  app,
+} from './firebase.js';
 
 /* import {
   getAnalytics,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js'; */
 
-// CREDENCIALES
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-  apiKey: 'AIzaSyACc51LXOjvtbxdJZvHc4gM_0y2VgVoN-U',
-  authDomain: 'popcorn-zone-698e0.firebaseapp.com',
-  projectId: 'popcorn-zone-698e0',
-  storageBucket: 'popcorn-zone-698e0.appspot.com',
-  messagingSenderId: '801567687163',
-  appId: '1:801567687163:web:19c68d5004a3fb78210b5e',
-  measurementId: 'G-XDE8KYM2TV',
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth();
+
+// Función para ingresar con email y contraseña
+
+export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
+// Función para ingresar con email y contraseña
+
+// export const eventLogin = (email, password) => {
+//   signInWithEmailAndPassword(auth, email, password)
+//     .then((userCredential) => {
+//       // Signed in
+//       const user = userCredential.user;
+//       sessionStorage.getItem(user);
+//     })
+//     .catch((error) => {
+//       const errorCode = error.code;
+//       const modalError = document.querySelector('.background-modal-error');
+//       modalError.style.visibility = 'visible';
+//       const errorMessage = document.querySelector('.login-error');
+//       switch (errorCode) {
+//         case 'auth/user-not-found': {
+//           errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
+//           break;
+//         }
+//         case 'auth/invalid-email': {
+//           errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+//           break;
+//         }
+//         case 'auth/internal-error': {
+//           errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+//           break;
+//         }
+//         case 'auth/wrong-password': {
+//           errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
+//           break;
+//         }
+//         default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
+//           break;
+//       }
+//     });
+// };
 
 // Función para registrarse con email y contraseña
 
@@ -104,43 +131,6 @@ export function eventRegister(name, username, email, password, country, descript
       }
     });
 }
-
-// Función para ingresar con email y contraseña
-
-export const eventLogin = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      sessionStorage.getItem(user);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal-error');
-      modalError.style.visibility = 'visible';
-      const errorMessage = document.querySelector('.login-error');
-      switch (errorCode) {
-        case 'auth/user-not-found': {
-          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
-          break;
-        }
-        case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-          break;
-        }
-        case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-          break;
-        }
-        case 'auth/wrong-password': {
-          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
-          break;
-        }
-        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
-          break;
-      }
-    });
-};
 
 // Función para cerrar la sesión
 

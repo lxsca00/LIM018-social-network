@@ -13,6 +13,72 @@ import {
 
 import { countries } from './view/countries.js';
 
+// AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
+export function eventLoginGlobal() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  return eventLogin(email, password)
+    .then((userCredential) => {
+    // Signed in
+      const user = userCredential.user;
+      sessionStorage.getItem(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const modalError = document.querySelector('.background-modal-error');
+      modalError.style.visibility = 'visible';
+      const errorMessage = document.querySelector('.login-error');
+      switch (errorCode) {
+        case 'auth/user-not-found': {
+          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
+          break;
+        }
+        case 'auth/invalid-email': {
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+          break;
+        }
+        case 'auth/internal-error': {
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+          break;
+        }
+        case 'auth/wrong-password': {
+          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
+          break;
+        }
+        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
+          break;
+      }
+    });
+}
+
+export const fEventLogin = () => {
+  document.getElementById('home-li').style.display = 'none';
+  document.getElementById('perfil-li').style.display = 'none';
+  document.getElementById('logout').style.display = 'none';
+  document.getElementById('registro-li').style.display = 'block';
+  document.getElementById('login').style.display = 'block';
+  const signInForm = document.querySelector('#form-login');
+  signInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    eventLoginGlobal();
+    obs();
+  });
+};
+// export const fEventLogin = () => {
+//   document.getElementById('home-li').style.display = 'none';
+//   document.getElementById('perfil-li').style.display = 'none';
+//   document.getElementById('logout').style.display = 'none';
+//   document.getElementById('registro-li').style.display = 'block';
+//   document.getElementById('login').style.display = 'block';
+//   const signInForm = document.querySelector('#form-login');
+//   signInForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const email = document.getElementById('login-email').value;
+//     const password = document.getElementById('login-password').value;
+//     eventLogin(email, password);
+//     obs();
+//   });
+// };
 // FUNCION PARA REDIRIGIRSE DESDE EL INICIO
 
 export const inicioPage = () => {
@@ -39,24 +105,6 @@ export const fEventRegister = () => {
     const birth = '';
     const photo = '';
     eventRegister(name, username, email, password, country, description, birth, photo);
-  });
-};
-
-// AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
-
-export const fEventLogin = () => {
-  document.getElementById('home-li').style.display = 'none';
-  document.getElementById('perfil-li').style.display = 'none';
-  document.getElementById('logout').style.display = 'none';
-  document.getElementById('registro-li').style.display = 'block';
-  document.getElementById('login').style.display = 'block';
-  const signInForm = document.querySelector('#form-login');
-  signInForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    eventLogin(email, password);
-    obs();
   });
 };
 
