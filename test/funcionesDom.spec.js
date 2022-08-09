@@ -9,7 +9,7 @@ import login from '../src/view/login.js';
 import {
   fEventLogin,
   eventLoginGlobal,
-} from '../src/funcionesDom.js';
+} from '../src/funcionesDom';
 // import { eventLogin } from '../src/lib/index.js';
 
 import {
@@ -27,7 +27,7 @@ describe('eventLogin1', () => {
   // console.log(eventLogin.mock.calls[0][0]);
   // console.log(eventLogin.mock.calls[0][1]);
   it('debería ser una función', () => {
-    expect(typeof eventLogin1).toBe('function');
+    expect(typeof eventLoginGlobal).toBe('function');
   });
   it('deberias loguearte con el correo y contraseña que escribes', () => {
     expect(eventLogin.mock.calls[0][0]).toBe(document.getElementById('login-email').value);

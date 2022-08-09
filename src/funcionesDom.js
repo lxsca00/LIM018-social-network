@@ -3,7 +3,8 @@
 import {
   eventRegister,
   eventLogin,
-  obs, eventLogout,
+  obs,
+  eventLogout,
   googleSignIn,
   facebookSignIn,
   savePost,
@@ -22,6 +23,7 @@ export function eventLoginGlobal() {
     // Signed in
       const user = userCredential.user;
       sessionStorage.getItem(user);
+      return ('user is loged');
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -48,6 +50,7 @@ export function eventLoginGlobal() {
         default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
           break;
       }
+      return ('error');
     });
 }
 
