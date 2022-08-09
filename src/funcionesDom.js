@@ -15,9 +15,9 @@ import { countries } from './view/countries.js';
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
 export function eventLoginGlobal() {
-  const email = document.getElementById('login-email').value;
+  const eMail = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
-  return eventLogin(email, password)
+  return eventLogin(eMail, password)
     .then((userCredential) => {
     // Signed in
       const user = userCredential.user;
