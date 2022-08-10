@@ -9,7 +9,9 @@ import {
   inicioPage,
   closeModal,
 } from '../funcionesDom.js';
-import { activeUserHome, activeUserProfile, onGetPosts } from '../lib/index.js';
+import {
+  activeUserHome, activeUserProfile, onGetPosts,
+} from '../lib/index.js';
 import { components } from '../view/index.js';
 
 const changeView = (route) => {

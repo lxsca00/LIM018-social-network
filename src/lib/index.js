@@ -21,6 +21,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  deleteDoc, // promesa
   // Initialize Firebase
   app,
 } from './firebase.js';
@@ -265,8 +266,23 @@ export const activeUserProfile = async () => {
   );
 };
 
-// Obtener los post en tiempo real
+export const deletePost = (id) => deleteDoc(doc(db, 'post', id));
 
+export function deletePosts() {
+  const btnsDelete = document.querySelectorAll('.comment-button');
+  console.log(btnsDelete);
+  btnsDelete.forEach((boton) => {
+    boton.addEventListener('click', (event) => { // al ejecutar un btn (con clic p.e.) y para traer info del btn se usa un evento
+      // 1. si queremos estructurar el objeto event es = { target:{ dataset } }
+      console.log(event); // >see to event object.I need target property>target.dataset>dataset.id
+      console.log(event.target.dataset.id);
+      deletePost(event.target.dataset.id);
+      // 2. si queremos estructurar el objeto event.target.dataset.id es = dataset.id
+    });
+  });
+}
+
+// Obtener los post en tiempo real
 export const onGetPosts = async () => {
   const q = query(collection(db, 'post'), orderBy('datePosted', 'desc'));
   onSnapshot(q, (querySnapshot) => {
@@ -286,11 +302,12 @@ export const onGetPosts = async () => {
           <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
           <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
         </div>
-      <input type="button" title="Click to coment" value="Comentar "  class="comment-button" >
+      <button title="Delete post" class="comment-button" data-id='${post.id}'>Delete</button>  // data-xxxx (propiedad de html que guarda datos dentro del boton)
       </div>
         </div>
     </div>`;
     });
+    deletePosts();
   });
 };
 

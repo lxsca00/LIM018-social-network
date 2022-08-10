@@ -26,6 +26,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  deleteDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js';
 
 export {
@@ -49,6 +50,7 @@ export {
   onSnapshot,
   query,
   orderBy,
+  deleteDoc,
 };
 // CREDENCIALES
 // TODO: Replace the following with your app's Firebase project configuration
