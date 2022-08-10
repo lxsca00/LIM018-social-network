@@ -4,7 +4,7 @@ import {
   eventRegister,
   eventLogin,
   obs,
-  // eventLogout,
+  eventLogout,
   googleSignIn,
   facebookSignIn,
   savePost,
@@ -148,13 +148,13 @@ export const fFacebookSignIn = () => {
 
 // CERRAR SESIÓN
 
-// const logout = document.querySelector('#logout');
-// logout.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   eventLogout();
-//   window.location.hash = '#/';
-//   document.getElementById('logout').style.display = 'none';
-// });
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  eventLogout();
+  window.location.hash = '#/';
+  document.getElementById('logout').style.display = 'none';
+});
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
 
