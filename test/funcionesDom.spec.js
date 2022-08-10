@@ -53,15 +53,13 @@ describe('eventLoginGlobalError', () => {
     document.getElementById('login-password').value = '';
     // console.log(eventLogin.mock.calls[0][1]);
     eventLoginGlobal();
-
-    // const myMockFunc = eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
     // eslint-disable-next-line prefer-promise-reject-errors
     eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
-    // eslint-disable-next-line jest/valid-expect
     setTimeout(() => {
       // eslint-disable-next-line jest/valid-expect
       expect(eventLoginGlobal()).resolves.toBe('error');
       // eslint-disable-next-line jest/valid-expect
+      // expect(eventLoginGlobal()).rejects.toMatch('error');
       done();
     }, 200);
   });
