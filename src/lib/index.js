@@ -266,7 +266,8 @@ export const activeUserProfile = async () => {
   );
 };
 
-export const deletePost = (id) => deleteDoc(doc(db, 'post', id));
+// PARA  BORRAR POST DEL HOME
+export const deletePost = (id) => deleteDoc(doc(db, 'post', id)); // deleteDoc es promesa de firestore
 
 export function deletePosts() {
   const btnsDelete = document.querySelectorAll('.comment-button');
