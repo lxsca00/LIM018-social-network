@@ -34,7 +34,7 @@ describe('eventLoginGlobal', () => {
   it('deberias loguearte con el correo y contraseña que escribes', () => {
     expect(eventLogin.mock.calls[0][0]).toBe(document.getElementById('login-email').value);
     expect(eventLogin.mock.calls[0][1]).toBe(document.getElementById('login-password').value);
-    eventLogin.mockClear();
+    // eventLogin.mockClear();
   });
   test('login (ingreso) para usuario registrado', async () => {
     await expect(eventLoginGlobal()).resolves.toBe('user is loged');
@@ -42,10 +42,16 @@ describe('eventLoginGlobal', () => {
 });
 
 describe('eventLoginGlobalError', () => {
-  beforeEach(() => eventLogin.mockClear());
+  // beforeEach(() => eventLogin.mockClear());
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = 'xxxxx';
+  eventLoginGlobal();
+  console.log(eventLogin.mock.calls);
   // eslint-disable-next-line prefer-promise-reject-errors
-  eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
+  // eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
+  console.log(eventLogin('xx', '123456'));
   it('login (ingreso) para usuario registrado', () => eventLogin('xx', '123456')
+
     .catch((errorCode) => {
       expect(errorCode).toBe('auth/invalid-em');
       console.log(eventLogin('xx', '123456'));
