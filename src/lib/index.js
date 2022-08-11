@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   // initializeApp,
   //
@@ -34,8 +35,8 @@ import {
 const db = getFirestore(app);
 const auth = getAuth();
 
-// Función para ingresar con email y contraseña
-
+/* ************** AUTENTIFICACIÓN DE USUARIO - LOGIN CON CONTRASEÑA **************** */
+// even
 export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 // Función para ingresar con email y contraseña
 
@@ -74,26 +75,15 @@ export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, 
 //     });
 // };
 
-// Función para registrarse con email y contraseña
+/* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
+// even
+// eslint-disable-next-line no-unused-vars
+// export const eventRegister = (name, username, email, password, country, description, birth, photo) => createUserWithEmailAndPassword(email, password);
+// export const eventSetDoc = (uid, name, username, email, password, country, description, birth, photo) => setDoc(doc(db, 'userdata', uid), {
+//   email, password, name, username, uid, country, description, birth, photo,
+// });
 
-export const obs = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log(`user ${uid} is loged`);
-      window.location.hash = '#/principal';
-      document.getElementById('header').style.visibility = 'visible';
-    // ...
-    } else {
-    // User is signed out
-      console.log('no user found');
-      document.getElementById('header').style.visibility = 'hidden';
-    }
-  });
-};
-
+// eslint-disable-next-line max-len
 export function eventRegister(name, username, email, password, country, description, birth, photo) {
   createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
@@ -132,6 +122,25 @@ export function eventRegister(name, username, email, password, country, descript
       }
     });
 }
+
+// OBSERVADOR
+export const obs = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log(`user ${uid} is loged`);
+      window.location.hash = '#/principal';
+      document.getElementById('header').style.visibility = 'visible';
+    // ...
+    } else {
+    // User is signed out
+      console.log('no user found');
+      document.getElementById('header').style.visibility = 'hidden';
+    }
+  });
+};
 
 // Función para cerrar la sesión
 
@@ -311,22 +320,3 @@ export const onGetPosts = async () => {
     deletePosts();
   });
 };
-
-// Para obtener foto de perfil
-
-/* export async function photoUser() {
-  const user = auth.currentUser;
-  const uid = user.uid;
-  const docRef = doc(db, 'userdata', uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    const userPhoto = document.querySelector('.user-photo');
-    userPhoto.src = docSnap.data().photo;
-    if (userPhoto === '') {
-      userPhoto.src = 'pop2.png';
-    }
-  } else {
-    // doc.data() will be undefined in this case
-    console.log('No such document!');
-  }
-} */
