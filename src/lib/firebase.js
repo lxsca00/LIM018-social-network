@@ -11,7 +11,6 @@ import {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider,
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js';
 
 import {
@@ -38,7 +37,6 @@ export {
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider,
   getFirestore,
   collection,
   addDoc,

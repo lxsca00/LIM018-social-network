@@ -6,7 +6,6 @@ import {
   obs,
   eventLogout,
   googleSignIn,
-  facebookSignIn,
   savePost,
   saveData,
   // changePhoto,
@@ -67,21 +66,7 @@ export const fEventLogin = () => {
     obs();
   });
 };
-// export const fEventLogin = () => {
-//   document.getElementById('home-li').style.display = 'none';
-//   document.getElementById('perfil-li').style.display = 'none';
-//   document.getElementById('logout').style.display = 'none';
-//   document.getElementById('registro-li').style.display = 'block';
-//   document.getElementById('login').style.display = 'block';
-//   const signInForm = document.querySelector('#form-login');
-//   signInForm.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const email = document.getElementById('login-email').value;
-//     const password = document.getElementById('login-password').value;
-//     eventLogin(email, password);
-//     obs();
-//   });
-// };
+
 // FUNCION PARA REDIRIGIRSE DESDE EL INICIO
 
 export const inicioPage = () => {
@@ -102,12 +87,11 @@ export const fEventRegister = () => {
     const email = document.getElementById('user-email').value;
     const password = document.getElementById('user-password').value;
     const name = document.getElementById('user-name').value;
-    const username = document.getElementById('user-username').value;
-    const country = '';
-    const description = '';
+    const country = 'Ingresa tu país';
+    const description = 'Cuéntanos un poco sobre ti';
     const birth = '';
     const photo = '';
-    eventRegister(name, username, email, password, country, description, birth, photo);
+    eventRegister(name, email, password, country, description, birth, photo);
   });
 };
 
@@ -134,15 +118,7 @@ export const fGoogleSignIn = () => {
   document.querySelector('#button-google').addEventListener('click', (e) => {
     e.preventDefault();
     googleSignIn();
-  });
-};
-
-// INICIAR SESIÓN CON FACEBOOK
-
-export const fFacebookSignIn = () => {
-  document.querySelector('#button-facebook').addEventListener('click', (e) => {
-    e.preventDefault();
-    facebookSignIn();
+    obs();
   });
 };
 

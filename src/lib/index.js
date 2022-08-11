@@ -8,7 +8,6 @@ import {
   signOut, // es promesa
   signInWithPopup, // es promesa
   GoogleAuthProvider, // no promise?
-  FacebookAuthProvider, // no promise?
   //
   getFirestore, // no promise
   collection, // no promise
@@ -83,7 +82,7 @@ export const obs = () => {
     // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       console.log(`user ${uid} is loged`);
-      window.location.hash = '#/principal';
+      window.location.hash = '#/home';
       document.getElementById('header').style.visibility = 'visible';
     // ...
     } else {
@@ -94,14 +93,14 @@ export const obs = () => {
   });
 };
 
-export function eventRegister(name, username, email, password, country, description, birth, photo) {
-  createUserWithEmailAndPassword(email, password)
+export function eventRegister(name, email, password, country, description, birth, photo) {
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       const uid = user.uid;
       setDoc(doc(db, 'userdata', uid), {
-        email, password, name, username, uid, country, description, birth, photo,
+        email, password, name, uid, country, description, birth, photo,
       });
       window.location.hash = '#/login';
     })
@@ -140,18 +139,17 @@ export function eventLogout() {
     sessionStorage.clear();
     return console.log('se cerró sesión exitosamente');
     // Sign-out successful.
-  }).catch((error) => error);
+  }).catch((error) => error.code);
 }
 
 // Función para iniciar sesión con Google
 
 export const googleSignIn = () => {
   const provider = new GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      GoogleAuthProvider.credentialFromResult(result);
       // const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
@@ -162,38 +160,12 @@ export const googleSignIn = () => {
         name: user.displayName,
         uid: user.uid,
         photo: user.photoURL,
-        username: '',
         birth: '',
-        country: '',
-        description: '',
+        country: 'Ingresa tu país',
+        description: 'Cuéntanos un poco sobre ti',
       });
       // ...
-    }).catch((error) => {
-    // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      // const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...);
-      console.log(errorCode, errorMessage, credential);
-    });
-};
-
-// Iniciar sesión con Facebook
-export const facebookSignIn = () => {
-  const provider = new FacebookAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // The signed-in user info.
-      const user = result.user;
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      // const credential = FacebookAuthProvider.credentialFromResult(result);
-      // const accessToken = credential.accessToken;
-      sessionStorage.getItem(user);
-    })
-    .catch((error) => error.code);
+    }).catch((error) => error.code);
 };
 
 // Función para crear nueva colección de datos
@@ -205,6 +177,7 @@ export const savePost = (post) => {
     uid: user,
     correo: email,
     datePosted: Timestamp.fromDate(new Date()),
+    likes: 0,
   });
 };
 
@@ -221,24 +194,6 @@ export async function saveData(country, description, birth, preference, genre) {
     genre,
   });
 }
-
-// Para obtener los datos del usuario activo en el home
-
-export const activeUserHome = async () => {
-  const user = auth.currentUser;
-  const uid = user.uid;
-  const docRef = doc(db, 'userdata', uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    const userName = document.querySelector('.name-profile');
-    userName.textContent = docSnap.data().name;
-    const userEmail = document.querySelector('#user-profile');
-    userEmail.textContent = docSnap.data().email;
-  } else {
-    // doc.data() will be undefined in this case
-    console.log('No such document!');
-  }
-};
 
 // Para obtener los datos del usuario activo en tiempo real en el profile
 
@@ -271,20 +226,75 @@ export const deletePost = (id) => deleteDoc(doc(db, 'post', id)); // deleteDoc e
 
 export function deletePosts() {
   const btnsDelete = document.querySelectorAll('.comment-button');
-  console.log(btnsDelete);
+  // console.log(btnsDelete);
   btnsDelete.forEach((boton) => {
     boton.addEventListener('click', (event) => { // al ejecutar un btn (con clic p.e.) y para traer info del btn se usa un evento
       // 1. si queremos estructurar el objeto event es = { target:{ dataset } }
-      console.log(event); // >see to event object.I need target property>target.dataset>dataset.id
-      console.log(event.target.dataset.id);
+      // console.log(event); >see to event object.I need target property>target.dataset>dataset.id
+      // console.log(event.target.dataset.id);
       deletePost(event.target.dataset.id);
       // 2. si queremos estructurar el objeto event.target.dataset.id es = dataset.id
     });
   });
 }
 
+// EDITAR POST DEL HOME
+
+const closeModalEdit = () => {
+  const modalEdit = document.querySelector('.close-modal');
+  modalEdit.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.background-modal-edit').style.visibility = 'hidden';
+  });
+};
+
+export const editPost = () => {
+  const editButtons = document.querySelectorAll('.edit-button');
+  editButtons.forEach((edit) => {
+    edit.addEventListener('click', (event) => {
+      document.querySelector('.background-modal-edit').style.visibility = 'visible';
+      const saveButton = document.querySelector('.save-post');
+      saveButton.addEventListener('click', async () => {
+        const id = event.target.dataset.id;
+        const docRef = doc(db, 'post', id);
+        const newPost = document.querySelector('#edit-post').value;
+        await updateDoc(docRef, {
+          posts: newPost,
+        });
+        document.querySelector('.background-modal-edit').style.visibility = 'hidden';
+      });
+      closeModalEdit();
+    });
+  });
+};
+
+/* export function shareLike() {
+  const buttonLike = document.querySelectorAll('.button-emoji');
+  const inputLike = document.querySelector('.inputlike');
+  // console.log(inputLike)
+  // console.log(buttonLike);
+  let numero = 0;
+  buttonLike.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (numero === 0) {
+        numero++;
+        // inputLike.innerHTML = "";
+        inputLike.innerHTML = numero;
+      } else {
+        numero--;
+        inputLike.innerHTML = numero;
+      }
+    // console.log(inputLike)
+    // savelike(inputLike);
+    });
+  // return (inputLike)
+  });
+} */
+
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
+  const user = auth.currentUser;
   const q = query(collection(db, 'post'), orderBy('datePosted', 'desc'));
   onSnapshot(q, (querySnapshot) => {
     const posts = [];
@@ -294,39 +304,56 @@ export const onGetPosts = async () => {
     const home = document.getElementById('all-publications');
     home.innerHTML = '';
     posts.forEach((post) => {
-      home.innerHTML += `
+      let onePost = `
      <div class="old-publication" >
-      <p class="user-name-post"> ${post.correo} </p>
-      <input type="text" class="old-comment" value="${post.posts}">
-      <div class="container-button">
-        <div class="emojis">
-          <input type="button" title="Click to coment" value="🍿"  class="button-emoji" >
-          <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
-        </div>
-      <button title="Delete post" class="comment-button" data-id='${post.id}'>Delete</button>  // data-xxxx (propiedad de html que guarda datos dentro del boton)
-      </div>
-        </div>
-    </div>`;
+        <p class="user-name-post"> ${post.correo} </p>
+        <p class="old-comment"> ${post.posts} </p>
+        <div class="container-post-button">
+          <div class="emojis">
+            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+            <button class="edit-button inputlike"> ${post.likes} </button>
+          </div>`;
+      if (post.uid === user.uid) {
+        onePost += `<button title="Edit post" class="edit-button" data-id='${post.id}'>Edit</button>
+            <button title="Delete post" class="comment-button" data-id='${post.id}'>Delete</button>  <!--data-xxxx (propiedad de html que guarda datos dentro del boton)-->
+          </div>
+        </div>`;
+      } else {
+        onePost += '</div>';
+      }
+      home.innerHTML += onePost;
     });
+    // shareLike();
     deletePosts();
+    editPost();
   });
 };
 
-// Para obtener foto de perfil
+// PERFIL DEL USUARIO EN HOME
 
-/* export async function photoUser() {
+const userImg = (img) => (img !== null ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
+
+export const activeUserHome = async () => {
   const user = auth.currentUser;
   const uid = user.uid;
   const docRef = doc(db, 'userdata', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    const userPhoto = document.querySelector('.user-photo');
-    userPhoto.src = docSnap.data().photo;
-    if (userPhoto === '') {
-      userPhoto.src = 'pop2.png';
-    }
+    const userImgProfile = docSnap.data().photo;
+    const pic = userImg(userImgProfile);
+    const homeProfile = `
+    <div class="container-user-photo">
+      <div class="photo-user">
+        <img src=${pic} class="user-photo">
+      </div>
+    </div>
+    <div class="data-user">
+      <p class="name-profile"> ${docSnap.data().name} </p>
+      <p id="user-profile"> ${docSnap.data().email} </p>
+    </div>`;
+    const containerProfile = document.querySelector('.information-user');
+    containerProfile.insertAdjacentHTML('beforeend', homeProfile);
   } else {
-    // doc.data() will be undefined in this case
     console.log('No such document!');
   }
-} */
+};

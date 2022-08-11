@@ -35,7 +35,6 @@ export const setDoc = jest.fn((uid) => {
     email: 'email',
     password: 'password',
     name: 'name',
-    username: 'username',
     uid,
     country: 'country',
     description: 'description',

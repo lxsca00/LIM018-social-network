@@ -15,14 +15,18 @@
     display:flex;
     justify-content: center;
 }
+
 .user-photo{ /* foto del usuario */
- height: 85%;
- width: auto;
- background-color: transparent;
+    height: 100%;
+    width: auto;
+    background-color: transparent;
+    border-radius: 50%;
 }
+
 .photo-change-user {
     margin-left: -3rem;
 }
+
 .photo-change-user, .photo-change-post, .button-emoji{ /* borde del boton para cambiar la foto del usuario y de su post*/
     border-radius: 50%; 
     width: 3rem;
@@ -48,14 +52,15 @@
 .information-user{
     display: flex;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     justify-content: center;
+    gap: 2rem;
 }
-.data-user{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1rem;
+
+.name-profile {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
 .old-publication, .form-publication{
@@ -72,7 +77,13 @@
 
 .old-publication {
     padding: 0rem;
-    background-color: var(--gray);
+    height: auto;
+    background-color: var(--white);
+} 
+
+.old-comment {
+    font-size: 1.2rem;
+    padding: 1rem;
 }
 
 .comment, .old-comment{
@@ -81,32 +92,31 @@
     border: none;
     border-radius: 1.5rem;
 }
-.old-comment{
-    border-radius: 0rem;
-    margin: 0px;
-}
 
 .user-name-post{
     background: var(--orange2);  
     /* margin-top: 0px; */
     display: flex;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     padding:1.3rem 1rem;
     color: var(--white);
     border-top-left-radius: 1.5rem;
     border-top-right-radius: 1.5rem;
   }
 
-.container-button, .emojis{
-   
+.container-post-button, .container-button{
     display: flex;
     justify-content: space-between;
-    background-color: transparent;
-    margin: 2px 5px ;
+    background-color: var(--gray);
+    margin: 2px 0 0 0;
+    border-radius: 0 0 1.5rem 1.5rem;
 }
+
 .emojis{
-    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
 }
 .post-button, .comment-button{
     border-radius: 0.75rem;
@@ -116,7 +126,7 @@
     font-size: 1.5rem;
 }
 
-.comment-button{
+.comment-button, .edit-button{
    color: var(--orange1) ;
    background-color: transparent;
 }

@@ -10,7 +10,6 @@ export default () => {
       <h1> Regístrate </h1>
       <p class="register-message"> Por favor registrate para iniciar sesión </p>
       <input id="user-name" type="text" placeholder="Nombre">
-      <input id="user-username" type="text" placeholder="Nombre de usuario">
       <input id="user-email" type="email" placeholder="Correo electrónico">
       <input id="user-password" type="password" placeholder="Contraseña">
       <button id="register-button" class="btnInicio" type="submit"> REGISTRARME </button>
