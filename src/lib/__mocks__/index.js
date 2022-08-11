@@ -17,6 +17,20 @@ export const eventRegister = jest.fn(() => Promise.resolve({
     password: 'xxxxxx', //
   },
 }));
+// setDoc
+export const eventSetDoc = jest.fn(() => {
+  Promise.resolve({
+    birth: 'birth',
+    ountry: 'country',
+    description: 'description',
+    email: 'email',
+    password: 'password',
+    name: 'name',
+    username: 'username',
+    uid: 'uid',
+    photo: 'photo',
+  });
+});
 
 export const initializeApp = jest.fn();
 export const getAuth = jest.fn();
@@ -41,16 +55,3 @@ export const createUserWithEmailAndPassword = jest.fn(() => {
 });
 export const addDoc = jest.fn(() => Promise.resolve());
 export const updateDoc = jest.fn(() => Promise.resolve());
-export const setDoc = jest.fn((uid) => {
-  Promise.resolve({
-    email: 'email',
-    password: 'password',
-    name: 'name',
-    username: 'username',
-    uid,
-    country: 'country',
-    description: 'description',
-    birth: 'birth',
-    photo: 'photo',
-  });
-});

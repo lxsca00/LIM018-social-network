@@ -33,6 +33,7 @@ export function eventLoginGlobal() {
       const modalError = document.querySelector('.background-modal-error');
       modalError.style.visibility = 'visible';
       const errorMessage = document.querySelector('.login-error');
+      console.log(error.code);
       switch (errorCode) {
         case 'auth/user-not-found': {
           errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
@@ -94,6 +95,7 @@ export function eventRegisterGlobal() {
       // const user = userCredential.user;
       // const uid = user.uid;
       window.location.hash = '#/login';
+      return ('usuario registrado exitosamente');
     })
     .catch((error) => {
       const errorCode = error.code;
