@@ -38,90 +38,13 @@ const auth = getAuth();
 /* ************** AUTENTIFICACIÓN DE USUARIO - LOGIN CON CONTRASEÑA **************** */
 // even
 export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
-// Función para ingresar con email y contraseña
-
-// export const eventLogin = (email, password) => {
-//   signInWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//       // Signed in
-//       const user = userCredential.user;
-//       sessionStorage.getItem(user);
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const modalError = document.querySelector('.background-modal-error');
-//       modalError.style.visibility = 'visible';
-//       const errorMessage = document.querySelector('.login-error');
-//       switch (errorCode) {
-//         case 'auth/user-not-found': {
-//           errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
-//           break;
-//         }
-//         case 'auth/invalid-email': {
-//           errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-//           break;
-//         }
-//         case 'auth/internal-error': {
-//           errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-//           break;
-//         }
-//         case 'auth/wrong-password': {
-//           errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
-//           break;
-//         }
-//         default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
-//           break;
-//       }
-//     });
-// };
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 // even
-// eslint-disable-next-line no-unused-vars
-// export const eventRegister = (name, username, email, password, country, description, birth, photo) => createUserWithEmailAndPassword(email, password);
-// export const eventSetDoc = (uid, name, username, email, password, country, description, birth, photo) => setDoc(doc(db, 'userdata', uid), {
-//   email, password, name, username, uid, country, description, birth, photo,
-// });
-
-// eslint-disable-next-line max-len
-export function eventRegister(name, username, email, password, country, description, birth, photo) {
-  createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      const uid = user.uid;
-      setDoc(doc(db, 'userdata', uid), {
-        email, password, name, username, uid, country, description, birth, photo,
-      });
-      window.location.hash = '#/login';
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal-error');
-      modalError.style.visibility = 'visible';
-      const errorMessage = document.querySelector('.register-error');
-      switch (errorCode) {
-        case 'auth/email-already-in-use': {
-          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
-          break;
-        }
-        case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-          break;
-        }
-        case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-          break;
-        }
-        case 'auth/weak-password': {
-          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
-          break;
-        }
-        default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
-          break;
-      }
-    });
-}
+export const eventRegister = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const eventSetDoc = (uid, name, username, email, password, country, description, birth, photo) => setDoc(doc(db, 'userdata', uid), {
+  email, password, name, username, uid, country, description, birth, photo,
+});
 
 // OBSERVADOR
 export const obs = () => {

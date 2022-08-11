@@ -2,7 +2,7 @@
 
 import {
   eventRegister,
-  // eventSetDoc,
+  eventSetDoc,
   eventLogin,
   obs,
   // eventLogout,
@@ -24,6 +24,7 @@ export function eventLoginGlobal() {
     .then((userCredential) => {
     // Signed in
       const user = userCredential.user;
+      console.log(user.email);
       sessionStorage.getItem(user);
       return ('user is loged');
     })
@@ -71,70 +72,62 @@ export const fEventLogin = () => {
 };
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
-// // Global
-// export function eventRegisterGlobal() {
-//   const email = document.getElementById('user-email').value;
-//   const password = document.getElementById('user-password').value;
-//   const name = document.getElementById('user-name').value;
-//   const username = document.getElementById('user-username').value;
-//   const country = '';
-//   const description = '';
-//   const birth = '';
-//   const photo = '';
-//   return eventRegister(name, username, email, password, country, description, birth, photo)
-//     .then((userCredential) => {
-//     // Signed in
-//       const user = userCredential.user;
-//       const uid = user.uid;
-//       eventSetDoc(uid, name, username, email, password, country, description, birth, photo);
-//     })
-//     .then(() => {
-//       // Signed in
-//       // const user = userCredential.user;
-//       // const uid = user.uid;
-//       window.location.hash = '#/login';
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const modalError = document.querySelector('.background-modal-error');
-//       modalError.style.visibility = 'visible';
-//       const errorMessage = document.querySelector('.register-error');
-//       switch (errorCode) {
-//         case 'auth/email-already-in-use': {
-//           errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
-//           break;
-//         }
-//         case 'auth/invalid-email': {
-//           errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-//           break;
-//         }
-//         case 'auth/internal-error': {
-//           errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-//           break;
-//         }
-//         case 'auth/weak-password': {
-//           errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
-//           break;
-//         }
-//         default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
-//           break;
-//       }
-//     });
-// }
+// Global
+export function eventRegisterGlobal() {
+  const email = document.getElementById('user-email').value;
+  const password = document.getElementById('user-password').value;
+  const name = document.getElementById('user-name').value;
+  const username = document.getElementById('user-username').value;
+  const country = '';
+  const description = '';
+  const birth = '';
+  const photo = '';
+  return eventRegister(email, password)
+    .then((userCredential) => {
+    // Signed in
+      const user = userCredential.user;
+      const uid = user.uid;
+      eventSetDoc(uid, name, username, email, password, country, description, birth, photo);
+    })
+    .then(() => {
+      // Signed in
+      // const user = userCredential.user;
+      // const uid = user.uid;
+      window.location.hash = '#/login';
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const modalError = document.querySelector('.background-modal-error');
+      modalError.style.visibility = 'visible';
+      const errorMessage = document.querySelector('.register-error');
+      switch (errorCode) {
+        case 'auth/email-already-in-use': {
+          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
+          break;
+        }
+        case 'auth/invalid-email': {
+          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+          break;
+        }
+        case 'auth/internal-error': {
+          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+          break;
+        }
+        case 'auth/weak-password': {
+          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
+          break;
+        }
+        default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
+          break;
+      }
+    });
+}
 // fEvent
 export const fEventRegister = () => {
   const signUpForm = document.querySelector('#register-form');
   signUpForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('user-email').value;
-    const password = document.getElementById('user-password').value;
-    const name = document.getElementById('user-name').value;
-    const username = document.getElementById('user-username').value;
-    const country = '';
-    const description = '';
-    const birth = '';
-    const photo = '';
-    eventRegister(name, username, email, password, country, description, birth, photo);
+    eventRegisterGlobal();
   });
 };
 
