@@ -57,9 +57,9 @@ describe('eventLoginGlobalError', () => {
     eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
     setTimeout(() => {
       // eslint-disable-next-line jest/valid-expect
-      // expect(eventLoginGlobal()).resolves.toBe('error');
+      expect(eventLoginGlobal()).resolves.toBe('error');
       // eslint-disable-next-line jest/valid-expect
-      expect(eventLoginGlobal()).rejects.toMatch('error');
+      // expect(eventLoginGlobal()).rejects.toMatch('error');
       done();
     }, 200);
   });
