@@ -268,29 +268,28 @@ export const editPost = () => {
   });
 };
 
-/* export function shareLike() {
+export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-emoji');
   const inputLike = document.querySelector('.inputlike');
-  // console.log(inputLike)
-  // console.log(buttonLike);
   let numero = 0;
   buttonLike.forEach((boton) => {
     boton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (numero === 0) {
-        numero++;
-        // inputLike.innerHTML = "";
-        inputLike.innerHTML = numero;
-      } else {
-        numero--;
-        inputLike.innerHTML = numero;
-      }
-    // console.log(inputLike)
-    // savelike(inputLike);
+     if (numero === 0) {
+      numero++; 
+    } else {
+      numero--;
+    }
+      inputLike.value = numero;
+
+      const id = e.target.dataset.id;
+        const docRef = doc(db, 'post', id);
+        const inputLike2 = document.querySelector('.inputlike').value;
+         updateDoc(docRef, {
+          likes: inputLike2,
+        });
     });
-  // return (inputLike)
   });
-} */
+} 
 
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
@@ -310,8 +309,8 @@ export const onGetPosts = async () => {
         <p class="old-comment"> ${post.posts} </p>
         <div class="container-post-button">
           <div class="emojis">
-            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
-            <button class="edit-button inputlike"> ${post.likes} </button>
+            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" data-id='${post.id}' >
+            <button class="edit-button inputlike" data-id='${post.id}'> ${post.likes} </button>
           </div>`;
       if (post.uid === user.uid) {
         onePost += `<button title="Edit post" class="edit-button" data-id='${post.id}'>Edit</button>
@@ -323,7 +322,7 @@ export const onGetPosts = async () => {
       }
       home.innerHTML += onePost;
     });
-    // shareLike();
+    shareLike();
     deletePosts();
     editPost();
   });

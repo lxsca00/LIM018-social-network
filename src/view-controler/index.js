@@ -8,7 +8,7 @@ import {
   inicioPage,
   closeModal,
 } from '../funcionesDom.js';
-import { activeUserProfile } from '../lib/index.js';
+import { activeUserProfile,shareLike } from '../lib/index.js';
 import { components } from '../view/index.js';
 
 const changeView = (route) => {
@@ -22,6 +22,7 @@ const changeView = (route) => {
     case '#/home':
     { container.appendChild(components.home());
       fSharePost();
+      shareLike();
       break; }
     case '#/registro':
     { container.appendChild(components.register());
