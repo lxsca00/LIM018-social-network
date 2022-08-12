@@ -7,11 +7,8 @@ import {
   eventLogout,
   googleSignIn,
   savePost,
-  saveData,
   // changePhoto,
 } from './lib/index.js';
-
-import { countries } from './view/countries.js';
 
 // AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
 export function eventLoginGlobal() {
@@ -26,7 +23,7 @@ export function eventLoginGlobal() {
     })
     .catch((error) => {
       const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal-error');
+      const modalError = document.querySelector('.background-modal');
       modalError.style.visibility = 'visible';
       const errorMessage = document.querySelector('.login-error');
       switch (errorCode) {
@@ -89,9 +86,8 @@ export const fEventRegister = () => {
     const name = document.getElementById('user-name').value;
     const country = 'Ingresa tu país';
     const description = 'Cuéntanos un poco sobre ti';
-    const birth = '';
     const photo = '';
-    eventRegister(name, email, password, country, description, birth, photo);
+    eventRegister(name, email, password, country, description, photo);
   });
 };
 
@@ -100,7 +96,7 @@ export const fEventRegister = () => {
 export const closeModal = () => {
   document.querySelector('.close-modal').addEventListener('click', (e) => {
     e.preventDefault();
-    const containerModal = document.querySelector('.background-modal-error');
+    const containerModal = document.querySelector('.background-modal');
     containerModal.style.visibility = 'hidden';
     if (window.location.hash === '#/registro') {
       const signUpForm = document.querySelector('#register-form');
@@ -149,40 +145,4 @@ export function fSharePost() {
   });
 }
 
-// Función para editar la foto de perfil del usuario
-
-/* export const fChangePhoto = () => {
-  const editPhoto = document.getElementById('edit').value;
-  changePhoto(editPhoto);
-}; */
-
 // Función para que aparezca un modal para editar perfil
-
-export const editProfile = () => {
-  document.getElementById('editProfile').addEventListener('click', (e) => {
-    e.preventDefault();
-    const containerModal = document.querySelector('.modal-edit');
-    containerModal.style.visibility = 'visible';
-    const selectCountry = document.querySelector('#select-country');
-    countries.forEach((userCountry) => {
-      const category = `<option value="${userCountry}"> ${userCountry} </option>`;
-      selectCountry.insertAdjacentHTML('beforeend', category);
-    });
-    selectCountry.children[0].disabled = true;
-    const selectPreference = document.querySelector('#change-preferences');
-    selectPreference.children[0].disabled = true;
-    document.querySelector('#save-changes').addEventListener('click', () => {
-      const country = selectCountry.options[selectCountry.selectedIndex].value;
-      const preference = selectPreference.options[selectPreference.selectedIndex].value;
-      const newDescription = document.getElementById('change-description').value;
-      const birth = document.querySelector('#select-birth').value;
-      const favGenre = document.querySelector('#change-genre').value;
-      saveData(country, newDescription, birth, preference, favGenre);
-      containerModal.style.visibility = 'hidden';
-    });
-    document.querySelector('#close').addEventListener('click', () => {
-      e.preventDefault();
-      containerModal.style.visibility = 'hidden';
-    });
-  });
-};

@@ -3,13 +3,12 @@ import {
   // fEventLogout,
   fEventRegister,
   fSharePost,
-  editProfile,
   fGoogleSignIn,
   inicioPage,
   closeModal,
 } from '../funcionesDom.js';
-import { activeUserProfile } from '../lib/index.js';
 import { components } from '../view/index.js';
+import { activeUserProfile, editProfile } from '../view/profile.js';
 
 const changeView = (route) => {
   const container = document.getElementById('container');

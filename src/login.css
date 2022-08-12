@@ -59,13 +59,6 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* .image-google, .image-facebook{
-    border-radius: 50%;
-    width: 10%;
-    height: 10%; 
-    cursor: pointer;
-} */
-
 @media screen and (min-width: 768px) {
     #container-login {
         display: flex;

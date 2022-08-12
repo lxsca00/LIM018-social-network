@@ -1,7 +1,6 @@
 //  Vista de la página de ingreso
 
 export default () => {
-  /* document.getElementById("containerNav").style.visibility = "hidden"; */
   const loginView = `
   <div id = 'container-login'>
     <div class="fondo-logo">
@@ -19,7 +18,7 @@ export default () => {
     </div>
     <p> ¿No tienes cuenta? <a href="#/registro"> Regístrate </a> </p>
     </form>
-    <div class="background-modal-error">
+    <div class="background-modal">
       <div class="modal-error">
         <p class="login-error"> Hay un error </p>
         <button class="close-modal btnInicio"> CERRAR </button>

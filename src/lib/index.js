@@ -1,15 +1,13 @@
 import {
   // initializeApp,
-  //
-  getAuth, // no promise
+  auth,
+  db, // no promise
   onAuthStateChanged, // es promesa (if-else)
   createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
   signInWithEmailAndPassword, // es promesa
   signOut, // es promesa
   signInWithPopup, // es promesa
   GoogleAuthProvider, // no promise?
-  //
-  getFirestore, // no promise
   collection, // no promise
   addDoc, // es promesa (v:rapido)
   doc, // no promise
@@ -22,7 +20,6 @@ import {
   orderBy,
   deleteDoc, // promesa
   // Initialize Firebase
-  app,
 } from './firebase.js';
 
 /* import {
@@ -30,8 +27,6 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js'; */
 
 // const analytics = getAnalytics(app);
-const db = getFirestore(app);
-const auth = getAuth();
 
 // Función para ingresar con email y contraseña
 
@@ -93,20 +88,20 @@ export const obs = () => {
   });
 };
 
-export function eventRegister(name, email, password, country, description, birth, photo) {
+export function eventRegister(name, email, password, country, description, photo) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       const uid = user.uid;
       setDoc(doc(db, 'userdata', uid), {
-        email, password, name, uid, country, description, birth, photo,
+        email, password, name, uid, country, description, photo,
       });
       window.location.hash = '#/login';
     })
     .catch((error) => {
       const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal-error');
+      const modalError = document.querySelector('.background-modal');
       modalError.style.visibility = 'visible';
       const errorMessage = document.querySelector('.register-error');
       switch (errorCode) {
@@ -160,7 +155,6 @@ export const googleSignIn = () => {
         name: user.displayName,
         uid: user.uid,
         photo: user.photoURL,
-        birth: '',
         country: 'Ingresa tu país',
         description: 'Cuéntanos un poco sobre ti',
       });
@@ -168,7 +162,7 @@ export const googleSignIn = () => {
     }).catch((error) => error.code);
 };
 
-// Función para crear nueva colección de datos
+// GUARDAR NUEVOS POST EN LA BASE DE DATOS
 export const savePost = (post) => {
   const user = auth.currentUser.uid;
   const email = auth.currentUser.email;
@@ -179,46 +173,6 @@ export const savePost = (post) => {
     datePosted: Timestamp.fromDate(new Date()),
     likes: 0,
   });
-};
-
-// Actualizar los campos vacíos en el documento de cada usuario
-export async function saveData(country, description, birth, preference, genre) {
-  const user = auth.currentUser;
-  const uid = user.uid;
-  const docRef = doc(db, 'userdata', uid);
-  await updateDoc(docRef, {
-    country,
-    description,
-    birth,
-    preference,
-    genre,
-  });
-}
-
-// Para obtener los datos del usuario activo en tiempo real en el profile
-
-export const activeUserProfile = async () => {
-  const user = auth.currentUser;
-  const uid = user.uid;
-  onSnapshot(
-    doc(db, 'userdata', uid),
-    { includeMetadataChanges: true },
-    (dok) => {
-      // console.log(dok.data());
-      const userName = document.querySelector('.name-profile');
-      userName.textContent = dok.data().name;
-      const userEmail = document.querySelector('.email-profile');
-      userEmail.textContent = dok.data().email;
-      const userCountry = document.querySelector('#user-country');
-      userCountry.textContent = dok.data().country;
-      const description = document.querySelector('.user-description');
-      description.textContent = dok.data().description;
-      const userElection = document.querySelector('.user-election');
-      userElection.textContent = dok.data().preference;
-      const userGenres = document.querySelector('.user-genre');
-      userGenres.textContent = dok.data().genres;
-    },
-  );
 };
 
 // PARA  BORRAR POST DEL HOME
@@ -268,30 +222,6 @@ export const editPost = () => {
   });
 };
 
-/* export function shareLike() {
-  const buttonLike = document.querySelectorAll('.button-emoji');
-  const inputLike = document.querySelector('.inputlike');
-  // console.log(inputLike)
-  // console.log(buttonLike);
-  let numero = 0;
-  buttonLike.forEach((boton) => {
-    boton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (numero === 0) {
-        numero++;
-        // inputLike.innerHTML = "";
-        inputLike.innerHTML = numero;
-      } else {
-        numero--;
-        inputLike.innerHTML = numero;
-      }
-    // console.log(inputLike)
-    // savelike(inputLike);
-    });
-  // return (inputLike)
-  });
-} */
-
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
   const user = auth.currentUser;
@@ -331,7 +261,7 @@ export const onGetPosts = async () => {
 
 // PERFIL DEL USUARIO EN HOME
 
-const userImg = (img) => (img !== null ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
+const userImg = (img) => (img !== '' ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
 
 export const activeUserHome = async () => {
   const user = auth.currentUser;
@@ -344,7 +274,7 @@ export const activeUserHome = async () => {
     const homeProfile = `
     <div class="container-user-photo">
       <div class="photo-user">
-        <img src=${pic} class="user-photo">
+        <img src='${pic}' class="user-photo">
       </div>
     </div>
     <div class="data-user">
@@ -353,7 +283,7 @@ export const activeUserHome = async () => {
     </div>`;
     const containerProfile = document.querySelector('.information-user');
     containerProfile.insertAdjacentHTML('beforeend', homeProfile);
-  } else {
-    console.log('No such document!');
   }
 };
+
+// Para obtener los datos del usuario activo en tiempo real en el profile

@@ -1,18 +1,17 @@
-.profile {
-    height: 70vh;
+.top-user-info, .profile {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.profile {
+    height: 70vh;
+}
+
 .profile p {
     font-size: 1.5rem;
     margin: 1rem 0;
-}
-
-#user {
-    margin: 0;
 }
 
 .container-user-photo{
@@ -34,21 +33,8 @@
     font-weight: 700;
 }
 
-.modal-edit {
-    height: 100vh;
-    width: 100vw;
-    background:rgba(0,0,0,0.4);
-    position: fixed;
-    left: 0;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-}
-
 .modal-card {
-    height: 60%;
+    height: 50%;
     width: 80%;
     background: #fffffe;
     padding: 3rem;

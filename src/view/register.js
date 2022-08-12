@@ -15,7 +15,7 @@ export default () => {
       <button id="register-button" class="btnInicio" type="submit"> REGISTRARME </button>
       <p> ¿Ya tienes cuenta? <a href="#/login"> Inicia sesión </a> </p>
     </form>
-    <div class="background-modal-error">
+    <div class="background-modal">
       <div class="modal-error">
         <p class="register-error"> Hay un error </p>
         <button class="close-modal btnInicio"> CERRAR </button>
