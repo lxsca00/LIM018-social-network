@@ -177,7 +177,13 @@ export const savePost = (post) => {
 
 // PARA  BORRAR POST DEL HOME
 export const deletePost = (id) => deleteDoc(doc(db, 'post', id)); // deleteDoc es promesa de firestore
-
+const closeModalDelete = () => {
+  const modalEdit = document.querySelector('.close-modal');
+  modalEdit.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.background-modal-edit').style.visibility = 'hidden';
+  });
+};
 export function deletePosts() {
   const btnsDelete = document.querySelectorAll('.comment-button');
   // console.log(btnsDelete);
@@ -186,8 +192,22 @@ export function deletePosts() {
       // 1. si queremos estructurar el objeto event es = { target:{ dataset } }
       // console.log(event); >see to event object.I need target property>target.dataset>dataset.id
       // console.log(event.target.dataset.id);
-      deletePost(event.target.dataset.id);
-      // 2. si queremos estructurar el objeto event.target.dataset.id es = dataset.id
+      const modalError = document.querySelector('.background-modal-delete');
+      modalError.style.visibility = 'visible';
+      const deleteYes = document.getElementById('deleteYes');
+      const deleteNo = document.getElementById('deleteNo');
+      deleteYes.addEventListener('click', (e) => {
+        e.preventDefault();
+        const containerModal = document.querySelector('.background-modal-delete');
+        containerModal.style.visibility = 'hidden';
+        deletePost(event.target.dataset.id);
+      });
+      closeModalDelete();
+      deleteNo.addEventListener('click', (e) => {
+        e.preventDefault();
+        const containerModal = document.querySelector('.background-modal-delete');
+        containerModal.style.visibility = 'hidden';
+      });
     });
   });
 }
@@ -247,6 +267,16 @@ export const onGetPosts = async () => {
         onePost += `<button title="Edit post" class="edit-button" data-id='${post.id}'>Edit</button>
             <button title="Delete post" class="comment-button" data-id='${post.id}'>Delete</button>  <!--data-xxxx (propiedad de html que guarda datos dentro del boton)-->
           </div>
+        </div>
+        <div class="background-modal-delete">
+          <div class="modal-delete">
+            <p class="login-delete"> ¿Estas seguro de borrar este post? <img src="https://emoji.slack-edge.com/T0NNB6T0R/sad_parrot/63bb67f63f6b6d9d.gif"> </p>
+            <div class="btns_delete">
+              <button class="close-modal btnDelete" id='deleteYes'> SI </button>
+              <button class="close-modal btnDelete" id='deleteNo'> NO </button>
+            </div>
+          </div>
+        <div>
         </div>`;
       } else {
         onePost += '</div>';
