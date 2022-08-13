@@ -178,7 +178,7 @@ export const savePost = (post) => {
 // PARA  BORRAR POST DEL HOME
 export const deletePost = (id) => deleteDoc(doc(db, 'post', id)); // deleteDoc es promesa de firestore
 const closeModalDelete = () => {
-  const modalEdit = document.querySelector('.close-modal');
+  const modalEdit = document.querySelector('.close-modal1');
   modalEdit.addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelector('.background-modal-edit').style.visibility = 'hidden';
@@ -272,8 +272,8 @@ export const onGetPosts = async () => {
           <div class="modal-delete">
             <p class="login-delete"> ¿Estas seguro de borrar este post? <img src="https://emoji.slack-edge.com/T0NNB6T0R/sad_parrot/63bb67f63f6b6d9d.gif"> </p>
             <div class="btns_delete">
-              <button class="close-modal btnDelete" id='deleteYes'> SI </button>
-              <button class="close-modal btnDelete" id='deleteNo'> NO </button>
+              <button class="close-modal1 btnDelete" id='deleteYes'> SI </button>
+              <button class="close-modal1 btnDelete" id='deleteNo'> NO </button>
             </div>
           </div>
         <div>
