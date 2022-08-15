@@ -38,8 +38,10 @@ const changeView = (route) => {
       activeUserProfile();
       editProfile();
       break; }
-    default:
+    default: {
+      container.appendChild(components.error());
       break;
+    }
   }
 };
 

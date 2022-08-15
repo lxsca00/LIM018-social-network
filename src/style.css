@@ -116,6 +116,17 @@ button {
     margin: 5% 5%;
 }
 
+.error404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error404 img {
+    width: 80%
+}
+
 @media screen and (max-width: 768px) {
     .checkbtn {
         display: block;
