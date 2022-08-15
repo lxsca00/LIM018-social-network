@@ -145,11 +145,8 @@ export const editPost = () => {
 export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-emoji');
   // const inputLike = document.querySelector('.inputlike');
-  // let numero = 0;
   buttonLike.forEach((boton) => {
     boton.addEventListener('click', async (e) => {
-      // numero === 0? numero++:numero--;
-      // e.preventDefault();
       const id = e.target.dataset.id;
       console.log(id);
       const docRef1 = doc(db, 'post', id);
@@ -168,12 +165,8 @@ export function shareLike() {
           });
         }
         console.log(likesData);
-        // const user = auth.currentUser;
-        // console.log(user.uid);
-        // updateDoc(docRef1, {
-        //   likes: [...likesData, user.uid],
-        // });
-        // console.log(likesData);
+        // const inputLike = document.querySelector('.inputlike');
+        // inputLike.value = likesData.length;
       }
       //   numero += 1;
       //   inputLike.value = numero;
@@ -240,7 +233,7 @@ export const onGetPosts = async () => {
         <div class="container-post-button">
           <div class="emojis">
             <input type="button" title="Click to coment" value="🤍"  class="button-emoji"   data-id='${post.id}'>
-            <button class="edit-button inputlike"> ${post.likes} </button>
+            <button class="edit-button inputlike"> ${post.likes.length} </button>
           </div>`;
       if (post.uid === user.uid) {
         onePost += `<button title="Edit post" class="edit-button" data-id='${post.id}'>Edit</button>
