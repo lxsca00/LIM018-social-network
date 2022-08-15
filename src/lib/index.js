@@ -58,7 +58,7 @@ export const savePost = (post) => {
     uid: user,
     correo: email,
     datePosted: Timestamp.fromDate(new Date()),
-    likes: 0,
+    likes: [1, 2],
   });
 };
 
@@ -130,34 +130,96 @@ export const editPost = () => {
 };
 
 // LIKES
+
+// export const likeOrDisLike = (arrayLikes, postId, authCurrentUserUid) => {
+//   if (arrayLikes.includes(authCurrentUserUid)) {
+//     const filterUser = arrayLikes.filter((uidUser) => uidUser !== authCurrentUserUid);
+//     editPost(postId, { likes: filterUser });
+//   } else {
+//     editPost(postId, { likes: [...arrayLikes, authCurrentUserUid] });
+//   }
+// };
+// eslint-disable-next-line max-len
+// btnLike.addEventListener('click', () => likeOrDisLike(arrayLikes, post.id, auth.currentUser.uid));
+
 export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-emoji');
-  const inputLike = document.querySelector('.inputlike');
-  let numero = 0;
+  // const inputLike = document.querySelector('.inputlike');
+  // let numero = 0;
   buttonLike.forEach((boton) => {
-    boton.addEventListener('click', (e) => {
+    boton.addEventListener('click', async (e) => {
       // numero === 0? numero++:numero--;
-
-      if (numero === 0) {
-        numero += 1;
-        inputLike.value = numero;
-        console.log(numero);
-      } else {
-        numero -= 1;
-        inputLike.value = numero;
-        console.log(numero);
-        inputLike.value = numero;
-      }
-
+      // e.preventDefault();
       const id = e.target.dataset.id;
-      const docRef = doc(db, 'post', id);
-      const inputLike2 = document.querySelector('.inputlike').value;
-      updateDoc(docRef, {
-        likes: inputLike2,
-      });
+      console.log(id);
+      const docRef1 = doc(db, 'post', id);
+      const docSnap = await getDoc(docRef1);
+      console.log(docSnap);
+      if (docSnap.exists()) {
+        const likesData = docSnap.data().likes;
+        const user = auth.currentUser;
+        if (likesData.includes(user.uid)) {
+          updateDoc(docRef1, {
+            likes: likesData.filter((item) => (item !== user.uid)),
+          });
+        } else {
+          updateDoc(docRef1, {
+            likes: [...likesData, user.uid],
+          });
+        }
+        console.log(likesData);
+        // const user = auth.currentUser;
+        // console.log(user.uid);
+        // updateDoc(docRef1, {
+        //   likes: [...likesData, user.uid],
+        // });
+        // console.log(likesData);
+      }
+      //   numero += 1;
+      //   inputLike.value = numero;
+      //   console.log(numero);
+      // } else {
+      //   numero -= 1;
+      //   inputLike.value = numero;
+      //   console.log(numero);
+      //   inputLike.value = numero;
+      // }
+
+      // const inputLike2 = document.querySelector('.inputlike').value;
+      // updateDoc(docRef, {
+      //   likes: inputLike2,
+      // });
     });
   });
 }
+// export function shareLike() {
+//   const buttonLike = document.querySelectorAll('.button-emoji');
+//   const inputLike = document.querySelector('.inputlike');
+//   let numero = 0;
+//   buttonLike.forEach((boton) => {
+//     boton.addEventListener('click', (e) => {
+//       // numero === 0? numero++:numero--;
+
+//       if (numero === 0) {
+//         numero += 1;
+//         inputLike.value = numero;
+//         console.log(numero);
+//       } else {
+//         numero -= 1;
+//         inputLike.value = numero;
+//         console.log(numero);
+//         inputLike.value = numero;
+//       }
+
+//       const id = e.target.dataset.id;
+//       const docRef = doc(db, 'post', id);
+//       const inputLike2 = document.querySelector('.inputlike').value;
+//       updateDoc(docRef, {
+//         likes: inputLike2,
+//       });
+//     });
+//   });
+// }
 
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
@@ -177,7 +239,7 @@ export const onGetPosts = async () => {
         <p class="old-comment"> ${post.posts} </p>
         <div class="container-post-button">
           <div class="emojis">
-            <input type="button" title="Click to coment" value="🤍"  class="button-emoji" >
+            <input type="button" title="Click to coment" value="🤍"  class="button-emoji"   data-id='${post.id}'>
             <button class="edit-button inputlike"> ${post.likes} </button>
           </div>`;
       if (post.uid === user.uid) {
