@@ -144,7 +144,6 @@ export const editPost = () => {
 
 export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-emoji');
-  // const inputLike = document.querySelector('.inputlike');
   buttonLike.forEach((boton) => {
     boton.addEventListener('click', async (e) => {
       const id = e.target.dataset.id;
@@ -165,23 +164,7 @@ export function shareLike() {
           });
         }
         console.log(likesData);
-        // const inputLike = document.querySelector('.inputlike');
-        // inputLike.value = likesData.length;
       }
-      //   numero += 1;
-      //   inputLike.value = numero;
-      //   console.log(numero);
-      // } else {
-      //   numero -= 1;
-      //   inputLike.value = numero;
-      //   console.log(numero);
-      //   inputLike.value = numero;
-      // }
-
-      // const inputLike2 = document.querySelector('.inputlike').value;
-      // updateDoc(docRef, {
-      //   likes: inputLike2,
-      // });
     });
   });
 }
