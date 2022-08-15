@@ -52,7 +52,7 @@ main{
     color: var(--white);
 }
 
-.btnInicio{
+.btnInicio, .close-modalDelete{
     font-size: 1.5rem;
     background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
     color: var(--black);
