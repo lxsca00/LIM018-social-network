@@ -1,7 +1,6 @@
 // Este es el punto de entrada de tu aplicacion // RELACION CON EL DOM
 
 import {
-  // eventRegister,
   savePost,
   eventLogout,
   // changePhoto,

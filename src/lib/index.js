@@ -3,8 +3,6 @@ import {
   auth,
   db, // no promise
   onAuthStateChanged, // es promesa (if-else)
-
-  // signInWithEmailAndPassword, // es promesa
   signOut, // es promesa
   // signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
