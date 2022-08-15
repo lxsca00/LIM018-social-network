@@ -22,7 +22,7 @@ import {
   // Initialize Firebase
 } from './firebase.js';
 
-// Para obtener los datos del usuario activo en tiempo real en el profile
+// Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
 export const obs = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -41,7 +41,7 @@ export const obs = () => {
   });
 };
 
-// Función para cerrar la sesión
+// Función para cerrar la sesión // AQUI
 
 export function eventLogout() {
   signOut(auth).then(() => {

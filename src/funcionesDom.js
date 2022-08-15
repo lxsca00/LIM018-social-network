@@ -42,7 +42,8 @@ logout.addEventListener('click', (e) => {
   e.preventDefault();
   eventLogout();
   window.location.hash = '#/';
-  document.getElementById('logout').style.display = 'none';
+  window.location.reload();
+  // document.getElementById('logout').style.display = 'none';
 });
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
