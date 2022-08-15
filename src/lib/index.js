@@ -131,6 +131,36 @@ export const editPost = () => {
   });
 };
 
+// LIKES
+export function shareLike() {
+  const buttonLike = document.querySelectorAll('.button-emoji');
+  const inputLike = document.querySelector('.inputlike');
+  let numero = 0;
+  buttonLike.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+      // numero === 0? numero++:numero--;
+
+      if (numero === 0) {
+        numero += 1;
+        inputLike.value = numero;
+        console.log(numero);
+      } else {
+        numero -= 1;
+        inputLike.value = numero;
+        console.log(numero);
+        inputLike.value = numero;
+      }
+
+      const id = e.target.dataset.id;
+      const docRef = doc(db, 'post', id);
+      const inputLike2 = document.querySelector('.inputlike').value;
+      updateDoc(docRef, {
+        likes: inputLike2,
+      });
+    });
+  });
+}
+
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
   const user = auth.currentUser;
@@ -172,7 +202,7 @@ export const onGetPosts = async () => {
       }
       home.innerHTML += onePost;
     });
-    // shareLike();
+    shareLike();
     deletePosts();
     editPost();
   });
