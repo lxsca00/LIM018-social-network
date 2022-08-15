@@ -1,10 +1,10 @@
-main{
+/*main{
     /* display: flex; 
     align-items: center;
     justify-content: center;   */
-    height: 80%;
+  /*  height: 80%;
     /* margin: 6.5rem 1rem; */
-}
+/*}
 
 .fondo-logo{
     width: 15rem;
@@ -29,7 +29,7 @@ main{
     background-clip: text;
     -webkit-background-clip: text;
     font-weight: bold;
-    /* margin-top: 0rem; */
+    /* margin-top: 0rem; *//*
 }
 
 #inicio-message {
@@ -44,7 +44,7 @@ main{
     justify-content: center;
     align-items: center;
     width: 80%;
-    /* margin: 0.5rem; */
+    /* margin: 0.5rem; *//*
 }
 
 .p-inicio {
@@ -88,3 +88,4 @@ main{
         margin: 3rem;
     }
 } 
+*/

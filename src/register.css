@@ -1,24 +1,29 @@
-.register-form{
+/*.register-form{
     display: flex;
     flex-direction: column;
+}*/
+/*
+.register-form{
     width: 70%;
     margin: 0 5%;
 }
-
+*/
+/*
 .register-form h1 {
     font-size: 2rem;
     color: var(--white);
-    margin: 1.5rem 0;
-}
-
-.register-form p {
+    /*margin: 1.5rem 0;*/
+/*}
+*/
+/*.register-form p {
     font-size: 1.5rem;
-}
-
+}*/
+/*
 .register-message {
     margin: 0 0 2rem 0;
 }
-
+*/
+/*
 .register-form input {
     background: #FFFFFE;
     border-radius: 8px;
@@ -32,7 +37,8 @@
     width: 100%;
     margin: 0 0 2.5rem 0;
 }
-
+*/
+/*
 .modal-error {
     height: 25%;
     width: 80%;
@@ -44,7 +50,8 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
-
+*/
+/*
 .login-error, .register-error {
     font-size: 1.5rem;
     color: var(--black);
@@ -64,3 +71,4 @@
         width: 30%;
     }
 } 
+*/

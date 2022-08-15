@@ -1,4 +1,5 @@
 /* PARA MAIN: HOME */
+/*
 .cargar-foto{
     display: none;
 }
@@ -6,7 +7,7 @@
     display:flex;
     align-items: flex-end;
 }
-.photo-user{  /* borde de la foto del usuario*/
+.photo-user{  /* borde de la foto del usuario*//*
     width: 8rem;
     height: 8rem;
     border-radius: 50%;
@@ -16,7 +17,7 @@
     justify-content: center;
 }
 
-.user-photo{ /* foto del usuario */
+.user-photo{ /* foto del usuario *//*
     height: 100%;
     width: auto;
     background-color: transparent;
@@ -28,7 +29,7 @@
 }
 
 .photo-change-user, .photo-change-post, .button-emoji{ /* borde del boton para cambiar la foto del usuario y de su post*/
-    border-radius: 50%; 
+  /*  border-radius: 50%; 
     width: 3rem;
     height: 3rem; 
     display: flex;
@@ -43,7 +44,7 @@
 }
 
 .change-photo, .upload-photo { /* iconos para cambiar la foto del usuario y de su post*/
-    height: 60%;
+ /*   height: 60%;
     width: auto;
     background-color: transparent; 
     filter: invert();
@@ -96,7 +97,7 @@
 .user-name-post{
     background: var(--orange2);  
     /* margin-top: 0px; */
-    display: flex;
+ /*   display: flex;
     justify-content: center;
     font-size: 1.3rem;
     padding:1.3rem 1rem;
@@ -168,7 +169,7 @@
     font-size: 1.5rem;
     text-align: center;
     /* font-weight: bold; */
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ /*   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .modal-post-edit input {
     width: 100%;
