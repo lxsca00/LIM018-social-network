@@ -3,17 +3,17 @@ import {
   auth,
   db, // no promise
   onAuthStateChanged, // es promesa (if-else)
-  createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
-  signInWithEmailAndPassword, // es promesa
+
+  // signInWithEmailAndPassword, // es promesa
   signOut, // es promesa
-  signInWithPopup, // es promesa
-  GoogleAuthProvider, // no promise?
+  // signInWithPopup, // es promesa
+  // GoogleAuthProvider, // no promise?
   collection, // no promise
   addDoc, // es promesa (v:rapido)
   doc, // no promise
   Timestamp,
   updateDoc, //  es promesa (await)
-  setDoc, //  es promesa (await)
+  // setDoc, //  es promesa (await)
   getDoc,
   onSnapshot,
   query,
@@ -22,54 +22,7 @@ import {
   // Initialize Firebase
 } from './firebase.js';
 
-/* import {
-  getAnalytics,
-} from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js'; */
-
-// const analytics = getAnalytics(app);
-
-// Función para ingresar con email y contraseña
-
-export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
-// Función para ingresar con email y contraseña
-
-// export const eventLogin = (email, password) => {
-//   signInWithEmailAndPassword(auth, email, password)
-//     .then((userCredential) => {
-//       // Signed in
-//       const user = userCredential.user;
-//       sessionStorage.getItem(user);
-//     })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const modalError = document.querySelector('.background-modal-error');
-//       modalError.style.visibility = 'visible';
-//       const errorMessage = document.querySelector('.login-error');
-//       switch (errorCode) {
-//         case 'auth/user-not-found': {
-//           errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
-//           break;
-//         }
-//         case 'auth/invalid-email': {
-//           errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-//           break;
-//         }
-//         case 'auth/internal-error': {
-//           errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-//           break;
-//         }
-//         case 'auth/wrong-password': {
-//           errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
-//           break;
-//         }
-//         default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
-//           break;
-//       }
-//     });
-// };
-
-// Función para registrarse con email y contraseña
-
+// Para obtener los datos del usuario activo en tiempo real en el profile
 export const obs = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -88,45 +41,6 @@ export const obs = () => {
   });
 };
 
-export function eventRegister(name, email, password, country, description, photo) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      const uid = user.uid;
-      setDoc(doc(db, 'userdata', uid), {
-        email, password, name, uid, country, description, photo,
-      });
-      window.location.hash = '#/login';
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal');
-      modalError.style.visibility = 'visible';
-      const errorMessage = document.querySelector('.register-error');
-      switch (errorCode) {
-        case 'auth/email-already-in-use': {
-          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
-          break;
-        }
-        case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-          break;
-        }
-        case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-          break;
-        }
-        case 'auth/weak-password': {
-          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
-          break;
-        }
-        default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
-          break;
-      }
-    });
-}
-
 // Función para cerrar la sesión
 
 export function eventLogout() {
@@ -136,31 +50,6 @@ export function eventLogout() {
     // Sign-out successful.
   }).catch((error) => error.code);
 }
-
-// Función para iniciar sesión con Google
-
-export const googleSignIn = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      sessionStorage.getItem(user);
-      const uid = user.uid;
-      setDoc(doc(db, 'userdata', uid), {
-        email: user.email,
-        name: user.displayName,
-        uid: user.uid,
-        photo: user.photoURL,
-        country: 'Ingresa tu país',
-        description: 'Cuéntanos un poco sobre ti',
-      });
-      // ...
-    }).catch((error) => error.code);
-};
 
 // GUARDAR NUEVOS POST EN LA BASE DE DATOS
 export const savePost = (post) => {
@@ -315,5 +204,3 @@ export const activeUserHome = async () => {
     containerProfile.insertAdjacentHTML('beforeend', homeProfile);
   }
 };
-
-// Para obtener los datos del usuario activo en tiempo real en el profile
