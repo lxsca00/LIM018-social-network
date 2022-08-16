@@ -58,7 +58,7 @@ export const savePost = (post) => {
     uid: user,
     correo: email,
     datePosted: Timestamp.fromDate(new Date()),
-    likes: [1, 2],
+    likes: [],
   });
 };
 
