@@ -1,14 +1,14 @@
 import {
   // initializeApp,
-  auth,
-  db, // no promise
+  // auth,
+  // db, // no promise
   onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
   // signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
   collection, // no promise
   addDoc, // es promesa (v:rapido)
-  doc, // no promise
+  // doc, // no promise
   Timestamp,
   updateDoc, //  es promesa (await)
   // setDoc, //  es promesa (await)
@@ -18,7 +18,24 @@ import {
   orderBy,
   deleteDoc, // promesa
   // Initialize Firebase
+
+  // REGISTER
+  createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
+  setDoc, //  es promesa (await)
+  db, // no promise
+  doc, // no promise
+  auth,
 } from './firebase.js';
+
+/* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
+// eslint-disable-next-line max-len
+export const eventRegisterFirebase = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const eventSetDoc = (uid, name, username, email, password, country, description, birth, photo) => setDoc(doc(db, 'userdata', uid), {
+  email, password, name, username, uid, country, description, birth, photo,
+});
+/* **************** ***************************************** ************************ */
+
+// OTRAS FUNCIONES
 
 // Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
 export const obs = () => {

@@ -1,10 +1,7 @@
 import {
-  createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
-  auth,
-  setDoc, //  es promesa (await)
-  doc, // no promise
-  db, // no promise
-} from '../lib/firebase.js';
+  eventRegisterFirebase, // es promesa // .then y .catch se usan para llamar a una promesa
+  eventSetDoc,
+} from '../lib/index.js';
 
 // Vista de la página de registro
 
@@ -38,14 +35,15 @@ export default () => {
 
 // Función para registrarse con email y contraseña
 export function eventRegister(name, email, password, country, description, photo) {
-  createUserWithEmailAndPassword(auth, email, password)
+  eventRegisterFirebase(email, password)
     .then((userCredential) => {
-      // Signed in
+    // Signed in
       const user = userCredential.user;
       const uid = user.uid;
-      setDoc(doc(db, 'userdata', uid), {
-        email, password, name, uid, country, description, photo,
-      });
+      // setDoc(doc(db, 'userdata', uid), {
+      //   email, password, name, uid, country, description, photo,
+      // });
+      eventSetDoc(uid, name, email, password, country, description, photo);
       window.location.hash = '#/login';
     })
     .catch((error) => {
