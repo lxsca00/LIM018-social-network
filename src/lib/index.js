@@ -131,17 +131,6 @@ export const editPost = () => {
 
 // LIKES
 
-// export const likeOrDisLike = (arrayLikes, postId, authCurrentUserUid) => {
-//   if (arrayLikes.includes(authCurrentUserUid)) {
-//     const filterUser = arrayLikes.filter((uidUser) => uidUser !== authCurrentUserUid);
-//     editPost(postId, { likes: filterUser });
-//   } else {
-//     editPost(postId, { likes: [...arrayLikes, authCurrentUserUid] });
-//   }
-// };
-// eslint-disable-next-line max-len
-// btnLike.addEventListener('click', () => likeOrDisLike(arrayLikes, post.id, auth.currentUser.uid));
-
 export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-emoji');
   buttonLike.forEach((boton) => {
