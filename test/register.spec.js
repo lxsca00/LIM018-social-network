@@ -8,6 +8,10 @@ import {
   eventRegister,
 } from '../src/view/register.js';
 
+import {
+  eventRegisterFirebase,
+} from '../src/lib/index.js';
+
 jest.mock('../src/lib/firebase.js');
 /* eslint-disable max-len */
 // /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
@@ -17,18 +21,31 @@ describe('fEventRegister funciona correctamente', () => {
   // document.getElementById('user-password').value = '123456';
   // document.getElementById('user-name').value = 'maria';
   // fEventRegister();
-  it('debería aparecer error cuando los datos son vacios', () => {
+  it('debería ser una función', () => {
     expect(typeof fEventRegister).toBe('function');
     expect(typeof registerTemplate).toBe('function');
     expect(typeof eventRegister).toBe('function');
   });
-  it('debería ser una función', () => {
+  // it('debería aparecer error cuando los datos son vacios', () => {
+  //   const btnRegister = document.getElementById('register-button');
+  //   // const errorRegister = document.getElementById('register-error');
+  //   expect(btnRegister instanceof HTMLElement).toBe(true);
+  //   fEventRegister();
+  //   btnRegister.click();
+  // eventRegister('', '', '', '', '', '');
+  // eventRegisterFirebase(email, passworentRegister).
+  // const errorRegister = document.getElementById('register-error');
+
+  // expect(errorRegister.innerHTML).toBe('Proporcione una dirección de correo válida.');
+  test('debería aparecer error cuando los datos son vacios', async () => {
     const btnRegister = document.getElementById('register-button');
-    const errorRegister = document.getElementById('register-error');
+    // const errorRegister = document.getElementById('register-error');
     expect(btnRegister instanceof HTMLElement).toBe(true);
+    fEventRegister();
     btnRegister.click();
-    expect(errorRegister.innerHTML).toBe('Proporcione una dirección de correo válida.');
+    await expect(eventRegisterFirebase('', '')).resolves.toBe('auth/internal-error');
   });
+  // });
 
   //   it('deberias registrarte con el correo y contraseña que escribes', () => {
   //     expect(eventRegister.mock.calls[0][0]).toBe(document.getElementById('user-email').value);

@@ -35,6 +35,7 @@ export const registerTemplate = () => {
 
 // Función para registrarse con email y contraseña
 export function eventRegister(name, email, password, country, description, photo) {
+  console.log('dentro de event register');
   eventRegisterFirebase(email, password)
     .then((userCredential) => {
     // Signed in
