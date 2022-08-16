@@ -5,7 +5,7 @@ import {
 
 // Vista de la página de registro
 
-export default () => {
+export const registerTemplate = () => {
   const viewRegister = `
   <div id = 'container-register'>
     <div class="fondo-logo">
@@ -86,6 +86,7 @@ export const fEventRegister = () => {
     const country = 'Ingresa tu país';
     const description = 'Cuéntanos un poco sobre ti';
     const photo = '';
+    console.log('dentro de register');
     eventRegister(name, email, password, country, description, photo);
   });
 };

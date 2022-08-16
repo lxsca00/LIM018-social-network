@@ -30,8 +30,8 @@ import {
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 // eslint-disable-next-line max-len
 export const eventRegisterFirebase = (email, password) => createUserWithEmailAndPassword(auth, email, password);
-export const eventSetDoc = (uid, name, username, email, password, country, description, birth, photo) => setDoc(doc(db, 'userdata', uid), {
-  email, password, name, username, uid, country, description, birth, photo,
+export const eventSetDoc = (uid, name, email, password, country, description, photo) => setDoc(doc(db, 'userdata', uid), {
+  email, password, name, uid, country, description, photo,
 });
 /* **************** ***************************************** ************************ */
 

@@ -31,6 +31,8 @@ body,#container-register, #container-inicio, #container-login, .old-publication,
 }
 .container-user-photo{
     margin: 2rem 0;
+    display:flex;
+    align-items: flex-end;
 }
 .register-message, #login-message {
     margin: 0 0 2rem 0;
@@ -157,6 +159,7 @@ body {
     height: 100vh;
 }
 main{
+    height: 80%;
     margin-top: 8rem;
     padding: 0rem 1rem;
 }
@@ -247,7 +250,7 @@ button {
         left: 0px;
     }
 }
-/**/
+
 /* COPIANDO DEL LOGIN */
 #login-message {
     text-align: left;
@@ -272,9 +275,9 @@ button {
     color: var(--white);
 }
 
-.form-login p {
+/* .form-login p {
     text-align: center;
-}
+} */
 
 .form-login img {
     width: 20px;
@@ -319,9 +322,9 @@ button {
 }
 /* COPIADO DEL LOGIN*/
 
-main{
+/* main{
     height: 80%;
-}
+} */
 
 .fondo-logo{
     width: 15rem;
@@ -407,10 +410,10 @@ main{
 .cargar-foto{
     display: none;
 }
-.container-user-photo {
+/* .container-user-photo {
     display:flex;
     align-items: flex-end;
-}
+} */
 .photo-user{  /* borde de la foto del usuario*/
     width: 8rem;
     height: 8rem;
