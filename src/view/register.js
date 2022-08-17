@@ -22,7 +22,7 @@ export const registerTemplate = () => {
     </form>
     <div class="background-modal">
       <div class="modal-error">
-        <p class="register-error"> Hay un error </p>
+        <p class="register-error" id='register-error-modal'> Hay un error </p>
         <button class="close-modal btnInicio"> CERRAR </button>
       </div>
     <div>
@@ -89,7 +89,7 @@ export const fEventRegister = () => {
     const photo = '';
     // console.log('dentro de register');
     // console.log(eventRegisterFirebase('', ''));
-    eventRegisterFirebase(email, password)
+    return eventRegisterFirebase(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -111,6 +111,7 @@ export const fEventRegister = () => {
             break;
           }
           case 'auth/invalid-email': {
+            console.log('dentro de register');
             errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
             break;
           }
