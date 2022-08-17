@@ -34,46 +34,46 @@ export const registerTemplate = () => {
 };
 
 // Función para registrarse con email y contraseña
-export function eventRegister(name, email, password, country, description, photo) {
-  console.log('dentro de event register');
-  eventRegisterFirebase(email, password)
-    .then((userCredential) => {
-    // Signed in
-      const user = userCredential.user;
-      const uid = user.uid;
-      // setDoc(doc(db, 'userdata', uid), {
-      //   email, password, name, uid, country, description, photo,
-      // });
-      eventSetDoc(uid, name, email, password, country, description, photo);
-      window.location.hash = '#/login';
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal');
-      modalError.style.visibility = 'visible';
-      const errorMessage = document.querySelector('.register-error');
-      switch (errorCode) {
-        case 'auth/email-already-in-use': {
-          errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
-          break;
-        }
-        case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-          break;
-        }
-        case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-          break;
-        }
-        case 'auth/weak-password': {
-          errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
-          break;
-        }
-        default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
-          break;
-      }
-    });
-}
+// export function eventRegister(name, email, password, country, description, photo) {
+//   console.log('dentro de event register');
+//   // eventRegisterFirebase(email, password)
+//   //   .then((userCredential) => {
+//   //   // Signed in
+//   //     const user = userCredential.user;
+//   //     const uid = user.uid;
+//   //     // setDoc(doc(db, 'userdata', uid), {
+//   //     //   email, password, name, uid, country, description, photo,
+//   //     // });
+//   //     eventSetDoc(uid, name, email, password, country, description, photo);
+//   //     window.location.hash = '#/login';
+//   //   })
+//   //   .catch((error) => {
+//   //     const errorCode = error.code;
+//   //     const modalError = document.querySelector('.background-modal');
+//   //     modalError.style.visibility = 'visible';
+//   //     const errorMessage = document.querySelector('.register-error');
+//   //     switch (errorCode) {
+//   //       case 'auth/email-already-in-use': {
+//   //         errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
+//   //         break;
+//   //       }
+//   //       case 'auth/invalid-email': {
+//   //         errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+//   //         break;
+//   //       }
+//   //       case 'auth/internal-error': {
+//   //         errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+//   //         break;
+//   //       }
+//   //       case 'auth/weak-password': {
+//   //         errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
+//   //         break;
+//   //       }
+//   //       default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
+//   //         break;
+//   //     }
+//   //   });
+// }
 
 // REGISTRO DE USUARIO
 
@@ -87,7 +87,45 @@ export const fEventRegister = () => {
     const country = 'Ingresa tu país';
     const description = 'Cuéntanos un poco sobre ti';
     const photo = '';
-    console.log('dentro de register');
-    eventRegister(name, email, password, country, description, photo);
+    // console.log('dentro de register');
+    // console.log(eventRegisterFirebase('', ''));
+    eventRegisterFirebase(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const uid = user.uid;
+        // setDoc(doc(db, 'userdata', uid), {
+        //   email, password, name, uid, country, description, photo,
+        // });
+        eventSetDoc(uid, name, email, password, country, description, photo);
+        window.location.hash = '#/login';
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const modalError = document.querySelector('.background-modal');
+        modalError.style.visibility = 'visible';
+        const errorMessage = document.querySelector('.register-error');
+        switch (errorCode) {
+          case 'auth/email-already-in-use': {
+            errorMessage.innerHTML = 'Email en uso, intenta iniciar sesión.';
+            break;
+          }
+          case 'auth/invalid-email': {
+            errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+            break;
+          }
+          case 'auth/internal-error': {
+            errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+            break;
+          }
+          case 'auth/weak-password': {
+            errorMessage.innerHTML = 'Tu contraseña debe tener al menos 6 caracteres.';
+            break;
+          }
+          default: errorMessage.innerHTML = 'Vuelve a intentarlo.';
+            break;
+        }
+      });
+    // eventRegister(name, email, password, country, description, photo);
   });
 };

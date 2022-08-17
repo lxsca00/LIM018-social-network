@@ -5,82 +5,107 @@
 import {
   registerTemplate,
   fEventRegister,
-  eventRegister,
+  // eventRegister,
 } from '../src/view/register.js';
 
 import {
   eventRegisterFirebase,
 } from '../src/lib/index.js';
 
+import {
+  createUserWithEmailAndPassword,
+} from '../src/lib/firebase.js';
+
 jest.mock('../src/lib/firebase.js');
 /* eslint-disable max-len */
 // /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 describe('fEventRegister funciona correctamente', () => {
   document.body.appendChild(registerTemplate());
-  // document.getElementById('user-email').value = 'mariaChavez@gmail.com';
-  // document.getElementById('user-password').value = '123456';
-  // document.getElementById('user-name').value = 'maria';
-  // fEventRegister();
   it('debería ser una función', () => {
     expect(typeof fEventRegister).toBe('function');
     expect(typeof registerTemplate).toBe('function');
-    expect(typeof eventRegister).toBe('function');
   });
-  // it('debería aparecer error cuando los datos son vacios', () => {
+
+  // expect(errorRegister.innerHTML).toBe('Proporcione una dirección de correo válida.');
+  // test('debería aparecer error cuando los datos son vacios', () => {
   //   const btnRegister = document.getElementById('register-button');
   //   // const errorRegister = document.getElementById('register-error');
   //   expect(btnRegister instanceof HTMLElement).toBe(true);
+  //   document.getElementById('user-email').value = '';
+  //   document.getElementById('user-password').value = '';
   //   fEventRegister();
   //   btnRegister.click();
-  // eventRegister('', '', '', '', '', '');
-  // eventRegisterFirebase(email, passworentRegister).
-  // const errorRegister = document.getElementById('register-error');
-
-  // expect(errorRegister.innerHTML).toBe('Proporcione una dirección de correo válida.');
-  test('debería aparecer error cuando los datos son vacios', async () => {
-    const btnRegister = document.getElementById('register-button');
-    // const errorRegister = document.getElementById('register-error');
-    expect(btnRegister instanceof HTMLElement).toBe(true);
-    fEventRegister();
-    btnRegister.click();
-    await expect(eventRegisterFirebase('', '')).resolves.toBe('auth/internal-error');
-  });
+  //   const errorMessage = document.querySelector('.register-error');
+  //   const email = '';
+  //   const password = '';
+  //   eventRegisterFirebase(email, password)
+  //     .catch(() => {
+  //       expect(errorMessage.innerHTML).toBe('Usuario o contraseña no válido2');
+  //     });
+  // console.log(eventRegisterFirebase(email, password));
+  // it('Muestra el error ', () => {
+  //   const btnRegister = document.getElementById('register-button');
+  //   createUserWithEmailAndPassword.mockImplementationOnce((email, password) => {
+  //     expect(email).toBe('x');
+  //     expect(password).toBe('x');
+  //     return Promise.reject(new Error('Proporcione una dirección de correo válida.'));
+  //   });
+  //   document.getElementById('user-email').value = 'x';
+  //   document.getElementById('user-password').value = 'x';
+  //   fEventRegister();
+  //   btnRegister.click();
   // });
 
-  //   it('deberias registrarte con el correo y contraseña que escribes', () => {
-  //     expect(eventRegister.mock.calls[0][0]).toBe(document.getElementById('user-email').value);
-  //     expect(eventRegister.mock.calls[0][1]).toBe(document.getElementById('user-password').value);
-  //   });
-  //   test('registro para usuario nuevo', async () => {
-  //     await expect(eventRegisterGlobal()).resolves.toBe('usuario registrado exitosamente');
-  //   });
+  // test('login (ingreso) para usuario contraseña incorrecta', async () => {
+  //   // eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
+  //   // eslint-disable-next-line prefer-promise-reject-errors
+  //   createUserWithEmailAndPassword.mockImplementation(() => Promise.reject({ code: 'xxx' }));
+  //   await expect(eventRegisterFirebase()).resolves.toBe('user is loged');
   // });
-
-// describe('eventRegisterGlobalError', () => {
-//   document.body.appendChild(login());
-//   // console.log(document.getElementById('login-email').value);
-//   // console.log(eventLogin.mock.calls[0][1]);
-//   test('login (ingreso) para usuario registrado', (done) => {
-//     document.getElementById('login-email').value = '';
-//     document.getElementById('login-password').value = '';
-//     // console.log(eventLogin.mock.calls[0][1]);
-//     eventLoginGlobal();
-//     // eslint-disable-next-line prefer-promise-reject-errors
-//     eventLogin.mockImplementationOnce(() => Promise.reject({ code: 'code' }));
-//     setTimeout(() => {
-//       // eslint-disable-next-line jest/valid-expect
-//       expect(eventRegisterGlobal()).resolves.toBe('error');
-//       // expect(eventLoginGlobal()).rejects.toMatch('error');
-//       done();
-//     }, 200);
-//   });
+  //   // expect(errorMessage.innerHTML).toBe('Email en uso, intenta iniciar sesión.');
+  // });
 });
 
-// describe('feventLogin', () => {
-//   // console.log(eventLogin.mock.calls[0][0]);
-//   // console.log(eventLogin.mock.calls[0][1]);
-//   it('debería ser una función', () => {
-//     console.log(typeof feventLogin);
-//     expect(typeof fEventLogin).toBe('function');
+//   it('deberias registrarte con el correo y contraseña que escribes', () => {
+//     expect(eventRegister.mock.calls[0][0]).toBe(document.getElementById('user-email').value);
+//     expect(eventRegister.mock.calls[0][1]).toBe(document.getElementById('user-password').value);
 //   });
+//   test('registro para usuario nuevo', async () => {
+//     await expect(eventRegisterGlobal()).resolves.toBe('usuario registrado exitosamente');
+//   });
+// });
+
+describe('eventRegisterGlobalError', () => {
+  // document.body.appendChild(registerTemplate());
+  // console.log(document.getElementById('login-email').value);
+  // console.log(eventLogin.mock.calls[0][1]);
+  const email = '';
+  const password = '';
+  const btnRegister = document.getElementById('register-button');
+  test('login (ingreso) para usuario registrado', async () => {
+    document.getElementById('user-email').value = '';
+    document.getElementById('user-password').value = '';
+    // console.log(eventLogin.mock.calls[0][1]);
+    fEventRegister();
+    btnRegister.click();
+    createUserWithEmailAndPassword.mockImplementationOnce(() => {
+      expect(email).toBe('');
+      expect(password).toBe('');
+      return Promise.reject(new Error('Proporcione una dirección de correo válida'));
+    });
+    // fEventRegister();
+
+    // console.log(eventRegisterFirebase(email, password));
+    // const received = eventRegisterFirebase(email, password);
+    // const string = JSON.stringify(received);
+    // await expect(string).rejects.toMatch({});
+    await expect(eventRegisterFirebase(email, password)).rejects.toMatch({ error: 'f' });
+    // setTimeout(() => {
+    //   // expect(eventRegisterFirebase('', '')).resolves.toBe('error');
+    //   expect(eventRegisterFirebase('', '')).rejects.toMatch('error');
+    //   done();
+    // }, 7000);
+  });
+});
+
 // });
