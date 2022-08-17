@@ -46,8 +46,7 @@ export const fEventRegister = () => {
     const description = 'Cuéntanos un poco sobre ti';
     const photo = '';
     // console.log('dentro de register');
-    // console.log(eventRegisterFirebase('', ''));
-    return eventRegisterFirebase(email, password)
+    eventRegisterFirebase(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;

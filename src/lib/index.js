@@ -25,6 +25,8 @@ import {
   db, // no promise
   doc, // no promise
   auth,
+  // LOGIN
+  signInWithEmailAndPassword, // es promesa //
 } from './firebase.js';
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
@@ -33,9 +35,9 @@ export const eventRegisterFirebase = (email, password) => createUserWithEmailAnd
 export const eventSetDoc = (uid, name, email, password, country, description, photo) => setDoc(doc(db, 'userdata', uid), {
   email, password, name, uid, country, description, photo,
 });
-/* **************** ***************************************** ************************ */
 
-// OTRAS FUNCIONES
+/* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
+export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 // Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
 export const obs = () => {
@@ -55,6 +57,7 @@ export const obs = () => {
     }
   });
 };
+
 
 // Función para cerrar la sesión // AQUI
 

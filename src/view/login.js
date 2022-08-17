@@ -1,22 +1,20 @@
 import {
-// eventLogin,
   obs,
-// googleSignIn,
+  eventLogin,
 } from '../lib/index.js';
 
+// LOGIN CON GOOGLE
 import {
   setDoc, //  es promesa (await)
   auth,
   doc, // no promise
   db, // no promise
-  signInWithEmailAndPassword, // es promesa
   signInWithPopup, // es promesa
   GoogleAuthProvider, // no promise?
 } from '../lib/firebase.js';
 
 //  Vista de la página de ingreso
-
-export default () => {
+export const loginTemplate = () => {
   const loginView = `
   <div id = 'container-login'>
     <div class="fondo-logo">
@@ -49,85 +47,50 @@ export default () => {
 
 // Función para ingresar con email y contraseña
 
-export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
-
 // AUTENTIFICACIÓN DE USUARIO -LOGIN CON CONTRASEÑA
-export function eventLoginGlobal() {
-  const eMail = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-  return eventLogin(eMail, password)
-    .then((userCredential) => {
-    // Signed in
-      const user = userCredential.user;
-      sessionStorage.getItem(user);
-      return ('user is loged');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const modalError = document.querySelector('.background-modal');
-      modalError.style.visibility = 'visible';
-      const errorMessage = document.querySelector('.login-error');
-      switch (errorCode) {
-        case 'auth/user-not-found': {
-          errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
-          break;
-        }
-        case 'auth/invalid-email': {
-          errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
-          break;
-        }
-        case 'auth/internal-error': {
-          errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
-          break;
-        }
-        case 'auth/wrong-password': {
-          errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
-          break;
-        }
-        default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
-          break;
-      }
-      return ('error');
-    });
-}
-
 export const fEventLogin = () => {
-  document.getElementById('home-li').style.display = 'none';
-  document.getElementById('perfil-li').style.display = 'none';
-  document.getElementById('logout').style.display = 'none';
-  document.getElementById('registro-li').style.display = 'block';
-  document.getElementById('login').style.display = 'block';
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    eventLoginGlobal();
+    // eventLoginGlobal();
+    const eMail = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    eventLogin(eMail, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        sessionStorage.getItem(user);
+        return ('user is loged');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const modalError = document.querySelector('.background-modal');
+        modalError.style.visibility = 'visible';
+        const errorMessage = document.querySelector('.login-error');
+        switch (errorCode) {
+          case 'auth/user-not-found': {
+            errorMessage.innerHTML = 'No existe ningún usuario registrado con este email.';
+            break;
+          }
+          case 'auth/invalid-email': {
+            errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
+            break;
+          }
+          case 'auth/internal-error': {
+            errorMessage.innerHTML = 'El ingreso de contraseña es obligatorio.';
+            break;
+          }
+          case 'auth/wrong-password': {
+            errorMessage.innerHTML = 'La contraseña ingresada es incorrecta.';
+            break;
+          }
+          default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
+            break;
+        }
+        return ('error');
+      });
     obs();
   });
-};
-
-// Función para iniciar sesión con Google
-
-export const googleSignIn = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      sessionStorage.getItem(user);
-      const uid = user.uid;
-      setDoc(doc(db, 'userdata', uid), {
-        email: user.email,
-        name: user.displayName,
-        uid: user.uid,
-        photo: user.photoURL,
-        country: 'Ingresa tu país',
-        description: 'Cuéntanos un poco sobre ti',
-      });
-      // ...
-    }).catch((error) => error.code);
 };
 
 // INICIAR SESIÓN CON GOOGLE
@@ -135,7 +98,27 @@ export const googleSignIn = () => {
 export const fGoogleSignIn = () => {
   document.querySelector('#button-google').addEventListener('click', (e) => {
     e.preventDefault();
-    googleSignIn();
+    // googleSignIn();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        sessionStorage.getItem(user);
+        const uid = user.uid;
+        setDoc(doc(db, 'userdata', uid), {
+          email: user.email,
+          name: user.displayName,
+          uid: user.uid,
+          photo: user.photoURL,
+          country: 'Ingresa tu país',
+          description: 'Cuéntanos un poco sobre ti',
+        });
+        // ...
+      }).catch((error) => error.code);
     obs();
   });
 };
