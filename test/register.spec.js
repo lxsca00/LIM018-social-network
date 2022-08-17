@@ -5,12 +5,7 @@
 import {
   registerTemplate,
   fEventRegister,
-  // eventRegister,
 } from '../src/view/register.js';
-
-import {
-// eventRegisterFirebase,
-} from '../src/lib/index.js';
 
 import {
   createUserWithEmailAndPassword,
@@ -22,20 +17,32 @@ jest.mock('../src/lib/firebase.js');
 describe('fEventRegister', () => {
   document.body.appendChild(registerTemplate());
   document.getElementById('user-email').value = 'aaa@gmail.com';
-  document.getElementById('user-password').value = '1456';
+  document.getElementById('user-password').value = '123456';
   fEventRegister();
-  // console.log(eventLogin.mock.calls[0][0]);
-  // console.log(eventLogin.mock.calls[0][1]);
+  const btnRegister = document.getElementById('register-button');
+  btnRegister.click();
+
   it('debería ser una función', () => {
     expect(typeof fEventRegister).toBe('function');
   });
   it('deberias loguearte con el correo y contraseña que escribes', () => {
     expect(createUserWithEmailAndPassword.mock.calls[0][1]).toBe(document.getElementById('user-email').value);
     expect(createUserWithEmailAndPassword.mock.calls[0][2]).toBe(document.getElementById('user-password').value);
-    // eventLogin.mockClear();
   });
-  test('login (ingreso) para usuario registrado', async () => {
-    await expect(fEventRegister()).resolves.toBe('user is loged');
+  // test('login (ingreso) para usuario registrado', () => {
+  //   fEventRegister();
+  //   btnRegister.click();
+  //   setTimeout(() => expect(eventRegisterFirebase('mariaperez123@gmail.com', '123456')).resolves.toBe('user is loged'));
+  // });
+  it('deberias cambiar a ruta login', (done) => {
+    expect(btnRegister instanceof HTMLElement).toBe(true);
+    const changeRoute = () => {
+      expect(window.location.hash).toBe('#/login');
+      window.removeEventListener('hashchange', changeRoute);
+      done();
+    };
+    window.addEventListener('hashchange', changeRoute);
+    // btnRegister.click();
   });
 });
 
@@ -57,6 +64,7 @@ describe('fEventRegister funciona correctamente', () => {
       done();
     });
   });
+
   it('debería aparecer error cuando hay un email en uso', (done) => {
     createUserWithEmailAndPassword.mockRejectedValue({ code: 'auth/email-already-in-use' });
     fEventRegister();
@@ -89,6 +97,7 @@ describe('fEventRegister funciona correctamente', () => {
       done();
     });
   });
+
   it('debería aparecer error', (done) => {
     createUserWithEmailAndPassword.mockRejectedValue({ code: 'xxxx' });
     fEventRegister();
