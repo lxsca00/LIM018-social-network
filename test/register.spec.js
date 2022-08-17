@@ -9,7 +9,7 @@ import {
 } from '../src/view/register.js';
 
 import {
-  eventRegisterFirebase,
+// eventRegisterFirebase,
 } from '../src/lib/index.js';
 
 import {
@@ -19,22 +19,23 @@ import {
 jest.mock('../src/lib/firebase.js');
 
 // /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
-describe('eventRegisterGlobal', () => {
+describe('fEventRegister', () => {
   document.body.appendChild(registerTemplate());
-  document.getElementById('user-email').value = 'mariaChavez@gmail.com';
-  document.getElementById('user-password').value = '123456';
+  document.getElementById('user-email').value = 'aaa@gmail.com';
+  document.getElementById('user-password').value = '1456';
   fEventRegister();
+  // console.log(eventLogin.mock.calls[0][0]);
+  // console.log(eventLogin.mock.calls[0][1]);
   it('debería ser una función', () => {
     expect(typeof fEventRegister).toBe('function');
   });
-  test('registro para usuario nuevo', (done) => {
-    createUserWithEmailAndPassword.mockResolvedValue('usuario registrado exitosamente');
-    // await expect(eventRegisterFirebase('mariaChavez@gmail.com', '123456')).resolves.toBe('usuario registrado exitosamente');
-    setTimeout(() => {
-      // eslint-disable-next-line jest/valid-expect
-      expect(eventRegisterFirebase('mariaChavez@gmail.com', '123456')).resolves.toBe('usuario registrado exitosamente');
-      done();
-    });
+  it('deberias loguearte con el correo y contraseña que escribes', () => {
+    expect(createUserWithEmailAndPassword.mock.calls[0][1]).toBe(document.getElementById('user-email').value);
+    expect(createUserWithEmailAndPassword.mock.calls[0][2]).toBe(document.getElementById('user-password').value);
+    // eventLogin.mockClear();
+  });
+  test('login (ingreso) para usuario registrado', async () => {
+    await expect(fEventRegister()).resolves.toBe('user is loged');
   });
 });
 
