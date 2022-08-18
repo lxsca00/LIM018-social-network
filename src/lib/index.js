@@ -2,7 +2,7 @@ import {
   // initializeApp,
   // auth,
   // db, // no promise
-  onAuthStateChanged, // es promesa (if-else)
+  // onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
   // signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
@@ -27,6 +27,9 @@ import {
   auth,
   // LOGIN
   signInWithEmailAndPassword, // es promesa //
+  onAuthStateChanged, // es promesa (if-else)
+  signInWithPopup,
+  // GoogleAuthProvider, // no promise?
 } from './firebase.js';
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
@@ -38,7 +41,7 @@ export const eventSetDoc = (uid, name, email, password, country, description, ph
 
 /* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
-
+export const eventsignInWithPopup = (provider) => signInWithPopup(auth, provider);
 // Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
 export const obs = () => {
   onAuthStateChanged(auth, (user) => {
@@ -47,7 +50,7 @@ export const obs = () => {
     // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       console.log(`user ${uid} is loged`);
-      window.location.hash = '#/home';
+      // window.location.hash = '#/home';
       document.getElementById('header').style.visibility = 'visible';
     // ...
     } else {
@@ -57,7 +60,6 @@ export const obs = () => {
     }
   });
 };
-
 
 // Función para cerrar la sesión // AQUI
 

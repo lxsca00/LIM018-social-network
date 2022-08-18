@@ -1,15 +1,16 @@
 import {
   obs,
   eventLogin,
+  eventsignInWithPopup,
 } from '../lib/index.js';
 
 // LOGIN CON GOOGLE
 import {
   setDoc, //  es promesa (await)
-  auth,
+  // auth,
   doc, // no promise
   db, // no promise
-  signInWithPopup, // es promesa
+  // signInWithPopup, // es promesa
   GoogleAuthProvider, // no promise?
 } from '../lib/firebase.js';
 
@@ -34,7 +35,7 @@ export const loginTemplate = () => {
     </form>
     <div class="background-modal">
       <div class="modal-error">
-        <p class="login-error"> Hay un error </p>
+        <p class="login-error" id='login-error-modal'> Hay un error </p>
         <button class="close-modal btnInicio"> CERRAR </button>
       </div>
     <div>
@@ -60,7 +61,8 @@ export const fEventLogin = () => {
         // Signed in
         const user = userCredential.user;
         sessionStorage.getItem(user);
-        return ('user is loged');
+        window.location.hash = '#/home';
+        obs();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -87,9 +89,8 @@ export const fEventLogin = () => {
           default: errorMessage.innerHTML = 'Por favor vuelve a intentarlo.';
             break;
         }
-        return ('error');
       });
-    obs();
+    // obs();
   });
 };
 
@@ -99,11 +100,16 @@ export const fGoogleSignIn = () => {
   document.querySelector('#button-google').addEventListener('click', (e) => {
     e.preventDefault();
     // googleSignIn();
+    // console.log('entrando con google');
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    // console.log('entrando con google');
+    eventsignInWithPopup(provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
+        console.log('entrando con google');
+
         GoogleAuthProvider.credentialFromResult(result);
+        console.log('entrando con google');
         // const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
@@ -117,8 +123,11 @@ export const fGoogleSignIn = () => {
           country: 'Ingresa tu país',
           description: 'Cuéntanos un poco sobre ti',
         });
+        console.log('entrando con google');
+        window.location.hash = '#/home';
         // ...
-      }).catch((error) => error.code);
+      })
+      .catch((error) => error.code);
     obs();
   });
 };
