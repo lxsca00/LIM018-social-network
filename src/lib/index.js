@@ -1,14 +1,10 @@
 import {
-  // initializeApp,
-  auth,
-  db, // no promise
-  onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
   // signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
   collection, // no promise
   addDoc, // es promesa (v:rapido)
-  doc, // no promise
+  // doc, // no promise
   Timestamp,
   updateDoc, //  es promesa (await)
   // setDoc, //  es promesa (await)
@@ -18,8 +14,31 @@ import {
   orderBy,
   deleteDoc, // promesa
   // Initialize Firebase
+
+  // REGISTER
+  createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
+  setDoc, //  es promesa (await)
+  db, // no promise
+  doc, // no promise
+  auth,
+
+  // LOGIN
+  signInWithEmailAndPassword, // es promesa //
+  onAuthStateChanged, // es promesa (if-else)
+  signInWithPopup, // es promesa
+  // GoogleAuthProvider, // no promise?
 } from './firebase.js';
 
+/* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
+// eslint-disable-next-line max-len
+export const eventRegisterFirebase = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const eventSetDoc = (uid, name, email, password, country, description, photo) => setDoc(doc(db, 'userdata', uid), {
+  email, password, name, uid, country, description, photo,
+});
+
+/* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
+export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const eventsignInWithPopup = (provider) => signInWithPopup(auth, provider);
 // Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
 export const obs = () => {
   onAuthStateChanged(auth, (user) => {
@@ -28,7 +47,7 @@ export const obs = () => {
     // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       console.log(`user ${uid} is loged`);
-      window.location.hash = '#/home';
+      // window.location.hash = '#/home';
       document.getElementById('header').style.visibility = 'visible';
     // ...
     } else {
@@ -157,34 +176,6 @@ export function shareLike() {
     });
   });
 }
-// export function shareLike() {
-//   const buttonLike = document.querySelectorAll('.button-emoji');
-//   const inputLike = document.querySelector('.inputlike');
-//   let numero = 0;
-//   buttonLike.forEach((boton) => {
-//     boton.addEventListener('click', (e) => {
-//       // numero === 0? numero++:numero--;
-
-//       if (numero === 0) {
-//         numero += 1;
-//         inputLike.value = numero;
-//         console.log(numero);
-//       } else {
-//         numero -= 1;
-//         inputLike.value = numero;
-//         console.log(numero);
-//         inputLike.value = numero;
-//       }
-
-//       const id = e.target.dataset.id;
-//       const docRef = doc(db, 'post', id);
-//       const inputLike2 = document.querySelector('.inputlike').value;
-//       updateDoc(docRef, {
-//         likes: inputLike2,
-//       });
-//     });
-//   });
-// }
 
 // Obtener los post en tiempo real
 export const onGetPosts = async () => {
