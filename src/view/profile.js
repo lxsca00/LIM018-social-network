@@ -39,9 +39,7 @@ export const activeUserProfile = async () => {
       <p class="subtitle"> Prefiero ver:</p>
       <p class="user-election"> ${dok.data().preference} </p>
       <p class="subtitle"> Mi genero favorito es:</p>
-      <p class="user-genre"> ${dok.data().genre} </p>
-      <button id="editProfile"> EDITAR MI PERFIL </button>
-      <button id="return-home"> <a href="#/home"> VOLVER AL HOME </a> </button>`;
+      <p class="user-genre"> ${dok.data().genre} </p>`;
       aboutUserContainer.insertAdjacentHTML('beforeend', aboutUser);
       const modalCard = document.querySelector('.modal-card');
       modalCard.innerHTML = '';
@@ -108,7 +106,8 @@ export const profileTemplate = () => {
   const viewProfile = `
   <section class="top-user-info"> </section>
   <section class="about-user"> </section>
-  
+  <button id="editProfile"> EDITAR MI PERFIL </button>
+  <button id="return-home"> <a href="#/home"> VOLVER AL HOME </a> </button>
   <div class="background-modal">
     <div class="modal-card">
     </div>

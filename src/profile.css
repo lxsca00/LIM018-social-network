@@ -36,15 +36,7 @@ header img {
     height: 50px;
 }
 
-.menu-logo {
-    display: flex;
-    align-items: center;
-}
 
-.menu-logo a {
-    font-size: 2rem;
-    font-weight: bold;
-}
 
 a {
     text-decoration: none;
@@ -63,6 +55,16 @@ button {
     background-image: url(https://c.tenor.com/CjAocmPf3CcAAAAC/upreach-animation.gif);
     font-weight: bold;
     cursor: pointer;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+}
+
+.menu-logo a {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .welcome, #register, #login, #home, .profile, .error404, .error-text {
@@ -99,6 +101,21 @@ button {
     background: none;
     border: solid 1px var(--white);
     width: fit-content;
+}
+
+.error404 img {
+    width: 80%
+}
+
+.photo-user img {
+    height: 100%;
+    width: auto;
+    border-radius: 50%;
+}
+
+.go-profile img {
+    filter: invert();
+    height: 30px;
 }
 
 #logout img {
@@ -150,7 +167,21 @@ button {
     width: 75%;
 }
 
-.register-form p, #form-login p{
+.modal-delete p, .login-error, .register-error{
+    color: var(--black);
+    font-size: 1.1rem;
+    margin: 5px;
+}
+
+.modal-card p, .modal-post-edit p {
+    margin: 0 0 1.5rem 0;
+    font-size: 2rem;
+    color: var(--black);
+    text-align: center;
+    font-weight: bold;
+}
+
+.register-form p, .form-login p{
     margin: 0 0 1rem 0;
 }
 
@@ -228,12 +259,6 @@ button {
     justify-content: center;
 }
 
-.photo-user img {
-    height: 100%;
-    width: auto;
-    border-radius: 50%;
-}
-
 .go-profile {
     width: 100%;
     margin: 1rem 0 2rem 0;
@@ -246,11 +271,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
-
-.go-profile img {
-    filter: invert();
-    height: 30px;
 }
 
 .form-publication {
@@ -371,14 +391,6 @@ button {
     margin: 0 0 1rem 0
 }
 
-.modal-card p, .modal-post-edit p {
-    margin: 0 0 1.5rem 0;
-    font-size: 2rem;
-    color: var(--black);
-    text-align: center;
-    font-weight: bold;
-}
-
 .modal-card input, select, .modal-post-edit input {
     width: 100%;
     margin: 0 0 1rem 0;
@@ -417,27 +429,15 @@ button {
     justify-content: space-evenly;
 }
 
-.modal-delete p, .login-error, .register-error{
-    color: var(--black);
-    font-size: 1.1rem;
-    margin: 5px;
-}
-
 .btns-delete {
     display: flex;
     justify-content: space-around;
-}
-
-.error404 img {
-    width: 80%
 }
 
 .error-text h2 {
     text-align: center;
     margin: 1rem 0;
 }
-
-/* */
 
 .change-photo, .upload-photo { /* iconos para cambiar la foto del usuario y de su post*/
     height: 60%;

@@ -10,8 +10,8 @@ describe('inicio', () => {
 
   beforeEach(() => {
     document.body.appendChild(inicio());
-    buttonLogin = document.getElementById('loginInicio-button');
-    buttonRegister = document.getElementById('registrarmeInicio-button');
+    buttonLogin = document.getElementById('welcome-login-button');
+    buttonRegister = document.getElementById('welcome-register-button');
   });
   it('Existe el botón Login en el componente Inicio', () => {
     expect(buttonLogin instanceof HTMLElement).toBe(true);
