@@ -1,8 +1,4 @@
 import {
-  // initializeApp,
-  // auth,
-  // db, // no promise
-  // onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
   // signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
@@ -25,10 +21,11 @@ import {
   db, // no promise
   doc, // no promise
   auth,
+
   // LOGIN
   signInWithEmailAndPassword, // es promesa //
   onAuthStateChanged, // es promesa (if-else)
-  signInWithPopup,
+  signInWithPopup, // es promesa
   // GoogleAuthProvider, // no promise?
 } from './firebase.js';
 
