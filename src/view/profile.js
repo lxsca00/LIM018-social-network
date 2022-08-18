@@ -39,7 +39,9 @@ export const activeUserProfile = async () => {
       <p class="subtitle"> Prefiero ver:</p>
       <p class="user-election"> ${dok.data().preference} </p>
       <p class="subtitle"> Mi genero favorito es:</p>
-      <p class="user-genre"> ${dok.data().genre} </p>`;
+      <p class="user-genre"> ${dok.data().genre} </p>
+      <button id="editProfile"> EDITAR MI PERFIL </button>
+      <button id="return-home"> <a href="#/home"> VOLVER AL HOME </a> </button>`;
       aboutUserContainer.insertAdjacentHTML('beforeend', aboutUser);
       const modalCard = document.querySelector('.modal-card');
       modalCard.innerHTML = '';
@@ -54,9 +56,10 @@ export const activeUserProfile = async () => {
           <option value="Series"> Series </option>
         </select>
         <input type="text" id="change-genre" value="${dok.data().genre}" placeholder="¿Cuáles son tus géneros favoritos?">
-        <button type="button" id="save-changes" class="btnInicio"> GUARDAR CAMBIOS </button>
+        <button type="button" id="save-changes"> GUARDAR CAMBIOS </button>
         <button id="close" class="btnInicio"> CERRAR </button>
-      </form>`;
+      </form>
+      `;
       modalCard.insertAdjacentHTML('beforeend', modalContent);
     },
   );
@@ -105,7 +108,7 @@ export const profileTemplate = () => {
   const viewProfile = `
   <section class="top-user-info"> </section>
   <section class="about-user"> </section>
-  <button id="editProfile" class="btnInicio"> EDITAR MI PERFIL </button>
+  
   <div class="background-modal">
     <div class="modal-card">
     </div>

@@ -18,30 +18,29 @@ import {
 
 export default () => {
   const loginView = `
-  <div id = 'container-login'>
-    <div class="fondo-logo">
-      <img class="imagen-logo" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
+    <div class="background-logo">
+      <img class="img-logo" src="https://i.pinimg.com/originals/54/cc/e0/54cce0449cfd4414fdc19b068a97e00a.png">
     </div>
     <form id = "form-login" class="form-login"> 
       <h1>Inicia sesión</h1>
-      <p id="login-message"> Por favor inicia sesión para continuar </p>
+      <p> Por favor inicia sesión para continuar </p>
       <input type="email" placeholder="Correo Electrónico" id="login-email">
       <input type="password" placeholder="Contraseña" id="login-password">
-      <button type="submit" class="btnInicio" id="login-button"> INGRESAR </button>
-      <p class ="p-login"> O ingresa con: </p>
-      <div class="logo-container">
-      <button id="button-google"><img src="https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png">  Google </button>
-    </div>
-    <p> ¿No tienes cuenta? <a href="#/registro"> Regístrate </a> </p>
+      <button type="submit" id="login-button"> INGRESAR </button>
+      <p class="try"> O intenta: </p>
+      <button id="button-google">
+        <img src="images/google1.png"> 
+        INICIAR SESIÓN CON GOOGLE 
+      </button>
+      <p> ¿No tienes cuenta? <a href="#/registro"> Regístrate </a> </p>
     </form>
     <div class="background-modal">
       <div class="modal-error">
         <p class="login-error"> Hay un error </p>
-        <button class="close-modal btnInicio"> CERRAR </button>
+        <button class="close-modal"> CERRAR </button>
       </div>
-    <div>
-  </div>`;
-  const divLogin = document.createElement('div');
+    <div>`;
+  const divLogin = document.createElement('section');
   divLogin.id = 'login';
   divLogin.innerHTML = loginView;
   return divLogin;
@@ -92,11 +91,6 @@ export function eventLoginGlobal() {
 }
 
 export const fEventLogin = () => {
-  document.getElementById('home-li').style.display = 'none';
-  document.getElementById('perfil-li').style.display = 'none';
-  document.getElementById('logout').style.display = 'none';
-  document.getElementById('registro-li').style.display = 'block';
-  document.getElementById('login').style.display = 'block';
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
     e.preventDefault();

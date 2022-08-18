@@ -4,7 +4,7 @@
 
 /* eslint-disable max-len */
 
-import login from '../src/view/login.js';
+/* import login from '../src/view/login.js';
 
 import {
   fEventLogin,
@@ -72,4 +72,4 @@ describe('feventLogin', () => {
     console.log(typeof feventLogin);
     expect(typeof fEventLogin).toBe('function');
   });
-});
+}); */
