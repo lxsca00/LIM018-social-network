@@ -52,10 +52,12 @@ export const signInWithEmailAndPassword = jest.fn(() => Promise.resolve({
 // signInWithPopup
 export const signInWithPopup = jest.fn(() => Promise.resolve({
   user: {
+    uid: '123er',
     email: 'prueba@gmail.com', //
     // password: 'xxxxxx', //
   },
 }));
 // export const GoogleAuthProvider = jest.fn(() => {});
-export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => { } }));
+// eslint-disable-next-line max-len
+export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => Promise.resolve() }));
 export const onAuthStateChanged = jest.fn(() => Promise.resolve());

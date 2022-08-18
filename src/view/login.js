@@ -102,13 +102,13 @@ export const fGoogleSignIn = () => {
     // googleSignIn();
     // console.log('entrando con google');
     const provider = new GoogleAuthProvider();
-    // console.log('entrando con google');
+    // console.log(provider);
     eventsignInWithPopup(provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         console.log('entrando con google');
 
-        GoogleAuthProvider.credentialFromResult(result);
+        // GoogleAuthProvider.credentialFromResult(result);
         console.log('entrando con google');
         // const token = credential.accessToken;
         // The signed-in user info.

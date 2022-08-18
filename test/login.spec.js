@@ -14,7 +14,7 @@ import {
 } from '../src/lib/firebase.js';
 
 jest.mock('../src/lib/firebase.js');
-
+// jest.setTimeout(10000);
 // /* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 describe('fEventLogin', () => {
   document.body.appendChild(loginTemplate());
