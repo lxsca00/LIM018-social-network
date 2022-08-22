@@ -5,7 +5,7 @@ import { components } from '../view/index.js';
 import { activeUserProfile, editProfile } from '../view/profile.js';
 import { fEventLogin, fGoogleSignIn } from '../view/login.js';
 import { fEventRegister } from '../view/register.js';
-import { fSharePost } from '../view/home.js';
+import { fSharePost, onGetPosts, activeUserHome } from '../view/home.js';
 import { auth } from '../lib/firebase.js';
 
 const changeView = (route) => {
@@ -22,6 +22,8 @@ const changeView = (route) => {
       break; }
     case '#/home': {
       container.appendChild(components.home());
+      activeUserHome();
+      onGetPosts();
       fSharePost();
       break; }
     case '#/registro': {
