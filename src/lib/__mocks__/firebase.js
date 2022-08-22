@@ -62,3 +62,33 @@ export const signInWithPopup = jest.fn(() => Promise.resolve({
 // eslint-disable-next-line max-len
 export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => Promise.resolve() }));
 export const onAuthStateChanged = jest.fn(() => Promise.resolve());
+
+/* **************** home ************************ */
+// export const uid = jest.fn({ uid: 'dd' });
+// export const currentUser = jest.fn({ uid });
+// export const auth = { currentUser: { uid: 'ddd' } };
+export const getDoc = jest.fn();
+// export const doc = jest.fn();
+export const Timestamp = { fromDate: (date) => date };
+// setDoc
+// export const addDoc = jest.fn(() => {
+//   Promise.resolve({
+//     birth: 'birth',
+//     ountry: 'country',
+//     description: 'description',
+//     email: 'email',
+//     password: 'password',
+//     name: 'name',
+//     username: 'username',
+//     uid: 'uid',
+//     photo: 'photo',
+//   });
+// });
+// export const doc = {
+//   country: 'country',
+//   description: 'description',
+//   email: 'email',
+//   password: 'password',
+//   uid: 'ddd',
+//   photo: 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png',
+// };

@@ -8,7 +8,7 @@ import {
   closeModalEdit,
   closeModalDelete,
   fSharePost,
-  deletePosts,
+  // deletePosts,
 } from '../src/view/home.js';
 
 import {
