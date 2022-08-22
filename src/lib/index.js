@@ -14,7 +14,8 @@ import {
   signInWithEmailAndPassword, // es promesa //
   // es promesa (if-else)
   signInWithPopup, // es promesa
-  // GoogleAuthProvider, // no promise?
+  updateDoc,
+  // onSnapshot,
 } from './firebase.js';
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
@@ -55,3 +56,12 @@ export function eventLogout() {
     // Sign-out successful.
   }).catch((error) => error.code);
 }
+
+// FUNCION PARA GUARDAR DATOS DEL PERFIL
+export const saveData = async (uid, country, description, preference, genre) => updateDoc(doc(db, 'userdata', uid), {
+  country, description, preference, genre,
+});
+
+// VER DATOS ACTUALIZADOS
+// export const seeProfile = (uid) => onSnapshot(doc(db, 'userdata', uid),
+// { includeMetadataChanges: true }, (dok) => {})

@@ -2,6 +2,8 @@ export const initializeApp = jest.fn();
 
 export const getAuth = jest.fn();
 
+export const auth = { currentUser: { uid: '123er' } };
+
 export const getFirestore = jest.fn();
 export const collection = jest.fn();
 // export const GoogleAuthProvider = jest.fn();
@@ -10,7 +12,13 @@ export const doc = jest.fn();
 export const signOut = jest.fn(() => Promise.resolve());
 // export const signInWithPopup = jest.fn(() => Promise.resolve());
 export const addDoc = jest.fn(() => Promise.resolve());
-export const updateDoc = jest.fn(() => Promise.resolve());
+export const updateDoc = jest.fn(() => Promise.resolve({
+  dok: {
+    description: '¡Hola!',
+  },
+}));
+
+export const onSnapshot = jest.fn(() => Promise.resolve());
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 // createUserWithEmailAndPassword

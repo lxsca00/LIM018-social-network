@@ -6,4 +6,3 @@ node_modules/
 package-lock.json
 config.js
 .env
-# src/config2.js

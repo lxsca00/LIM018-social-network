@@ -7,7 +7,7 @@ import {
   getDoc, doc, deleteDoc, addDoc, Timestamp,
 } from '../lib/firebase.js';
 
-const userImg = (img) => (img !== '' ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
+export const userImg = (img) => (img !== '' ? img : 'images/user.png');
 
 const activeUserHome = async () => {
   const user = auth.currentUser;
