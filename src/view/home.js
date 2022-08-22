@@ -1,27 +1,75 @@
 // Vista del muro donde se ven las publicaciones
 import {
   onSnapshot,
-  auth, query,
-  collection, db,
-  orderBy, updateDoc,
-  getDoc, doc, deleteDoc, addDoc, Timestamp,
+  auth,
+  query,
+  collection,
+  db,
+  orderBy,
+  updateDoc,
+  getDoc,
+  doc,
+  deleteDoc,
+  addDoc,
+  Timestamp,
 } from '../lib/firebase.js';
 
-export const userImg = (img) => (img !== '' ? img : 'images/user.png');
+export const homeTemplate = () => {
+  const viewHome = ` 
+    <div class="information-user"> 
+      <button class="go-profile"> 
+        <a href="#/profile">
+          <img src="images/profile.png">
+          VER MI PERFIL 
+        </a>
+      </button>  
+    </div>
+    <div class="container-publications">
+    <form class="form-publication" id="form-publication">
+      <textarea name="post" id ="comment" minlength="4" maxlength="600" rows="6" cols="12"  placeholder="¿Qué nos quieres decir?"> </textarea>
+      <div class="container-button">
+        <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
+        <input id="upload" accept="image/jpeg" type="file" class="cargar-foto" >
+        <input type="submit" title="Click to post" value="Compartir" class="post-button" id="post-button-form">
+      </div>
+    </form>
+    <div class="all-publications" id='all-publications'> </div>
+    <div class="background-modal-edit">
+      <div class="modal-post-edit">
+        <p> EDITAR POST </p>
+        <input type="text" id="edit-post" placeholder="Edita tu post"> </input>
+        <button class="save-post"> GUARDAR CAMBIOS </button>
+        <button class="close-modal"> CERRAR </button>
+      </div>
+    <div>
+    </div>`;
+  // activeUserHome();
+  // onGetPosts();
+  const divElem = document.createElement('section');
+  divElem.id = 'home';
+  divElem.innerHTML = viewHome;
+  return divElem;
+};
 
-const activeUserHome = async () => {
-  const user = auth.currentUser;
-  const uid = user.uid;
+// PERFIL DEL USUARIO EN HOME (activeUserHome)
+export const activeUserHome = async () => {
+  const userImg = (img) => (img !== '' ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
+  // const user = auth.currentUser;
+  console.log('entrando a home');
+  const uid = auth.currentUser.uid;
   const docRef = doc(db, 'userdata', uid);
   const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    const userImgProfile = docSnap.data().photo;
-    const pic = userImg(userImgProfile);
-    const homeProfile = `
+  console.log('entrando a home');
+  // if (docSnap.exists()) {
+  console.log(docSnap);
+  // if (docSnap) {
+  const userImgProfile = docSnap.data().photo;
+  const pic = userImg(userImgProfile);
+  const homeProfile = `
     <div class="container-info">
     <div class="container-user-photo">
       <div class="photo-user">
-        <img src='${pic}' alt="Foto del usuario">
+        <img src='${pic}' alt="Foto del usuario" class ='user_photo'>
       </div>
     </div>
     <div class="data-user">
@@ -29,9 +77,9 @@ const activeUserHome = async () => {
       <p id="user-profile"> ${docSnap.data().email} </p>
     </div>
     </div>`;
-    const containerProfile = document.querySelector('.information-user');
-    containerProfile.insertAdjacentHTML('afterbegin', homeProfile);
-  }
+  const containerProfile = document.querySelector('.information-user');
+  containerProfile.insertAdjacentHTML('afterbegin', homeProfile);
+  // }
 };
 
 function shareLike() {
@@ -58,12 +106,13 @@ function shareLike() {
   });
 }
 
-const closeModalEdit = () => {
+export const closeModalEdit = () => {
   const modalEdit = document.querySelector('.close-modal');
   modalEdit.addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelector('.background-modal-edit').style.visibility = 'hidden';
   });
+  return ('closed modal');
 };
 
 const editPost = () => {
@@ -88,15 +137,15 @@ const editPost = () => {
 
 const deletePost = (id) => deleteDoc(doc(db, 'post', id)); // deleteDoc es promesa de firestore
 
-const closeModalDelete = () => {
-  const modalEdit = document.querySelector('.close-modalDelete');
-  modalEdit.addEventListener('click', (e) => {
+export const closeModalDelete = () => {
+  const modalDelete = document.querySelector('.close-modalDelete');
+  modalDelete.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('.background-modal-edit').style.visibility = 'hidden';
+    document.querySelector('.background-modal-delete').style.visibility = 'hidden';
   });
 };
 
-function deletePosts() {
+export function deletePosts() {
   const btnsDelete = document.querySelectorAll('.delete-button');
   // console.log(btnsDelete);
   btnsDelete.forEach((boton) => {
@@ -125,7 +174,7 @@ function deletePosts() {
 }
 
 // Obtener los post en tiempo real
-const onGetPosts = async () => {
+export const onGetPosts = async () => {
   const user = auth.currentUser;
   const q = query(collection(db, 'post'), orderBy('datePosted', 'desc'));
   onSnapshot(q, (querySnapshot) => {
@@ -160,8 +209,8 @@ const onGetPosts = async () => {
               <button class="close-modalDelete btnDelete" id='deleteNo'> NO </button>
             </div>
           </div>
-        <div>
-        </div>`;
+        </div>
+      </div>`;
       } else {
         onePost += '</div>';
       }
@@ -174,7 +223,7 @@ const onGetPosts = async () => {
 };
 
 // FUNCION PARA COMPARTIR UN POST EN HOME
-const savePost = (post) => {
+export const savePost = (post) => {
   const user = auth.currentUser.uid;
   const email = auth.currentUser.email;
   addDoc(collection(db, 'post'), {
@@ -187,48 +236,15 @@ const savePost = (post) => {
 };
 
 export function fSharePost() {
+  const btnPublication = document.querySelector('#post-button-form');
+  console.log('object');
   const formPublication = document.querySelector('#form-publication');
-  formPublication.addEventListener('submit', (e) => {
+  btnPublication.addEventListener('click', (e) => {
     e.preventDefault();
+    console.log('object');
     const postContent = document.querySelector('#comment').value;
+    document.querySelector('#comment').value = '';
     savePost(postContent);
     formPublication.reset();
   });
 }
-
-export default () => {
-  const viewHome = ` 
-    <div class="information-user"> 
-      <button class="go-profile"> 
-        <a href="#/profile">
-          <img src="images/profile.png">
-          VER MI PERFIL 
-        </a>
-      </button>  
-    </div>
-    <div class="container-publications">
-    <form class="form-publication" id="form-publication">
-      <textarea name="post" id ="comment" minlength="4" maxlength="600" rows="6" cols="12"  placeholder="¿Qué nos quieres decir?"> </textarea>
-      <div class="container-button">
-        <label for="upload" class="photo-change-post"> <img src="https://cdn-icons-png.flaticon.com/512/16/16410.png" class="upload-photo"> </label>
-        <input id="upload" accept="image/jpeg" type="file" class="cargar-foto" >
-        <input type="submit" title="Click to post" value="Compartir" class="post-button">
-      </div>
-    </form>
-    <div class="all-publications" id='all-publications'> </div>
-    <div class="background-modal-edit">
-      <div class="modal-post-edit">
-        <p> EDITAR POST </p>
-        <input type="text" id="edit-post" placeholder="Edita tu post"> </input>
-        <button class="save-post"> GUARDAR CAMBIOS </button>
-        <button class="close-modal"> CERRAR </button>
-      </div>
-    <div>
-    </div>`;
-  activeUserHome();
-  onGetPosts();
-  const divElem = document.createElement('section');
-  divElem.id = 'home';
-  divElem.innerHTML = viewHome;
-  return divElem;
-};
