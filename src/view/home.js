@@ -17,6 +17,17 @@ import {
 export const homeTemplate = () => {
   const viewHome = ` 
     <div class="information-user"> 
+      <div class="container-info">
+      <div class="container-user-photo">
+        <div class="photo-user">
+          <img alt="Foto del usuario" class ='user-home-photo'>
+        </div>
+      </div>
+      <div class="data-user">
+        <p id="name-profile"> </p>
+        <p id="user-profile"> </p>
+      </div>
+      </div>
       <button class="go-profile"> 
         <a href="#/profile">
           <img src="images/profile.png">
@@ -43,43 +54,29 @@ export const homeTemplate = () => {
       </div>
     <div>
     </div>`;
-  // activeUserHome();
-  // onGetPosts();
   const divElem = document.createElement('section');
   divElem.id = 'home';
   divElem.innerHTML = viewHome;
   return divElem;
 };
 
+export const userImg = (img) => (img !== '' ? img : 'images/user.png');
+
 // PERFIL DEL USUARIO EN HOME (activeUserHome)
 export const activeUserHome = async () => {
-  const userImg = (img) => (img !== '' ? img : 'https://cdn-icons-png.flaticon.com/512/4222/4222009.png');
-  // const user = auth.currentUser;
-  console.log('entrando a home');
   const uid = auth.currentUser.uid;
   const docRef = doc(db, 'userdata', uid);
   const docSnap = await getDoc(docRef);
-  console.log('entrando a home');
-  // if (docSnap.exists()) {
-  console.log(docSnap);
-  // if (docSnap) {
-  const userImgProfile = docSnap.data().photo;
-  const pic = userImg(userImgProfile);
-  const homeProfile = `
-    <div class="container-info">
-    <div class="container-user-photo">
-      <div class="photo-user">
-        <img src='${pic}' alt="Foto del usuario" class ='user_photo'>
-      </div>
-    </div>
-    <div class="data-user">
-      <p id="name-profile"> ${docSnap.data().name} </p>
-      <p id="user-profile"> ${docSnap.data().email} </p>
-    </div>
-    </div>`;
-  const containerProfile = document.querySelector('.information-user');
-  containerProfile.insertAdjacentHTML('afterbegin', homeProfile);
-  // }
+  if (docSnap.exists()) {
+    const userImgHome = docSnap.data().photo;
+    const pic = userImg(userImgHome);
+    const userPhoto = document.querySelector('.user-home-photo');
+    userPhoto.setAttribute('src', pic);
+    const nameHome = document.querySelector('#name-profile');
+    nameHome.innerHTML = `${docSnap.data().name}`;
+    const emailHome = document.querySelector('#user-profile');
+    emailHome.innerHTML = `${docSnap.data().email}`;
+  }
 };
 
 function shareLike() {

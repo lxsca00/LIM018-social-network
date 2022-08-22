@@ -52,7 +52,6 @@ export const fEventLogin = () => {
   const signInForm = document.querySelector('#form-login');
   signInForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // eventLoginGlobal();
     const eMail = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     eventLogin(eMail, password)
@@ -105,10 +104,7 @@ export const fGoogleSignIn = () => {
     eventsignInWithPopup(provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        console.log('entrando con google');
-
         // GoogleAuthProvider.credentialFromResult(result);
-        console.log('entrando con google');
         // const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
@@ -122,7 +118,6 @@ export const fGoogleSignIn = () => {
           country: 'Ingresa tu país',
           description: 'Cuéntanos un poco sobre ti',
         });
-        console.log('entrando con google');
         window.location.hash = '#/home';
         // ...
       })

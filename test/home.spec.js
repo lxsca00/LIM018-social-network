@@ -8,6 +8,7 @@ import {
   closeModalEdit,
   closeModalDelete,
   fSharePost,
+  userImg,
   // deletePosts,
 } from '../src/view/home.js';
 
@@ -16,6 +17,18 @@ import {
 } from '../src/lib/firebase.js';
 
 jest.mock('../src/lib/firebase.js');
+
+describe('activeUser', () => {
+  document.body.appendChild(homeTemplate());
+
+  it('Debe mostrar la foto de perfil del usuario logeado con Google', () => {
+    expect(userImg('https://lh3.googleusercontent.com/a/AItbvmn72LYQ0Zp37_jVQ7TKfGSS7U70b0APdDt0j2r-=s96-c')).toBe('https://lh3.googleusercontent.com/a/AItbvmn72LYQ0Zp37_jVQ7TKfGSS7U70b0APdDt0j2r-=s96-c');
+  });
+
+  it('Debe mostrar la foto predeterminada si el usuario no ha designado una', () => {
+    expect(userImg('')).toBe('images/user.png');
+  });
+});
 
 describe('closeModals', () => {
   document.body.appendChild(homeTemplate());

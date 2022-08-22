@@ -83,7 +83,7 @@ export const profileTemplate = () => {
   <section class="top-user-info"> 
     <div class="container-user-photo">
       <div class="photo-user">
-        <img class="user-photo">
+        <img alt="Foto del usuario" class="user-photo">
       </div>
       <label for="edit" class="photo-change-user"> <img src="https://cdn-icons-png.flaticon.com/512/104/104668.png" class="change-photo"> </label>
       <input id="edit" accept="image/jpeg" type="file" class="cargar-foto" >
