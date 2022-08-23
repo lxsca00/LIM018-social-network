@@ -2,6 +2,7 @@
 
 import {
   eventLogout,
+  // obs,
   // changePhoto,
 } from './lib/index.js';
 
@@ -23,12 +24,12 @@ export const closeModal = () => {
 };
 
 // CERRAR SESIÓN
-
-const logout = document.querySelector('#logout');
-logout.addEventListener('click', (e) => {
-  e.preventDefault();
-  eventLogout();
-  window.location.hash = '#/';
-  window.location.reload();
-  // document.getElementById('logout').style.display = 'none';
-});
+export const flogout = () => {
+  const logout = document.querySelector('#logout');
+  logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    eventLogout();
+    window.location.hash = '#/';
+    // window.location.reload();
+  });
+};

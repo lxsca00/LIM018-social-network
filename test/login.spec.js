@@ -119,6 +119,7 @@ describe('fGoogleSignIn', () => {
 
   it('deberias cambiar a ruta home', (done) => {
     window.location.hash = '#/login';
+    // btnLoginGoogle.click();
     const checkRoute = () => {
       console.log('aqui');
       expect(window.location.hash).toBe('#/home');

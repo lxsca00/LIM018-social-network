@@ -2,7 +2,10 @@ export const initializeApp = jest.fn();
 
 export const getAuth = jest.fn();
 
-// export const auth = { currentUser: { uid: '123er' } };
+export const auth = { currentUser: { uid: '123er' } };
+// export const auth = { currentUser: null };
+
+// export const auth = jest.fn({ currentUser: { uid: '123er' } });
 
 export const getFirestore = jest.fn();
 export const collection = jest.fn();
@@ -61,9 +64,20 @@ export const signInWithPopup = jest.fn(() => Promise.resolve({
 // export const GoogleAuthProvider = jest.fn(() => {});
 // eslint-disable-next-line max-len
 export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => Promise.resolve() }));
-// export const onAuthStateChanged = jest.fn(() => Promise.resolve());
+// eslint-disable-next-line max-len
+// export const onAuthStateChanged = (auth, jest.fn(() => Promise.resolve({ user: { uid: '123er' } })));
+export const onAuthStateChanged = (auth, jest.fn(() => Promise.resolve()));
+
+// export const onAuthStateChanged = () => jest.fn();
+
+// export const onAuthStateChanged = (jest.fn(() => Promise.resolve({ user: { xxx: 'cc' } })));
+// eslint-disable-next-line max-len
+// export const onAuthStateChanged = (auth, jest.fn((user) => { if (user) { Promise.resolve({ user: { xxx: 'cc' } }); } }));
+
 // eslint-disable-next-line no-unused-vars
-export const onAuthStateChanged = jest.fn((auth, callback) => Promise.resolve({ user: {} }));
+// export const onAuthStateChanged = jest.fn((auth, callback) => Promise.resolve({ user: {} }));
+// export const onAuthStateChanged = (auth, (user) => { if (user) { console.log(user); } });
+
 /* **************** home ************************ */
 // export const uid = jest.fn({ uid: 'dd' });
 // export const currentUser = jest.fn({ uid });

@@ -1,7 +1,7 @@
 import {
   auth,
   // db, // no promise
-  onAuthStateChanged, // es promesa (if-else)
+  // onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
   // doc, // no promise
   // getDoc,
@@ -29,22 +29,27 @@ export const eventSetDoc = (uid, name, email, password, country, description, ph
 export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
 export const eventsignInWithPopup = (provider) => signInWithPopup(auth, provider);
 // Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
+
+// export const obs = () => {
+//   console.log('hola');
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       console.log('hola2');
+//       document.getElementById('header').style.visibility = 'visible';
+//     // ...
+//     } else {
+//       console.log('no user found');
+//       document.getElementById('header').style.visibility = 'hidden';
+//     }
+//   });
+// };
 export const obs = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log(`user ${uid} is loged`);
-      // window.location.hash = '#/home';
-      document.getElementById('header').style.visibility = 'visible';
-    // ...
-    } else {
-    // User is signed out
-      console.log('no user found');
-      document.getElementById('header').style.visibility = 'hidden';
-    }
-  });
+  const user = auth.currentUser;
+  if (user) {
+    document.getElementById('header').style.visibility = 'visible';
+  } else {
+    document.getElementById('header').style.visibility = 'hidden';
+  }
 };
 
 // Función para cerrar la sesión // AQUI

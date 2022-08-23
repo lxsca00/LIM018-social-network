@@ -1,5 +1,6 @@
 import {
   closeModal,
+  flogout,
 } from '../funcionesDom.js';
 import { components } from '../view/index.js';
 import { activeUserProfile, editProfile } from '../view/profile.js';
@@ -25,6 +26,7 @@ const changeView = (route) => {
       activeUserHome();
       onGetPosts();
       fSharePost();
+      flogout();
       break; }
     case '#/registro': {
       container.appendChild(components.register());

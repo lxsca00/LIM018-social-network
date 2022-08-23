@@ -119,9 +119,9 @@ export const fGoogleSignIn = () => {
           description: 'Cuéntanos un poco sobre ti',
         });
         window.location.hash = '#/home';
+        obs();
         // ...
       })
       .catch((error) => error.code);
-    obs();
   });
 };
