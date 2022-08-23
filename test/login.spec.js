@@ -118,12 +118,14 @@ describe('fGoogleSignIn', () => {
   });
 
   it('deberias cambiar a ruta home', (done) => {
-    btnLoginGoogle.click();
-    const changeRoute = () => {
+    window.location.hash = '#/login';
+    const checkRoute = () => {
+      console.log('aqui');
       expect(window.location.hash).toBe('#/home');
-      window.removeEventListener('hashchange', changeRoute);
+      window.removeEventListener('hashchange', checkRoute);
       done();
     };
-    window.addEventListener('hashchange', changeRoute);
+    window.addEventListener('hashchange', checkRoute);
+    btnLoginGoogle.click();
   });
 });
