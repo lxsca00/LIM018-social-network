@@ -51,16 +51,6 @@ const changeView = (route) => {
   }
 };
 
-// AUTENTIFICACIÓN DE USUARIO -LOGIN
-export const fEventLogin = () => {
-  const signInForm = document.querySelector('#form-login');
-  signInForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    eventLogin(email, password);
-  });
-};
 
 // CERRAR SESIÓN
 export const fEventLogout = () => {
