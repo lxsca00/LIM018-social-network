@@ -1,6 +1,4 @@
-import {
-  closeModal,
-} from '../funcionesDom.js';
+import { closeModal, flogout } from '../lib/index.js';
 import { components } from '../view/index.js';
 import { activeUserProfile, editProfile } from '../view/profile.js';
 import { fEventLogin, fGoogleSignIn } from '../view/login.js';
@@ -25,6 +23,7 @@ const changeView = (route) => {
       activeUserHome();
       onGetPosts();
       fSharePost();
+      flogout();
       break; }
     case '#/registro': {
       container.appendChild(components.register());
@@ -41,6 +40,7 @@ const changeView = (route) => {
     { container.appendChild(components.profile());
       activeUserProfile();
       editProfile();
+      flogout();
       break; }
     default: {
       container.appendChild(components.error());

@@ -1,67 +1,69 @@
+/* eslint-disable max-len */
 import {
   auth,
-  // db, // no promise
-  onAuthStateChanged, // es promesa (if-else)
   signOut, // es promesa
-  // doc, // no promise
-  // getDoc,
-  // REGISTER
   setDoc,
   doc,
   db,
   createUserWithEmailAndPassword, // es promesa // .then y .catch se usan para llamar a una promesa
   // LOGIN
   signInWithEmailAndPassword, // es promesa //
-  // es promesa (if-else)
   signInWithPopup, // es promesa
   updateDoc,
-  // onSnapshot,
 } from './firebase.js';
 
 /* **************** REGISTRO DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
-// eslint-disable-next-line max-len
 export const eventRegisterFirebase = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+
 export const eventSetDoc = (uid, name, email, password, country, description, photo) => setDoc(doc(db, 'userdata', uid), {
   email, password, name, uid, country, description, photo,
 });
 
 /* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, email, password);
+
 export const eventsignInWithPopup = (provider) => signInWithPopup(auth, provider);
-// Para obtener los datos del usuario activo en tiempo real en el profile // AQUI
+
 export const obs = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-      console.log(`user ${uid} is loged`);
-      // window.location.hash = '#/home';
-      document.getElementById('header').style.visibility = 'visible';
-    // ...
-    } else {
-    // User is signed out
-      console.log('no user found');
-      document.getElementById('header').style.visibility = 'hidden';
-    }
-  });
+  const user = auth.currentUser;
+  if (user) {
+    document.getElementById('header').style.visibility = 'visible';
+  } else {
+    document.getElementById('header').style.visibility = 'hidden';
+  }
 };
-
-// Función para cerrar la sesión // AQUI
-
-export function eventLogout() {
-  signOut(auth).then(() => {
-    sessionStorage.clear();
-    return console.log('se cerró sesión exitosamente');
-    // Sign-out successful.
-  }).catch((error) => error.code);
-}
 
 // FUNCION PARA GUARDAR DATOS DEL PERFIL
 export const saveData = async (uid, country, description, preference, genre) => updateDoc(doc(db, 'userdata', uid), {
   country, description, preference, genre,
 });
 
-// VER DATOS ACTUALIZADOS
-// export const seeProfile = (uid) => onSnapshot(doc(db, 'userdata', uid),
-// { includeMetadataChanges: true }, (dok) => {})
+// CERRAR MODALES DE ERROR
+export function closeModal() {
+  document.querySelector('.close-modal').addEventListener('click', (e) => {
+    e.preventDefault();
+    const containerModal = document.querySelector('.background-modal');
+    containerModal.style.visibility = 'hidden';
+    if (window.location.hash === '#/registro') {
+      const signUpForm = document.querySelector('#register-form');
+      signUpForm.reset();
+    } else if (window.location.hash === '#/login') {
+      const signInForm = document.querySelector('#form-login');
+      signInForm.reset();
+    }
+  });
+}
+
+// CERRAR SESIÓN
+export function flogout() {
+  const logOutButton = document.querySelector('#logout');
+  logOutButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOut(auth).then(() => {
+      sessionStorage.clear();
+      return ('se cerró sesión exitosamente');
+    }).catch((error) => error.code);
+    window.location.hash = '#/';
+    window.location.reload();
+  });
+}

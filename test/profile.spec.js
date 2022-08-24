@@ -3,6 +3,7 @@
  */
 
 import {
+  activeUserProfile,
   editProfile, profileTemplate, userImg,
 } from '../src/view/profile.js';
 
@@ -21,15 +22,14 @@ describe('profile', () => {
     expect(userImg('')).toBe('images/user.png');
   });
 
-  it('Debe existir el boton save-changes en el modal', () => {
+  it('El botón save-changes debe tomar guardar el contenido de los inputs', () => {
     editProfile();
     expect(saveChanges instanceof HTMLElement).toBe(true);
     const changeDescription = document.querySelector('#change-description');
     changeDescription.value = 'Aquí va tu descripción';
     saveChanges.click();
-    // changeDescription.textContent = '¡Hola!';
-    // const userDescription = document.querySelector('.user-description');
-    expect(changeDescription.textContent).toBe('');
+    activeUserProfile();
+    expect(changeDescription.value).toBe('Aquí va tu descripción');
   });
 
   it('Deben existir las opciones de paises al hacer click en el boton para mostrar modal', () => {
@@ -45,7 +45,3 @@ describe('profile', () => {
     expect(options).toBeNull();
   });
 });
-/* it('top-user-info tiene x hijos', () => {
-    const topUserInfo = document.querySelector('.top-user-info');
-    expect(topUserInfo.children).toHaveLength(4);
-  }); */

@@ -105,7 +105,7 @@ describe('fEventLogin funciona correctamente', () => {
   });
 });
 
-// /* **************** LOGIN DE USUARIO - GOOGLE ************************ */
+// /* ****** LOGIN DE USUARIO - GOOGLE ******** */
 describe('fGoogleSignIn', () => {
   // document.body.appendChild(loginTemplate());
   fGoogleSignIn();
@@ -118,12 +118,14 @@ describe('fGoogleSignIn', () => {
   });
 
   it('deberias cambiar a ruta home', (done) => {
-    btnLoginGoogle.click();
-    const changeRoute = () => {
+    window.location.hash = '#/login';
+    // btnLoginGoogle.click();
+    const checkRoute = () => {
       expect(window.location.hash).toBe('#/home');
-      window.removeEventListener('hashchange', changeRoute);
+      window.removeEventListener('hashchange', checkRoute);
       done();
     };
-    window.addEventListener('hashchange', changeRoute);
+    window.addEventListener('hashchange', checkRoute);
+    btnLoginGoogle.click();
   });
 });

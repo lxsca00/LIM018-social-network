@@ -107,14 +107,14 @@ export const profileTemplate = () => {
   <div class="background-modal">
     <div class="modal-card">
       <p> EDITAR PERFIL</p>
-      <form id="edit-profile">
+      <div id="edit-profile">
         <select id="select-country"> </select>
         <input type="text" id="change-description" placeholder="Aquí va tu descripción">
         <select id="change-preferences"> </select>
         <input type="text" id="change-genre" placeholder="¿Cuáles son tus géneros favoritos?">
         <button type="button" id="save-changes"> GUARDAR CAMBIOS </button>
         <button id="close" class="closeProfileModal"> CERRAR </button>
-      </form>
+      </div>
     </div>
    <div>`;
   const divProfile = document.createElement('div');

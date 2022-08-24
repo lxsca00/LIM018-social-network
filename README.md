@@ -1,9 +1,9 @@
-# Creando una Red Social
+# Popcorn Zone
 
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
+* [2. Investigación UX](#2-investigación-ux)
 * [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
 * [4. Consideraciones generales](#4-consideraciones-generales)
 * [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
@@ -13,34 +13,96 @@
 
 ## 1. Preámbulo
 
-Instagram, Snapchat, Twitter, Facebook, Twitch, Linkedin, etc. Las redes
-sociales han invadido nuestras vidas. Las amamos u odiamos, y muchos no podemos
-vivir sin ellas.
+Una red social permite hacer llegar contenido de manera rápida e instantáneamente. Para nuestro proyecto decidimos crear un aplicativo para usuarios a quienes les gusta ver películas, documentales, series, entre otros. Siendo así, decidimos realizar una encuesta y recopilar datos cuantitativos y cualitativos que nos permita entender al potencial usuario de nuestra aplicación. 
 
-![adem-ay-Tk9m_HP4rgQ-unsplash](https://user-images.githubusercontent.com/110297/135544666-4efa54f1-4ff6-4c4c-b398-6df04ef56117.jpg)
+![welcome](https://user-images.githubusercontent.com/105660480/186044259-27cd7127-e379-48ac-a3a4-0c5a4d655b91.png)
 
-Hay redes sociales de todo tipo y para todo tipo de intereses. Por ejemplo,
-en una ronda de financiamiento con inversionistas, se presentó una red social
-para químicos en la que los usuarios podían publicar artículos sobre sus
-investigaciones, comentar en los artículos de sus colegas, y filtrar artículos
-de acuerdo a determinadas etiquetas o su popularidad, lo más reciente, o lo
-más comentado.
+![register](https://user-images.githubusercontent.com/105660480/186052479-555b21cf-e0fe-4e88-8796-449b096db15b.png)
 
-## 2. Resumen del proyecto
+![login](https://user-images.githubusercontent.com/105660480/186052504-189f4f7f-6c68-49e4-9633-459bcadee108.png)
 
-En este proyecto construirás una Red Social sobre lo que decidan tú y tu equipo.
-Podría ser, por ejemplo, sobre alimentación saludable, feminismo, educación,
-salud, energías renovables, amantes de las [Empanadas](https://es.wikipedia.org/wiki/Empanada)
-o de los [Tacos de Canasta](https://es.wikipedia.org/wiki/Taco), de la
-[Feijoada](https://es.wikipedia.org/wiki/Feijoada), o de lo que sea.
+![home](https://user-images.githubusercontent.com/105660480/186052528-c7a6a5e0-338d-4365-8024-454147dd9a71.png)
 
-Tu Red Social tendrá que permitir a cualquier usuario crear una cuenta de
-acceso y loguearse con ella; crear, editar, borrar y _"likear"_ publicacciones.
 
-El objetivo principal de aprendizaje de este proyecto es construir una
-[Single-page Application (SPA)](https://es.wikipedia.org/wiki/Single-page_application)
-[_responsive_](https://curriculum.laboratoria.la/es/topics/css/02-responsive) (con más de una vista / página)
-en la que podamos **leer y escribir datos**.
+## 2. Investigación UX
+
+Encuestamos a un grupo de alrededor de 40 personas mayores de 18 años  de los cuales el 70% de ellos ve películas o series de 2 a 3 veces por semana, el 60% destina mas de 5 horas diarias al uso de redes sociales y un 20% usa las redes sociales para hacer nuevos amigos.
+
+Los principales resultados que nos ayudaron a definir nuestro proyecto fueron los siguientes:
+
+![pregunta 1](https://user-images.githubusercontent.com/105660480/186044612-194ac20c-d4f7-40f5-840a-124f703afe02.png)
+
+![pregunta 2](https://user-images.githubusercontent.com/105660480/186044630-a37ad502-854e-4869-986e-8870796c4a1d.png)
+
+![pregunta 3](https://user-images.githubusercontent.com/105660480/186044654-559709f3-423d-4285-a238-93ae2a301724.png)
+
+A partir de estos datos logramos definir al usuario y a nuestro producto.
+
+**¿Quiénes son los principales usuarios de mi producto**
+
+PorpCorn Zone, está dirigido a un público joven, cuyo hábito de consumo es el ver películas o series al menos 2 veces por semana, además de usar redes sociales para compartir gustos, intereses e informarse sobre noticias relacionadas a este pasatiempo.
+
+**¿Cómo mi producto resuelve un problema o necesidad?**
+ PopCorn Zone es una red social que permite compartir contenido sobre un interés en específico: películas y series.  Es un espacio donde se puede recomendar,  informarse o compartir opiniones sobre un interés mutuo, buscar reseñas, criticas, anuncio de nuevos estrenos y conocer amigos, construyendo una comunidad.
+
+**Prototipos de baja fidelidad**
+
+![baja fidelidad](https://user-images.githubusercontent.com/105660480/186046063-196c0394-b288-4f4d-8d09-ebebe424f020.png)
+
+_Resumen del feedback recibido_
+- Se nos recomendar prestar atención a la paleta de colores para lograr un buen constraste y armonía.
+- Los botones para reaccionar a las publicaciones no eran reconocidos del todo por los usuarios, por lo que se recomendó reformular ello.
+
+**Prototipos de alta fidelidad**
+
+![alta fidelidad](https://user-images.githubusercontent.com/105660480/186051018-36ba614e-f901-479e-8d37-317cecaea1db.png)
+
+**Historias de usuario**
+- [] **HU1: Registro**
+Yo como usuario de la aplicación quiero registrarme en la aplicación para poder acceder a su plataforma.
+Criterios de aceptación
+* El usuario debe poder ingresar sus datos registrandolos en la base de datos
+* El ingreso de la contraseña es enmascarado
+* El usuario debe poder pasar a la página main tras registrarse
+Definición de terminado
+* Debe ser responsive
+* De ser una SPA
+* Debe recibir un code review
+* Tiene tests unitarios
+- [] **HU2: Inicio de sesión**
+Yo como usuario de la aplicación quiero acceder con otra red social para poder acceder a la plataforma de forma más rápida.
+Criterios de aceptación
+* El usuario debe poder ingresar con su cuenta Google
+* El usuario debe poder establecer su nombre de usuario
+* El usuario debe poder pasar a la página main tras registrarse con otra red social
+Definición de terminado
+* Debe ser responsive
+* De ser una SPA
+* Debe recibir un code review
+* Tiene tests unitarios
+- [] **HU3: Publicación de posts**
+Yo como usuario de la aplicación quiero publicar mis opiniones sobre una serie o pelicula para encontrar amigos con quienes comentarla.
+Criterios de aceptación
+* El usuario debe poder escribir un post de texto en el muro
+* El usuario debe poder darle like a los post de otras personas
+* El usuario debe poder comentar la publicación de otra personasocial
+Definición de terminado
+* Debe ser responsive
+* De ser una SPA
+* Debe recibir un code review
+* Tiene tests unitarios
+- [] **HU4: Editar perfil**
+Yo como usuario de la aplicación quiero visualizar y editar mi perfil para tener mis datos lo más actualizados posibles
+Criterios de aceptación
+* El usuario debe poder ingresar a la vista unicamente de su perfil
+* El usuario debe poder modificar su descripción
+* El usuario debe poder visualizar sus datos
+* El usuario debe poder cambiar su foto de perfil
+Definición de terminado
+* Debe ser responsive
+* De ser una SPA
+* Debe recibir un code review
+* Tiene tests unitarios
 
 ## 3. Objetivos de aprendizaje
 

@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-/* eslint-disable max-len */
 
 import {
   homeTemplate,
@@ -11,10 +10,6 @@ import {
   userImg,
   // deletePosts,
 } from '../src/view/home.js';
-
-import {
-// createUserWithEmailAndPassword,
-} from '../src/lib/firebase.js';
 
 jest.mock('../src/lib/firebase.js');
 

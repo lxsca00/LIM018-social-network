@@ -117,11 +117,11 @@ export const fGoogleSignIn = () => {
           photo: user.photoURL,
           country: 'Ingresa tu país',
           description: 'Cuéntanos un poco sobre ti',
+          preference: '¿Series, películas, documentales?',
+          genre: '¡Compártenos tus géneros favoritos!',
         });
         window.location.hash = '#/home';
-        // ...
       })
       .catch((error) => error.code);
-    obs();
   });
 };

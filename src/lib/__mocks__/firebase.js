@@ -1,17 +1,16 @@
+/* eslint-disable max-len */
 export const initializeApp = jest.fn();
 
-export const getAuth = jest.fn();
-
-export const auth = { currentUser: { uid: '123er' } };
-
 export const getFirestore = jest.fn();
+
 export const collection = jest.fn();
-// export const GoogleAuthProvider = jest.fn();
+
 export const doc = jest.fn();
 
 export const signOut = jest.fn(() => Promise.resolve());
-// export const signInWithPopup = jest.fn(() => Promise.resolve());
+
 export const addDoc = jest.fn(() => Promise.resolve());
+
 export const updateDoc = jest.fn(() => Promise.resolve({
   dok: {
     description: '¡Hola!',
@@ -28,6 +27,7 @@ export const createUserWithEmailAndPassword = jest.fn(() => Promise.resolve({
     password: 'xxxxxx', //
   },
 }));
+
 // setDoc
 export const setDoc = jest.fn(() => {
   Promise.resolve({
@@ -42,6 +42,7 @@ export const setDoc = jest.fn(() => {
     photo: 'photo',
   });
 });
+
 /* **************** LOGIN DE USUARIO - EMAIL Y CONTRASEÑA ************************ */
 // signInWithEmailAndPassword
 export const signInWithEmailAndPassword = jest.fn(() => Promise.resolve({
@@ -50,6 +51,7 @@ export const signInWithEmailAndPassword = jest.fn(() => Promise.resolve({
     password: 'xxxxxx', //
   },
 }));
+
 // signInWithPopup
 export const signInWithPopup = jest.fn(() => Promise.resolve({
   user: {
@@ -58,17 +60,17 @@ export const signInWithPopup = jest.fn(() => Promise.resolve({
     // password: 'xxxxxx', //
   },
 }));
-// export const GoogleAuthProvider = jest.fn(() => {});
-// eslint-disable-next-line max-len
+
+export const auth = { currentUser: { uid: '123er' } };
+
 export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => Promise.resolve() }));
+
 export const onAuthStateChanged = jest.fn(() => Promise.resolve());
 
 /* **************** home ************************ */
-// export const uid = jest.fn({ uid: 'dd' });
-// export const currentUser = jest.fn({ uid });
-// export const auth = { currentUser: { uid: 'ddd' } };
+
 export const getDoc = jest.fn();
-// export const doc = jest.fn();
+
 export const Timestamp = { fromDate: (date) => date };
 // setDoc
 // export const addDoc = jest.fn(() => {

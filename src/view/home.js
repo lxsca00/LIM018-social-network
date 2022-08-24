@@ -79,10 +79,11 @@ export const activeUserHome = async () => {
   }
 };
 
-function shareLike() {
+export function shareLike() {
   const buttonLike = document.querySelectorAll('.button-like');
   buttonLike.forEach((boton) => {
     boton.addEventListener('click', async (e) => {
+      e.preventDefault();
       const id = e.target.dataset.id;
       const docRef1 = doc(db, 'post', id);
       const docSnap = await getDoc(docRef1);
@@ -90,10 +91,13 @@ function shareLike() {
         const likesData = docSnap.data().likes;
         const user = auth.currentUser;
         if (likesData.includes(user.uid)) {
+          // console.log('ya no me gusta');
+          boton.classList.add('active-like');
           updateDoc(docRef1, {
             likes: likesData.filter((item) => (item !== user.uid)),
           });
         } else {
+          // console.log('me gusta');
           updateDoc(docRef1, {
             likes: [...likesData, user.uid],
           });
@@ -182,7 +186,6 @@ export const onGetPosts = async () => {
     const home = document.getElementById('all-publications');
     home.innerHTML = '';
     posts.forEach((post) => {
-      console.log(post.datePosted);
       let onePost = `
       <div class="publication" >
         <p class="user-name-post"> ${post.correo} </p> <!--Agregar nombre y foto del individuo-->
@@ -218,8 +221,7 @@ export const onGetPosts = async () => {
     editPost();
   });
 };
-
-// FUNCION PARA COMPARTIR UN POST EN HOME
+// FUNCION  PARA COMPARTIR UN POST EN HOME
 export const savePost = (post) => {
   const user = auth.currentUser.uid;
   const email = auth.currentUser.email;
@@ -234,11 +236,9 @@ export const savePost = (post) => {
 
 export function fSharePost() {
   const btnPublication = document.querySelector('#post-button-form');
-  console.log('object');
   const formPublication = document.querySelector('#form-publication');
   btnPublication.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('object');
     const postContent = document.querySelector('#comment').value;
     document.querySelector('#comment').value = '';
     savePost(postContent);

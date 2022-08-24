@@ -67,7 +67,6 @@ export const fEventRegister = () => {
             break;
           }
           case 'auth/invalid-email': {
-            console.log('dentro de register');
             errorMessage.innerHTML = 'Proporcione una dirección de correo válida.';
             break;
           }

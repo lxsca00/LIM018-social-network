@@ -130,6 +130,10 @@ button {
     font-weight: bold;
 }
 
+#editProfile {
+    color: var(--white);
+}
+
 .info-app {
     width: 75%;
     display: flex;
@@ -335,7 +339,17 @@ button {
 .button-like {
     background: transparent;
     color: var(--orange2);
-    border: solid 0.5px var(--orange2);
+    border-top: solid 0.5px var(--orange2);
+}
+
+.active-like {
+    background-color: #FF8906;
+    color: var(--white);
+}
+
+.img-likes {
+    height: 20px;
+    width: auto;
 }
 
 .edit-button {
