@@ -120,8 +120,8 @@ export const fGoogleSignIn = () => {
           preference: '¿Series, películas, documentales?',
           genre: '¡Compártenos tus géneros favoritos!',
         });
-        obs();
         window.location.hash = '#/home';
+        obs();
       })
       .catch((error) => error.code);
   });

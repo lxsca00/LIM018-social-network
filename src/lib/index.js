@@ -24,15 +24,6 @@ export const eventLogin = (email, password) => signInWithEmailAndPassword(auth, 
 
 export const eventsignInWithPopup = (provider) => signInWithPopup(auth, provider);
 
-export const obs = () => {
-  const user = auth.currentUser;
-  if (user) {
-    document.getElementById('header').style.visibility = 'visible';
-  } else {
-    document.getElementById('header').style.visibility = 'hidden';
-  }
-};
-
 // FUNCION PARA GUARDAR DATOS DEL PERFIL
 export const saveData = async (uid, country, description, preference, genre) => updateDoc(doc(db, 'userdata', uid), {
   country, description, preference, genre,
@@ -54,16 +45,32 @@ export function closeModal() {
   });
 }
 
+// Función para cerrar la sesión // AQUI
+
+export function eventLogout() {
+  signOut(auth).then(() => {
+    sessionStorage.clear();
+    return console.log('se cerró sesión exitosamente');
+    // Sign-out successful.
+  }).catch((error) => error.code);
+}
+
 // CERRAR SESIÓN
-export function flogout() {
-  const logOutButton = document.querySelector('#logout');
-  logOutButton.addEventListener('click', (e) => {
+export const flogout = () => {
+  const logout = document.querySelector('#logout');
+  logout.addEventListener('click', (e) => {
     e.preventDefault();
-    signOut(auth).then(() => {
-      sessionStorage.clear();
-      return ('se cerró sesión exitosamente');
-    }).catch((error) => error.code);
+    eventLogout();
     window.location.hash = '#/';
     window.location.reload();
   });
-}
+};
+
+export const obs = () => {
+  const user = auth.currentUser;
+  if (user) {
+    document.getElementById('header').style.visibility = 'visible';
+  } else {
+    document.getElementById('header').style.visibility = 'hidden';
+  }
+};

@@ -105,7 +105,7 @@ describe('fEventLogin funciona correctamente', () => {
   });
 });
 
-// /* ****** LOGIN DE USUARIO - GOOGLE ******** */
+// /* **************** LOGIN DE USUARIO - GOOGLE ************************ */
 describe('fGoogleSignIn', () => {
   // document.body.appendChild(loginTemplate());
   fGoogleSignIn();
@@ -121,6 +121,7 @@ describe('fGoogleSignIn', () => {
     window.location.hash = '#/login';
     // btnLoginGoogle.click();
     const checkRoute = () => {
+      console.log('aqui');
       expect(window.location.hash).toBe('#/home');
       window.removeEventListener('hashchange', checkRoute);
       done();

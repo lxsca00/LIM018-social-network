@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 export const initializeApp = jest.fn();
 
+export const getAuth = jest.fn();
+
 export const getFirestore = jest.fn();
 
 export const collection = jest.fn();
@@ -31,13 +33,12 @@ export const createUserWithEmailAndPassword = jest.fn(() => Promise.resolve({
 // setDoc
 export const setDoc = jest.fn(() => {
   Promise.resolve({
-    birth: 'birth',
-    ountry: 'country',
+    country: 'country',
     description: 'description',
+    preference: 'preference',
     email: 'email',
-    password: 'password',
+    genre: 'genre',
     name: 'name',
-    username: 'username',
     uid: 'uid',
     photo: 'photo',
   });
@@ -65,7 +66,7 @@ export const auth = { currentUser: { uid: '123er' } };
 
 export const GoogleAuthProvider = jest.fn(() => ({ credentialFromResult: () => Promise.resolve() }));
 
-export const onAuthStateChanged = jest.fn(() => Promise.resolve());
+export const onAuthStateChanged = (auth, jest.fn(() => Promise.resolve()));
 
 /* **************** home ************************ */
 
